@@ -16,7 +16,7 @@ public class Trade extends Entity<UUID> {
     private final UUID proposedUserID;
     private final UUID initiatorOfferID;
     private final UUID proposedOfferID;
-    private final TradeDetails tradeDetails;
+    private TradeDetails tradeDetails;
     int editedCount;
     private LocalDateTime lastUpdate;
     private TradeStatus status;
@@ -118,6 +118,10 @@ public class Trade extends Entity<UUID> {
 
     public TradeDetails getTradeDetails() {
         return tradeDetails;
+    }
+
+    public void setTradeDetails(TradeDetails tradeDetails) {
+        this.tradeDetails = tradeDetails;
     }
 
     public void updateTradeDetails(String place, DayOfWeek day, LocalTime time) {

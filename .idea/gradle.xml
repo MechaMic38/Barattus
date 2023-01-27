@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/barattus-core" />
             <option value="$PROJECT_DIR$/barattus-gui" />
             <option value="$PROJECT_DIR$/barattus-i18n" />
+            <option value="$PROJECT_DIR$/barattus-persistence" />
           </set>
         </option>
       </GradleProjectSettings>

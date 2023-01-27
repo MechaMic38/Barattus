@@ -13,6 +13,7 @@ public class User extends Entity<UUID> {
     private final String password;
     private final Set<UserPermission> permissions;
 
+
     /**
      * Creates a new user with the given username, password and permissions.
      *

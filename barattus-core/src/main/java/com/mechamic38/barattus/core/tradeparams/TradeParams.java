@@ -29,6 +29,15 @@ public class TradeParams {
         this.hourIntervals = new LinkedList<>();
     }
 
+    TradeParams(String square, int expirationDays,
+                       List<String> places, List<DayOfWeek> days, List<HourInterval> hourIntervals) {
+        this.setSquare(square);
+        this.setExpirationDays(expirationDays);
+        this.places = places;
+        this.days = days;
+        this.hourIntervals = hourIntervals;
+    }
+
     public static TradeParams getDefaultParams() {
         return new TradeParams("", 30);
     }
