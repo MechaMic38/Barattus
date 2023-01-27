@@ -1,0 +1,13 @@
+def gsonVersion = '2.9.0'
+def junitVersion = '5.9.0'
+
+ext.libs = [
+        'gson'  : "com.google.code.gson:gson:${gsonVersion}",
+        'logger': "org.slf4j:slf4j-api:1.7.25"
+]
+
+ext.libsTest = [
+        'jupiterApi'   : "org.junit.jupiter:junit-jupiter-api:${junitVersion}",
+        'jupiterEngine': "org.junit.jupiter:junit-jupiter-engine:${junitVersion}",
+        'jupiterParams': "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
+]

@@ -1,0 +1,8 @@
+plugins {
+    id 'application'
+}
+
+application {
+    applicationName = rootProject.name
+    mainClass = 'com.mechamic38.barattus.main.Launch'
+}

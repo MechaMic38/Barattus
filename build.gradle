@@ -1,0 +1,32 @@
+allprojects {
+    group 'com.mechamic38'
+    version '1.0-SNAPSHOT'
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply from: "$rootProject.projectDir/dependencies.gradle"
+
+    java.sourceCompatibility = JavaVersion.VERSION_17
+    java.targetCompatibility = JavaVersion.VERSION_17
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation libs.logger
+
+        testImplementation libsTest.jupiterApi
+        testImplementation libsTest.jupiterParams
+        testRuntimeOnly libsTest.jupiterEngine
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+}

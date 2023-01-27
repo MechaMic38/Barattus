@@ -1,0 +1,6 @@
+rootProject.name = 'Barattus'
+include 'barattus-app'
+include 'barattus-core'
+include 'barattus-gui'
+include 'barattus-i18n'
+
