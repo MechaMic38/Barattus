@@ -6,3 +6,16 @@ application {
     applicationName = rootProject.name
     mainClass = 'com.mechamic38.barattus.main.Launch'
 }
+
+javafx {
+    modules = [
+            'javafx.base',
+            'javafx.graphics',
+            'javafx.controls',
+            'javafx.web'
+    ]
+}
+
+dependencies {
+    implementation project(':barattus-gui')
+}

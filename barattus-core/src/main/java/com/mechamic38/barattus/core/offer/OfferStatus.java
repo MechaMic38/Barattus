@@ -8,7 +8,7 @@ public enum OfferStatus {
     WITHDRAWN("offer.status.withdrawn"),
     COUPLED("offer.status.coupled"),
     SELECTED("offer.status.selected"),
-    IN_EXCHANGE("offer.status.in_exchange"),
+    IN_EXCHANGE("offer.status.exchange"),
     CLOSED("offer.status.closed");
 
     private final String i18n;

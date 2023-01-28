@@ -1,9 +1,11 @@
+def annotationsVersion = '23.0.0'
 def gsonVersion = '2.9.0'
 def junitVersion = '5.9.0'
 
 ext.libs = [
-        'gson'  : "com.google.code.gson:gson:${gsonVersion}",
-        'logger': "org.slf4j:slf4j-api:1.7.25"
+        'annotations': "org.jetbrains:annotations:${annotationsVersion}",
+        'gson'       : "com.google.code.gson:gson:${gsonVersion}",
+        'logger'     : "org.slf4j:slf4j-api:1.7.25"
 ]
 
 ext.libsTest = [

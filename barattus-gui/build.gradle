@@ -1,9 +1,9 @@
-plugins {
-    id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.13'
+javafx {
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 
-javafx {
-    version = "19"
-    modules = ['javafx.controls', 'javafx.fxml']
+dependencies {
+    implementation project(':barattus-i18n')
+
+    implementation 'com.dlsc.workbenchfx:workbenchfx-core:11.1.0'
 }
