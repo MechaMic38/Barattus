@@ -1,50 +1,19 @@
-package com.mechamic38.barattus.gui.api;
+package com.mechamic38.barattus.gui.common;
 
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
-import javafx.scene.layout.Region;
-import javafx.stage.Window;
 import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.NonBlocking;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
-/**
- * A Context is an abstract structure that allows to interact with a particular GUI environment.
- */
-public interface Context {
+public interface Activity extends Context {
 
-    @NotNull ObservableList<Region> getBlockingOverlaysShown();
+    void show();
 
-    @NotNull ObservableList<Region> getNonBlockingOverlaysShown();
+    View getView();
 
-    /**
-     * Shows a popup (on the center) with the GUI-element defined.
-     *
-     * @param region   the {@link Region} GUI element to be shown
-     * @param blocking {@code false} if clicking outside of the popup should close it.
-     */
-    @NonBlocking
-    void showOverlay(Region region, boolean blocking);
-
-    /**
-     * @see [showOverlay]
-     */
-    @NonBlocking
-    default void showOverlay(Region region) {
-        showOverlay(region, false);
-    }
-
-    /**
-     * Hides the popup (if it's showing).
-     *
-     * @param region to be hidden
-     */
-    void hideOverlay(Region region);
-
+    void setView(View view);
 
     /**
      * Shows an error alert dialog.
@@ -103,6 +72,13 @@ public interface Context {
             Consumer<ButtonType> onResult
     );
 
+    /**
+     * Shows a confirmation dialog.
+     *
+     * @param title    the title
+     * @param message  the message
+     * @param onResult the action that handles the button click-s on the dialog
+     */
     @NonBlocking
     ContextDialog showConfirmationDialog(
             String title,
@@ -119,7 +95,10 @@ public interface Context {
     );
 
     @Blocking
-    ButtonType showErrorDialogAndWait(String title, String message);
+    ButtonType showErrorDialogAndWait(
+            String title,
+            String message
+    );
 
     @Blocking
     ButtonType showErrorDialogAndWait(
@@ -129,10 +108,16 @@ public interface Context {
     );
 
     @Blocking
-    ButtonType showInformationDialogAndWait(String title, String message);
+    ButtonType showInformationDialogAndWait(
+            String title,
+            String message
+    );
 
     @Blocking
-    ButtonType showConfirmationDialogAndWait(String title, String message);
+    ButtonType showConfirmationDialogAndWait(
+            String title,
+            String message
+    );
 
     @Blocking
     ButtonType showDialogAndWait(
@@ -140,16 +125,4 @@ public interface Context {
             Node content,
             ButtonType... buttonTypes
     );
-
-    Scene getContextScene();
-
-    Window getContextWindow();
-
-    void focusRequest();
-
-    void toFrontRequest();
-
-    Boolean isShowing();
-
-    void close();
 }

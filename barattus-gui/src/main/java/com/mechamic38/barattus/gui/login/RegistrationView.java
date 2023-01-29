@@ -1,38 +1,38 @@
 package com.mechamic38.barattus.gui.login;
-
 import com.mechamic38.barattus.gui.common.BaseView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginView extends BaseView implements Initializable {
+public class RegistrationView extends BaseView implements Initializable {
 
-    private final LoginViewModel viewModel;
+    private final RegistrationViewModel viewModel;
     @FXML
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
+    @FXML
+    private Label userTypeLabel;
 
 
-    public LoginView(LoginViewModel viewModel) {
-        super();
+    public RegistrationView(RegistrationViewModel viewModel) {
         this.viewModel = viewModel;
     }
 
     @FXML
-    private void onLogin() {
+    private void onBack() {
+
+    }
+
+    @FXML
+    private void onSignup() {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        /*switch (viewModel.loginUser(username, password)) {
-
-            case CONFIG_MATCH:
-                this.changeScene(Scenes.REGISTRATION);
-                break;
+        /*switch (controller.createUser(username, password)) {
 
             case SUCCESS:
                 dialog = new Alert(
@@ -41,12 +41,13 @@ public class LoginView extends BaseView implements Initializable {
                         ButtonType.OK
                 );
                 dialog.showAndWait();
-                this.changeScene(Scenes.MAIN_VIEW);
+                this.changeScene(Scenes.LOGIN);
                 break;
 
             case FAIL:
-                dialog = new Alert(
-                        Alert.AlertType.WARNING,
+
+            case ALREADY_EXISTS:
+                dialog = new Alert(Alert.AlertType.WARNING,
                         presenter.getError(),
                         ButtonType.OK
                 );
@@ -54,14 +55,9 @@ public class LoginView extends BaseView implements Initializable {
                 break;
 
             default:
-                throw new IllegalArgumentException("Unknown login status category");
+                throw new IllegalArgumentException("Unknown registration status category");
 
         }*/
-    }
-
-    @FXML
-    private void onSignup() {
-
     }
 
     public void reload() {
@@ -69,8 +65,20 @@ public class LoginView extends BaseView implements Initializable {
         passwordField.clear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        /*try {
 
+            userTypeLabel.textProperty().bind(
+                    ReadOnlyJavaBeanStringPropertyBuilder.create()
+                            .bean(presenter).name("userType").build()
+            );
+
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }*/
     }
 }

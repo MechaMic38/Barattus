@@ -1,37 +1,47 @@
 package com.mechamic38.barattus.gui.login;
 
-import com.mechamic38.barattus.gui.api.Context;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.stage.WindowEvent;
-import org.jetbrains.annotations.NotNull;
+import com.mechamic38.barattus.gui.common.BaseActivity;
+import com.mechamic38.barattus.gui.common.View;
+import com.mechamic38.barattus.gui.common.ViewFactory;
+import com.mechamic38.barattus.gui.common.ViewFactory.Views;
+import com.mechamic38.barattus.gui.util.FXMLUtils;
+import com.mechamic38.barattus.i18n.api.I18N;
 
 /**
- * A LoginActivity can be used for starting easily a {@link LoginWindow} with a {@link LoginView}.
+ * A LoginActivity can be used for starting easily a {@link LoginView}.
  *
  * <p>
  * It can be started by the {@link LoginActivity#show()}.
  */
-public class LoginActivity {
+public class LoginActivity extends BaseActivity {
 
-    private final BooleanProperty showing;
-    private LoginView loginView;
+    private View view;
 
 
     public LoginActivity() {
-        this.showing = new SimpleBooleanProperty();
-        this.loginView = new LoginView();
+        super();
+        onCreate();
     }
 
-    public void show() {
+    @Override
+    protected void onCreate() {
+        setTitle(I18N.getValue("window.login.title"));
+
+        this.view = FXMLUtils.loadViewFXML(
+                ViewFactory.createView(Views.LOGIN),
+                Views.LOGIN.fxml);
+        setView(view);
+    }
+
+    /*public void show() {
         if (!this.isShowing()) {
             LoginWindow loginWindow = buildWindow();
             this.showing.bind(loginWindow.showingProperty());
             loginWindow.show();
         }
-    }
+    }*/
 
-    private LoginWindow buildWindow() {
+    /*private LoginWindow buildWindow() {
         final var loginWindow = new LoginWindow(loginView);
         loginWindow.addEventHandler(WindowEvent.WINDOW_HIDDEN, event -> {
             this.loginView = null;
@@ -39,13 +49,5 @@ public class LoginActivity {
             this.showing.set(false);
         });
         return loginWindow;
-    }
-
-    public boolean isShowing() {
-        return showing.get();
-    }
-
-    public @NotNull Context getContext() {
-        return loginView;
-    }
+    }*/
 }

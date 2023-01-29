@@ -1,11 +1,12 @@
 package com.mechamic38.barattus.gui.app;
 
 import com.mechamic38.barattus.gui.login.LoginActivity;
+import javafx.application.Platform;
 
 public class BarattusApp extends BaseBarattusApplication {
 
     @Override
-    public void init() throws Exception {
+    public void init() {
         launchGUI();
     }
 
@@ -13,6 +14,6 @@ public class BarattusApp extends BaseBarattusApplication {
      * Launches the main UI environment
      */
     private void launchGUI() {
-        new LoginActivity().show();
+        Platform.runLater(() -> new LoginActivity().show());
     }
 }

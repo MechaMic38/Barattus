@@ -1,73 +1,121 @@
-package com.mechamic38.barattus.gui.base;
+package com.mechamic38.barattus.gui.common;
 
 import com.dlsc.workbenchfx.Workbench;
+import com.dlsc.workbenchfx.WorkbenchSkin;
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
-import com.mechamic38.barattus.gui.api.Context;
-import com.mechamic38.barattus.gui.api.ContextDialog;
+import com.dlsc.workbenchfx.view.WorkbenchView;
 import com.mechamic38.barattus.gui.util.I18NButtonTypes;
+import com.mechamic38.barattus.i18n.api.I18N;
 import javafx.application.Platform;
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Skin;
 import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.Field;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-/**
- * A {@link BaseView} wraps a UI element and adds extra functionality (like showing dialogs, overlays etc...)
- * to it by implementing the {@link Context} interface.
- *
- * @see Context
- */
-public class BaseView extends GridPane implements Context {
+abstract public class BaseActivity extends Stage implements Activity {
 
-    private final Workbench workbench;
-    private final ObjectProperty<Node> content = new SimpleObjectProperty<>();
+    protected final ObjectProperty<Node> content = new SimpleObjectProperty<>();
+    protected boolean exitDialog = false;
+    protected View view;
+    protected Workbench workbench;
 
-
-    public BaseView() {
+    protected BaseActivity() {
+        super();
+        buildExitDialogEvent();
         this.workbench = buildWorkbench();
-        this.getChildren().add(workbench);
+        this.setScene(new Scene(new BorderPane(workbench)));
     }
 
-    public BaseView(@Nullable Node content) {
-        this();
-        this.setContent(content);
+    private static WorkbenchDialog buildErrorDialog(@NotNull String title,
+                                                    @NotNull String message,
+                                                    @Nullable Exception exception,
+                                                    @NotNull Consumer<ButtonType> onResult) {
+        return WorkbenchDialog.builder(title, message, I18NButtonTypes.OK)
+                .onResult(onResult)
+                .build();
+
     }
 
-    private Workbench buildWorkbench() {
-        return Workbench.builder(
-                new WorkbenchModule(null, (Image) null) {
-                    @Override
-                    public Node activate() {
-                        return content.get();
-                    }
-                }
-        ).build();
+    private static WorkbenchDialog buildInformationDialog(@NotNull String title,
+                                                          @NotNull String message,
+                                                          @NotNull Consumer<ButtonType> onResult) {
+        return WorkbenchDialog.builder(title, message, I18NButtonTypes.OK)
+                .onResult(onResult)
+                .build();
     }
 
-    public Node getContent() {
+    private static WorkbenchDialog buildConfirmationDialog(@NotNull String title,
+                                                           @NotNull String message,
+                                                           @NotNull Consumer<ButtonType> onResult) {
+        return WorkbenchDialog.builder(title, message, I18NButtonTypes.NO, I18NButtonTypes.YES)
+                .onResult(onResult)
+                .build();
+    }
+
+    abstract protected void onCreate();
+
+    protected Node getContent() {
         return content.get();
     }
 
-    public ObjectProperty<Node> contentProperty() {
+    protected void setContent(Node content) {
+        this.content.set(content);
+    }
+
+    protected ObjectProperty<Node> contentProperty() {
         return content;
     }
 
-    public void setContent(Node content) {
-        this.content.set(content);
+    private Workbench buildWorkbench() {
+        return initWorkbench(
+                Workbench.builder(
+                        new WorkbenchModule(null, (Image) null) {
+                            @Override
+                            public Node activate() {
+                                return content.get();
+                            }
+                        }
+                ).build()
+        );
+    }
+
+    private Workbench initWorkbench(Workbench workbench) {
+        workbench.skinProperty().addListener(new ChangeListener<>() {
+            @Override
+            public void changed(ObservableValue<? extends Skin<?>> observable, Skin<?> oldValue, Skin<?> skin) {
+                if (skin != null) {
+                    try {
+                        final var workbenchSkin = (WorkbenchSkin) skin;
+                        Class<? extends WorkbenchSkin> workbenchSkinClass = workbenchSkin.getClass();
+                        Field workbenchViewField = workbenchSkinClass.getDeclaredField("workbenchView");
+                        workbenchViewField.setAccessible(true);
+                    } catch (RuntimeException | ReflectiveOperationException ignored) {
+
+                    }
+                    observable.removeListener(this);
+                }
+            }
+        });
+        return workbench;
     }
 
     @Override
@@ -91,12 +139,23 @@ public class BaseView extends GridPane implements Context {
     }
 
     @Override
-    public ContextDialog showErrorDialog(String title, String message, Consumer<ButtonType> onResult) {
+    public View getView() {
+        return view;
+    }
+
+    @Override
+    public void setView(View view) {
+        this.view = view;
+        this.setContent(view.getGraphic());
+    }
+
+    @Override
+    public @NotNull ContextDialog showErrorDialog(String title, String message, Consumer<ButtonType> onResult) {
         return showErrorDialog(title, message, null, onResult);
     }
 
     @Override
-    public ContextDialog showErrorDialog(String title, String message, Exception cause, Consumer<ButtonType> onResult) {
+    public @NotNull ContextDialog showErrorDialog(String title, String message, Exception cause, Consumer<ButtonType> onResult) {
         return new WorkbenchContextDialog(
                 workbench.showDialog(buildErrorDialog(title, message, cause, onResult)),
                 ContextDialog.Type.ERROR
@@ -104,7 +163,7 @@ public class BaseView extends GridPane implements Context {
     }
 
     @Override
-    public ContextDialog showInformationDialog(String title, String message, Consumer<ButtonType> onResult) {
+    public @NotNull ContextDialog showInformationDialog(String title, String message, Consumer<ButtonType> onResult) {
         return new WorkbenchContextDialog(
                 workbench.showDialog(buildInformationDialog(title, message, onResult)),
                 ContextDialog.Type.INFORMATION
@@ -112,7 +171,7 @@ public class BaseView extends GridPane implements Context {
     }
 
     @Override
-    public ContextDialog showConfirmationDialog(String title, String message, Consumer<ButtonType> onResult) {
+    public @NotNull ContextDialog showConfirmationDialog(String title, String message, Consumer<ButtonType> onResult) {
         return new WorkbenchContextDialog(
                 workbench.showDialog(buildConfirmationDialog(title, message, onResult)),
                 ContextDialog.Type.CONFIRMATION
@@ -120,7 +179,7 @@ public class BaseView extends GridPane implements Context {
     }
 
     @Override
-    public ContextDialog showDialog(String title, Node content, Consumer<ButtonType> onResult, ButtonType... buttonTypes) {
+    public @NotNull ContextDialog showDialog(String title, Node content, Consumer<ButtonType> onResult, ButtonType... buttonTypes) {
         return new WorkbenchContextDialog(
                 workbench.showDialog(
                         WorkbenchDialog.builder(title, content, buttonTypes).onResult(onResult).build()
@@ -176,59 +235,21 @@ public class BaseView extends GridPane implements Context {
 
     @Override
     public void focusRequest() {
-        final Window contextWindow = getContextWindow();
-        if (contextWindow != null)
-            contextWindow.requestFocus();
+        requestFocus();
     }
 
     @Override
-    public void toFrontRequest() {
-        Window contextWindow = getContextWindow();
-        if (contextWindow instanceof Stage stage) {
-            stage.setIconified(false);
-            stage.toFront();
-        }
+    public void makeFocused() {
+        this.setIconified(false);
+        this.toFront();
     }
 
-    @Override
-    public Boolean isShowing() {
-        final Window contextWindow = getContextWindow();
-        return contextWindow != null && contextWindow.isShowing();
+    private void buildExitDialogEvent() {
+        this.addEventFilter(
+                WindowEvent.WINDOW_CLOSE_REQUEST,
+                new WindowCloseRequestHandler()
+        );
     }
-
-    @Override
-    public void close() {
-        var window = getContextWindow();
-        if (window instanceof Stage) ((Stage) window).close();
-        else window.hide();
-    }
-
-    private static WorkbenchDialog buildErrorDialog(@NotNull String title,
-                                          @NotNull String message,
-                                          @Nullable Exception exception,
-                                          @NotNull Consumer<ButtonType> onResult) {
-        return WorkbenchDialog.builder(title, message, I18NButtonTypes.OK)
-                .onResult(onResult)
-                .build();
-
-    }
-
-    private static WorkbenchDialog buildInformationDialog(@NotNull String title,
-                                                @NotNull String message,
-                                                @NotNull Consumer<ButtonType> onResult) {
-        return WorkbenchDialog.builder(title, message, I18NButtonTypes.OK)
-                .onResult(onResult)
-                .build();
-    }
-
-    private static WorkbenchDialog buildConfirmationDialog(@NotNull String title,
-                                                 @NotNull String message,
-                                                 @NotNull Consumer<ButtonType> onResult) {
-        return WorkbenchDialog.builder(title, message, I18NButtonTypes.NO, I18NButtonTypes.YES)
-                .onResult(onResult)
-                .build();
-    }
-
 
     /**
      * Wraps an {@link WorkbenchDialog} into a {@link ContextDialog} implementation.
@@ -253,13 +274,13 @@ public class BaseView extends GridPane implements Context {
         }
 
         @Override
-        public void setOnShown(EventHandler<Event> value) {
-            workbenchDialog.setOnShown(value);
+        public EventHandler<Event> getOnShown() {
+            return workbenchDialog.getOnShown();
         }
 
         @Override
-        public EventHandler<Event> getOnShown() {
-            return workbenchDialog.getOnShown();
+        public void setOnShown(EventHandler<Event> value) {
+            workbenchDialog.setOnShown(value);
         }
 
         @Override
@@ -268,13 +289,13 @@ public class BaseView extends GridPane implements Context {
         }
 
         @Override
-        public void setOnHidden(EventHandler<Event> value) {
-            workbenchDialog.setOnHidden(value);
+        public EventHandler<Event> getOnHidden() {
+            return workbenchDialog.getOnHidden();
         }
 
         @Override
-        public EventHandler<Event> getOnHidden() {
-            return workbenchDialog.getOnHidden();
+        public void setOnHidden(EventHandler<Event> value) {
+            workbenchDialog.setOnHidden(value);
         }
 
         @Override
@@ -293,13 +314,13 @@ public class BaseView extends GridPane implements Context {
         }
 
         @Override
-        public void setMaximized(boolean max) {
-            workbenchDialog.setMaximized(max);
+        public boolean isMaximized() {
+            return workbenchDialog.isMaximized();
         }
 
         @Override
-        public boolean isMaximized() {
-            return workbenchDialog.isMaximized();
+        public void setMaximized(boolean max) {
+            workbenchDialog.setMaximized(max);
         }
 
         @Override
@@ -308,13 +329,13 @@ public class BaseView extends GridPane implements Context {
         }
 
         @Override
-        public void setContent(Node content) {
-            workbenchDialog.setContent(content);
+        public Node getContent() {
+            return workbenchDialog.getContent();
         }
 
         @Override
-        public Node getContent() {
-            return workbenchDialog.getContent();
+        public void setContent(Node content) {
+            workbenchDialog.setContent(content);
         }
 
         @Override
@@ -343,13 +364,13 @@ public class BaseView extends GridPane implements Context {
         }
 
         @Override
-        public void setException(Exception ex) {
-            workbenchDialog.setException(ex);
+        public Exception getException() {
+            return workbenchDialog.getException();
         }
 
         @Override
-        public Exception getException() {
-            return workbenchDialog.getException();
+        public void setException(Exception ex) {
+            workbenchDialog.setException(ex);
         }
 
         @Override
@@ -358,13 +379,13 @@ public class BaseView extends GridPane implements Context {
         }
 
         @Override
-        public StringProperty detailsProperty() {
-            return workbenchDialog.detailsProperty();
+        public void setDetails(String details) {
+            workbenchDialog.setDetails(details);
         }
 
         @Override
-        public void setDetails(String details) {
-            workbenchDialog.setDetails(details);
+        public StringProperty detailsProperty() {
+            return workbenchDialog.detailsProperty();
         }
 
         @Override
@@ -373,13 +394,13 @@ public class BaseView extends GridPane implements Context {
         }
 
         @Override
-        public void setBlocking(boolean blocking) {
-            workbenchDialog.setBlocking(blocking);
+        public boolean isBlocking() {
+            return workbenchDialog.isBlocking();
         }
 
         @Override
-        public boolean isBlocking() {
-            return workbenchDialog.isBlocking();
+        public void setBlocking(boolean blocking) {
+            workbenchDialog.setBlocking(blocking);
         }
 
         @Override
@@ -388,13 +409,13 @@ public class BaseView extends GridPane implements Context {
         }
 
         @Override
-        public ObjectProperty<Consumer<ButtonType>> onResultProperty() {
-            return workbenchDialog.onResultProperty();
+        public void setOnResult(Consumer<ButtonType> onResult) {
+            workbenchDialog.setOnResult(onResult);
         }
 
         @Override
-        public void setOnResult(Consumer<ButtonType> onResult) {
-            workbenchDialog.setOnResult(onResult);
+        public ObjectProperty<Consumer<ButtonType>> onResultProperty() {
+            return workbenchDialog.onResultProperty();
         }
 
         @Override
@@ -405,6 +426,36 @@ public class BaseView extends GridPane implements Context {
         @Override
         public boolean isShowing() {
             return workbenchDialog.isShowing();
+        }
+    }
+
+    /**
+     * Handler for application closing requests.
+     */
+    private class WindowCloseRequestHandler implements EventHandler<WindowEvent> {
+
+        private boolean dialogShowing = false;
+
+        @Override
+        public void handle(WindowEvent event) {
+            if (exitDialog) {
+                makeFocused();
+
+                if (dialogShowing) {
+                    dialogShowing = true;
+                    ButtonType buttonType = showConfirmationDialogAndWait(
+                            I18N.getValue("window.close.dialog.title"),
+                            I18N.getValue("window.close.dialog.msg")
+                    );
+                    dialogShowing = false;
+
+                    if (buttonType.equals(ButtonType.NO)) {
+                        event.consume();
+                    }
+                } else {
+                    event.consume();
+                }
+            }
         }
     }
 }

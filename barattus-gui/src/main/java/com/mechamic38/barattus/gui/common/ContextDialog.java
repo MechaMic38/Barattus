@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.mechamic38.barattus.gui.api;
+package com.mechamic38.barattus.gui.common;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -36,6 +36,90 @@ import java.util.function.Consumer;
  */
 public interface ContextDialog {
 
+    ObjectProperty<EventHandler<Event>> onShownProperty();
+
+    EventHandler<Event> getOnShown();
+
+    void setOnShown(EventHandler<Event> value);
+
+    ObjectProperty<EventHandler<Event>> onHiddenProperty();
+
+    EventHandler<Event> getOnHidden();
+
+    void setOnHidden(EventHandler<Event> value);
+
+    Type getType();
+
+    ObservableList<ButtonType> getButtonTypes();
+
+    //
+
+    BooleanProperty maximizedProperty();
+
+    //
+
+    boolean isMaximized();
+
+    void setMaximized(boolean max);
+
+    ObjectProperty<Node> contentProperty();
+
+    //
+
+    Node getContent();
+
+    void setContent(Node content);
+
+    StringProperty titleProperty();
+
+    //
+
+    String getTitle();
+
+    void setTitle(String title);
+
+    ObservableList<String> getStyleClass();
+
+    //
+
+    ObjectProperty<Exception> exceptionProperty();
+
+    //
+
+    Exception getException();
+
+    void setException(Exception ex);
+
+    String getDetails();
+
+    //
+
+    void setDetails(String details);
+
+    StringProperty detailsProperty();
+
+    BooleanProperty blockingProperty();
+
+    //
+
+    boolean isBlocking();
+
+    void setBlocking(boolean blocking);
+
+    Consumer<ButtonType> getOnResult();
+
+    //
+
+    void setOnResult(Consumer<ButtonType> onResult);
+
+    ObjectProperty<Consumer<ButtonType>> onResultProperty();
+
+    ReadOnlyBooleanProperty showingProperty();
+
+    //
+
+    boolean isShowing();
+
     /**
      * The types of a {@link ContextDialog}.
      */
@@ -45,89 +129,4 @@ public interface ContextDialog {
         WARNING,
         CONFIRMATION
     }
-
-
-    ObjectProperty<EventHandler<Event>> onShownProperty();
-
-    void setOnShown(EventHandler<Event> value);
-
-    EventHandler<Event> getOnShown();
-
-    ObjectProperty<EventHandler<Event>> onHiddenProperty();
-
-    void setOnHidden(EventHandler<Event> value);
-
-    EventHandler<Event> getOnHidden();
-
-    Type getType();
-
-    //
-
-    ObservableList<ButtonType> getButtonTypes();
-
-    //
-
-    BooleanProperty maximizedProperty();
-
-    void setMaximized(boolean max);
-
-    boolean isMaximized();
-
-    //
-
-    ObjectProperty<Node> contentProperty();
-
-    void setContent(Node content);
-
-    Node getContent();
-
-    //
-
-    StringProperty titleProperty();
-
-    String getTitle();
-
-    void setTitle(String title);
-
-    //
-
-    ObservableList<String> getStyleClass();
-
-    //
-
-    ObjectProperty<Exception> exceptionProperty();
-
-    void setException(Exception ex);
-
-    Exception getException();
-
-    //
-
-    String getDetails();
-
-    StringProperty detailsProperty();
-
-    void setDetails(String details);
-
-    //
-
-    BooleanProperty blockingProperty();
-
-    void setBlocking(boolean blocking);
-
-    boolean isBlocking();
-
-    //
-
-    Consumer<ButtonType> getOnResult();
-
-    ObjectProperty<Consumer<ButtonType>> onResultProperty();
-
-    void setOnResult(Consumer<ButtonType> onResult);
-
-    //
-
-    ReadOnlyBooleanProperty showingProperty();
-
-    boolean isShowing();
 }

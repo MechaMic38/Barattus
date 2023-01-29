@@ -4,4 +4,5 @@ include 'barattus-core'
 include 'barattus-gui'
 include 'barattus-i18n'
 include 'barattus-persistence'
+include 'barattus-di'
 
