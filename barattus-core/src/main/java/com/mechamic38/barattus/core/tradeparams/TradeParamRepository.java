@@ -1,6 +1,7 @@
 package com.mechamic38.barattus.core.tradeparams;
 
 import com.mechamic38.barattus.persistence.tradeparams.ITradeParamDataSource;
+import com.mechamic38.barattus.persistence.tradeparams.TradeParamDTO;
 
 /**
  * Trade parameters repository.
@@ -26,5 +27,15 @@ public class TradeParamRepository implements ITradeParamRepository {
     public void save(TradeParams tradeParams) {
         this.tradeParams = tradeParams;
         dataSource.update(mapper.toDto(tradeParams));
+    }
+
+    @Override
+    public void loadFromDataSource() {
+        TradeParamDTO dto = dataSource.getAll().stream().findFirst().orElse(null);
+        if (dto != null) {
+            tradeParams = mapper.fromDto(dto);
+        } else {
+            tradeParams = TradeParams.getDefaultParams();
+        }
     }
 }

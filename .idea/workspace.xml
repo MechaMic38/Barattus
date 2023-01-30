@@ -4,63 +4,76 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6b7dfbd-a098-48fe-bd08-07b073231a1d" name="Changes" comment="Modified base GUI structure.">
-      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/common/ServiceProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/ILoginService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/IRegistrationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/LoginService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/RegistrationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/validation/ConfigCredentialsLink.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/validation/LoginChainLink.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/validation/UserExistsLink.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/SessionState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/Views.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/login/ILoginViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/login/IRegistrationViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/util/DialogBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-util/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-util/src/main/java/com/mechamic38/barattus/util/ChainLink.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-util/src/main/java/com/mechamic38/barattus/util/Result.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="b6b7dfbd-a098-48fe-bd08-07b073231a1d" name="Changes" comment="Added Main view.">
+      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/category/CategoryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/offer/OfferService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/trade/TradeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/IUserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/category/CategoryEditorView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/category/CategoryEditorViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/category/CategoryListView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/category/CategoryListViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/category/FieldEditorView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/category/FieldEditorViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/category/ICategoryEditorVIewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/category/ICategoryListViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/category/IFieldEditorViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/main/IMainViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/main/MainActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/main/MainView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/main/MainViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/offer/CreateOfferView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/offer/CreateOfferViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/offer/ICreateOfferViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/offer/IOfferDetailsViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/offer/IOfferListViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/offer/OfferDetailsView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/offer/OfferDetailsViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/offer/OfferListView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/offer/OfferListViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/trade/ISelectTradeOfferViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/trade/ITradeEditorViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/trade/ITradeListViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/trade/SelectTradeOfferView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/trade/SelectTradeOfferViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/trade/TradeEditorView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/trade/TradeEditorViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/trade/TradeListView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/trade/TradeListViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/tradeparams/ITradeParamsViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/tradeparams/TradeParamsView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/tradeparams/TradeParamsViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/CategoryEditorView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/CategoryListView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/CreateOfferView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/FieldEditorView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/MainView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/OfferDetailsView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/OfferListView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/SelectTradeOfferView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/TradeEditorView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/TradeListView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/TradeParamsView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-app/src/main/java/com/mechamic38/barattus/main/Launch.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-app/src/main/java/com/mechamic38/barattus/main/Launch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/category/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/category/CategoryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/common/IRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/common/IRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/offer/OfferLogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/offer/OfferLogRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/offer/OfferMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/offer/OfferMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/offer/OfferRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/offer/OfferRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/trade/Trade.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/trade/Trade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/trade/TradeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/trade/TradeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/category/CategoryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/category/CategoryMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/common/ServiceProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/common/ServiceProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/tradeparams/HourInterval.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/tradeparams/HourInterval.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/tradeparams/ITradeParamRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/tradeparams/ITradeParamRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/tradeparams/ITradeParamService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/tradeparams/TradeParamRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/tradeparams/TradeParamRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/tradeparams/TradeParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/tradeparams/TradeParams.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/tradeparams/TradeParamsMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/tradeparams/TradeParamsMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/IUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/IUserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/IUserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/UserPermission.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/UserPermission.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/UserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/UserRole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-gui/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/Activity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/BaseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/BaseActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/BaseView.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/BaseView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/Context.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/Context.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/ContextDialog.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/View.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/ViewFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/ViewFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/Views.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/Views.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/login/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/login/LoginActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/login/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/login/LoginView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/login/LoginViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/login/LoginViewModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/login/RegistrationView.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/login/RegistrationView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/login/RegistrationViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/login/RegistrationViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/LoginView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/LoginView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/RegistrationView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/RegistrationView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/barattus-i18n/src/main/resources/com/mechamic38/barattus/i18n/Values.properties" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-i18n/src/main/resources/com/mechamic38/barattus/i18n/Values.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/barattus-i18n/src/main/resources/com/mechamic38/barattus/i18n/Values_it_IT.properties" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-i18n/src/main/resources/com/mechamic38/barattus/i18n/Values_it_IT.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-persistence/src/main/java/com/mechamic38/barattus/persistence/tradeparams/LocalTradeParamDataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-persistence/src/main/java/com/mechamic38/barattus/persistence/tradeparams/LocalTradeParamDataSource.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,8 +89,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -212,7 +225,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675000277030</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Implemented login and registration views.">
+      <created>1675070519774</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1675070519774</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -231,6 +251,8 @@
     <MESSAGE value="Defined persistence, repositories and mappers." />
     <MESSAGE value="Defined base GUI structure, and I18N." />
     <MESSAGE value="Modified base GUI structure." />
-    <option name="LAST_COMMIT_MESSAGE" value="Modified base GUI structure." />
+    <MESSAGE value="Implemented login and registration views." />
+    <MESSAGE value="Added Main view." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Main view." />
   </component>
 </project>

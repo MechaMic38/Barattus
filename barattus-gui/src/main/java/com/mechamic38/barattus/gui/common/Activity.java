@@ -99,4 +99,6 @@ public interface Activity extends Context {
             String message,
             Consumer<ButtonType> onResult
     );
+
+    void close();
 }

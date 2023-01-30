@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:id="graphic" fitToWidth="true" prefHeight="720.0" prefWidth="1080.0"
+            xmlns="http://javafx.com/javafx/18" fx:controller="com.mechamic38.barattus.gui.tradeparams.TradeParamsView">
+    <content>
+        <GridPane hgap="10.0" vgap="10.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="0.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="0.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="0.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="0.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+            <children>
+                <HBox prefWidth="200.0" GridPane.columnSpan="12">
+                    <children>
+                        <Label text="%trade.params.title">
+                            <font>
+                                <Font name="System Bold" size="24.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <Label text="%trade.params.square" GridPane.columnSpan="2" GridPane.rowIndex="1"/>
+                <Label text="%trade.params.expiration" GridPane.columnSpan="2" GridPane.rowIndex="2"/>
+                <HBox GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                    <children>
+                        <TextField fx:id="squareField" maxHeight="1.7976931348623157E308"
+                                   maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS"/>
+                    </children>
+                </HBox>
+                <HBox GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                    <children>
+                        <TextField fx:id="expirationDaysField" maxHeight="1.7976931348623157E308"
+                                   maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS"/>
+                    </children>
+                </HBox>
+                <Button fx:id="applyButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#onApply" text="%trade.params.button.save"
+                        GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2"/>
+                <HBox prefWidth="200.0" GridPane.columnSpan="6" GridPane.rowIndex="4">
+                    <children>
+                        <Label text="%trade.params.header.place">
+                            <font>
+                                <Font name="System Bold" size="24.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox GridPane.columnSpan="4" GridPane.rowIndex="5">
+                    <children>
+                        <TextField fx:id="placeField" maxHeight="1.7976931348623157E308"
+                                   maxWidth="1.7976931348623157E308" promptText="%trade.params.place"
+                                   HBox.hgrow="ALWAYS"/>
+                    </children>
+                </HBox>
+                <Button fx:id="addPlaceButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        onAction="#onAddPlace" text="%trade.params.button.place.add" GridPane.columnIndex="4"
+                        GridPane.columnSpan="2" GridPane.rowIndex="5"/>
+                <ListView fx:id="placeListView" layoutX="539.0" layoutY="260.0" prefHeight="200.0" prefWidth="200.0"
+                          GridPane.columnSpan="6" GridPane.rowIndex="6"/>
+                <Button fx:id="removePlaceButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        onAction="#onRemovePlace" text="%trade.params.button.place.remove" GridPane.columnSpan="6"
+                        GridPane.rowIndex="7"/>
+                <HBox prefWidth="200.0" GridPane.columnIndex="6" GridPane.columnSpan="6" GridPane.rowIndex="4">
+                    <children>
+                        <Label text="%trade.params.header.day">
+                            <font>
+                                <Font name="System Bold" size="24.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <ComboBox fx:id="dayBox" maxWidth="1.7976931348623157E308" prefWidth="150.0"
+                          promptText="%trade.params.day" GridPane.columnIndex="6" GridPane.columnSpan="4"
+                          GridPane.rowIndex="5"/>
+                <Button fx:id="addDayButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        onAction="#onAddDay" text="%trade.params.button.day.add" GridPane.columnIndex="10"
+                        GridPane.columnSpan="2" GridPane.rowIndex="5"/>
+                <ListView fx:id="dayListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6"
+                          GridPane.columnSpan="6" GridPane.rowIndex="6"/>
+                <Button fx:id="removeDayButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        onAction="#onRemoveDay" text="%trade.params.button.day.remove" GridPane.columnIndex="6"
+                        GridPane.columnSpan="6" GridPane.rowIndex="7"/>
+                <HBox prefWidth="200.0" GridPane.columnSpan="12" GridPane.rowIndex="9">
+                    <children>
+                        <Label text="%trade.params.header.interval">
+                            <font>
+                                <Font name="System Bold" size="24.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <Label fx:id="startIntervalLabel" text="%trade.params.interval.start" GridPane.columnSpan="2"
+                       GridPane.rowIndex="10"/>
+                <HBox GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="10">
+                    <children>
+                        <ComboBox fx:id="startHourBox" maxWidth="1.7976931348623157E308" prefWidth="150.0"
+                                  HBox.hgrow="ALWAYS"/>
+                    </children>
+                </HBox>
+                <HBox layoutX="20.0" layoutY="20.0" GridPane.columnIndex="4" GridPane.columnSpan="2"
+                      GridPane.rowIndex="10">
+                    <children>
+                        <ComboBox fx:id="startMinuteBox" maxWidth="1.7976931348623157E308" prefWidth="150.0"
+                                  HBox.hgrow="ALWAYS"/>
+                    </children>
+                </HBox>
+                <Label fx:id="endIntervalLabel" text="%trade.params.interval.end" GridPane.columnIndex="6"
+                       GridPane.columnSpan="2" GridPane.rowIndex="10"/>
+                <HBox layoutX="20.0" layoutY="20.0" GridPane.columnIndex="8" GridPane.columnSpan="2"
+                      GridPane.rowIndex="10">
+                    <children>
+                        <ComboBox fx:id="endHourBox" maxWidth="1.7976931348623157E308" prefWidth="150.0"
+                                  HBox.hgrow="ALWAYS"/>
+                    </children>
+                </HBox>
+                <HBox layoutX="20.0" layoutY="20.0" GridPane.columnIndex="10" GridPane.columnSpan="2"
+                      GridPane.rowIndex="10">
+                    <children>
+                        <ComboBox fx:id="endMinuteBox" maxWidth="1.7976931348623157E308" prefWidth="150.0"
+                                  HBox.hgrow="ALWAYS"/>
+                    </children>
+                </HBox>
+                <ListView fx:id="intervalListView" prefHeight="150.0" prefWidth="200.0" GridPane.columnSpan="12"
+                          GridPane.rowIndex="11"/>
+                <Button fx:id="removeIntervalButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        onAction="#onRemoveInterval" text="%trade.params.button.interval.remove" GridPane.columnSpan="6"
+                        GridPane.rowIndex="12"/>
+                <Button fx:id="addIntervalButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        onAction="#onAddInterval" text="%trade.params.button.interval.add" GridPane.columnIndex="6"
+                        GridPane.columnSpan="6" GridPane.rowIndex="12"/>
+                <Button fx:id="loadFromFileButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#onLoad" text="%trade.params.button.load"
+                        GridPane.columnIndex="10" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2"/>
+            </children>
+        </GridPane>
+    </content>
+</ScrollPane>

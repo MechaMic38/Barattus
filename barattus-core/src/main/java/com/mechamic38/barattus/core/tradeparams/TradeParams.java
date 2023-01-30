@@ -57,7 +57,7 @@ public class TradeParams {
      */
     public void setSquare(String square) {
         if (isSquareSet())
-            throw new IllegalArgumentException("Square has already been set and cannot be modified");
+            throw new IllegalArgumentException("trade.params.error.square.set");
 
         this.square = square;
         if (!Objects.isNull(square) && !square.isBlank()) squareSet = true;
@@ -75,10 +75,10 @@ public class TradeParams {
      */
     public void addPlace(String place) {
         if (place.isBlank())
-            throw new IllegalArgumentException("Place cannot be empty!");
+            throw new IllegalArgumentException("trade.params.error.place.empty");
 
         if (places.contains(place))
-            throw new IllegalArgumentException("The selected place already exists!");
+            throw new IllegalArgumentException("trade.params.error.place.exists");
 
         places.add(place);
     }
@@ -104,7 +104,7 @@ public class TradeParams {
      */
     public void addDay(DayOfWeek day) {
         if (days.contains(day))
-            throw new IllegalArgumentException("The selected day already exists!");
+            throw new IllegalArgumentException("trade.params.error.day.exists");
 
         days.add(day);
     }
@@ -130,13 +130,13 @@ public class TradeParams {
      */
     public void addHourInterval(HourInterval interval) {
         if (hourIntervals.contains(interval))
-            throw new IllegalArgumentException("The selected interval already exists!");
+            throw new IllegalArgumentException("trade.params.error.interval.exists");
 
         if (overlapsAnyInterval(interval))
-            throw new IllegalArgumentException("The selected interval overlaps an existing interval!");
+            throw new IllegalArgumentException("trade.params.error.interval.overlap");
 
         if (interval.getHalfAndFullTimes().isEmpty())
-            throw new IllegalArgumentException("Invalid hour interval!");
+            throw new IllegalArgumentException("trade.params.error.interval.invalid");
 
         hourIntervals.add(interval);
     }
@@ -162,7 +162,7 @@ public class TradeParams {
      */
     public void setExpirationDays(int expirationDays) {
         if (expirationDays < MIN_EXPIRY_DAYS)
-            throw new IllegalArgumentException("Invalid expiration days!");
+            throw new IllegalArgumentException("trade.params.error.expiration.invalid");
 
         this.expirationDays = expirationDays;
     }
@@ -176,5 +176,18 @@ public class TradeParams {
             if (interval.overlapsInterval(hourInterval)) return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TradeParams that = (TradeParams) o;
+        return expirationDays == that.expirationDays && Objects.equals(places, that.places) && Objects.equals(days, that.days) && Objects.equals(hourIntervals, that.hourIntervals) && Objects.equals(square, that.square);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(places, days, hourIntervals, square, expirationDays);
     }
 }

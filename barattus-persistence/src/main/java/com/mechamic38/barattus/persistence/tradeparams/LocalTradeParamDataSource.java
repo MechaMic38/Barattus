@@ -1,5 +1,6 @@
 package com.mechamic38.barattus.persistence.tradeparams;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -60,13 +61,14 @@ public class LocalTradeParamDataSource extends LocalDataSource implements ITrade
     @Override
     public boolean insert(TradeParamDTO tradeParamsDTO) {
         JsonObject json = load(DATA, KEY);
-        JsonObject params = json.getAsJsonObject("tradeParams");
+        JsonArray params = json.getAsJsonArray(KEY);
         //System.out.println("Trade params during save:");
         //System.out.println(params);
 
+        JsonElement oldJsonParams = params.get(0);
         JsonElement jsonParams = gson.toJsonTree(tradeParamsDTO);
-        json.remove("tradeParams");
-        json.add("tradeParams", jsonParams);
+        params.remove(oldJsonParams);
+        params.add(jsonParams);
 
         return uploadToFile(json, DATA);
     }
@@ -74,6 +76,7 @@ public class LocalTradeParamDataSource extends LocalDataSource implements ITrade
     @Override
     public boolean update(TradeParamDTO tradeParamsDTO) {
         return insert(tradeParamsDTO);
+
     }
 
     /**
@@ -84,12 +87,15 @@ public class LocalTradeParamDataSource extends LocalDataSource implements ITrade
      * @throws InvalidFileException
      */
     private TradeParamDTO extractFromJson(JsonObject json) throws InvalidFileException {
-        JsonObject paramsJson = json.getAsJsonObject(KEY);
+        JsonArray paramsJson = json.getAsJsonArray(KEY);
         if (paramsJson == null) throw new InvalidFileException();
+        if (paramsJson.size() == 0) throw new InvalidFileException();
+
+        JsonElement params = paramsJson.get(0);
 
         try {
             return gson.fromJson(
-                    paramsJson,
+                    params,
                     TradeParamDTO.class
             );
         } catch (JsonSyntaxException e) {

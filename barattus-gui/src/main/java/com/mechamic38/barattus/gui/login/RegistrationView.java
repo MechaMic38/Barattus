@@ -7,17 +7,22 @@ import com.mechamic38.barattus.i18n.api.I18N;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public class RegistrationView extends BaseView implements Initializable {
 
     private final IRegistrationViewModel viewModel;
 
+    @FXML
+    protected GridPane graphic;
     @FXML
     private TextField usernameField;
     @FXML
@@ -75,5 +80,20 @@ public class RegistrationView extends BaseView implements Initializable {
         userTypeLabel.textProperty().bind(Bindings.createStringBinding(() -> {
             return I18N.getValue(viewModel.userTypeProperty().getValue().i18n);
         }, viewModel.userTypeProperty()));
+    }
+
+    @Override
+    public Parent getGraphic() {
+        return graphic;
+    }
+
+    @Override
+    public void changeContent(Views view) {
+        //Not implemented
+    }
+
+    @Override
+    public void setViewChangeAction(Consumer<Views> viewChangeAction) {
+        //Not implemented
     }
 }

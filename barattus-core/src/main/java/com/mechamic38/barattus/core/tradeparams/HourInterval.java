@@ -10,7 +10,7 @@ public record HourInterval(LocalTime startTime, LocalTime endTime) {
 
     public HourInterval {
         if (startTime.isAfter(endTime))
-            throw new IllegalArgumentException("Start time cannot be after the end time");
+            throw new IllegalArgumentException("trade.params.error.interval.invalid");
 
     }
 

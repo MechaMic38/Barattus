@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="graphic" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+          minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19"
+          fx:controller="com.mechamic38.barattus.gui.main.MainView">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="260.0"/>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <VBox prefHeight="200.0" prefWidth="100.0">
+            <children>
+                <HBox prefHeight="180.0" prefWidth="200.0"/>
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="280.0" prefWidth="200.0"
+                            VBox.vgrow="ALWAYS">
+                    <content>
+                        <VBox fx:id="sideMenuBox">
+                            <children>
+                                <HBox fx:id="createOfferButton" layoutX="10.0" layoutY="111.0">
+                                    <children>
+                                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                                                onAction="#onCreateOffer" prefHeight="50.0"
+                                                text="%main.button.create_offer" HBox.hgrow="ALWAYS">
+                                            <cursor>
+                                                <Cursor fx:constant="HAND"/>
+                                            </cursor>
+                                        </Button>
+                                    </children>
+                                </HBox>
+                                <HBox fx:id="offersButton" layoutX="10.0" layoutY="60.0">
+                                    <children>
+                                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                                                onAction="#onOffersList" prefHeight="50.0" text="%main.button.offers"
+                                                HBox.hgrow="ALWAYS">
+                                            <cursor>
+                                                <Cursor fx:constant="HAND"/>
+                                            </cursor>
+                                        </Button>
+                                    </children>
+                                </HBox>
+                                <HBox fx:id="tradesButton" layoutX="10.0" layoutY="161.0">
+                                    <children>
+                                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                                                onAction="#onTradesList" prefHeight="50.0" text="%main.button.trades"
+                                                HBox.hgrow="ALWAYS">
+                                            <cursor>
+                                                <Cursor fx:constant="HAND"/>
+                                            </cursor>
+                                        </Button>
+                                    </children>
+                                </HBox>
+                                <HBox fx:id="categoryButton">
+                                    <children>
+                                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                                                onAction="#onCategoryList" prefHeight="50.0"
+                                                text="%main.button.category_list" HBox.hgrow="ALWAYS">
+                                            <cursor>
+                                                <Cursor fx:constant="HAND"/>
+                                            </cursor>
+                                        </Button>
+                                    </children>
+                                </HBox>
+                                <HBox fx:id="tradeParamsButton" layoutX="10.0" layoutY="10.0">
+                                    <children>
+                                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                                                onAction="#onTradeParams" prefHeight="50.0"
+                                                text="%main.button.trade_params" HBox.hgrow="ALWAYS">
+                                            <cursor>
+                                                <Cursor fx:constant="HAND"/>
+                                            </cursor>
+                                        </Button>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+                <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </padding>
+                    <children>
+                        <Label fx:id="usernameLabel" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#onLogout" text="%app.logout"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</GridPane>

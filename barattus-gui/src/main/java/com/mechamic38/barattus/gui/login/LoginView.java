@@ -2,19 +2,26 @@ package com.mechamic38.barattus.gui.login;
 
 import com.mechamic38.barattus.gui.common.BaseView;
 import com.mechamic38.barattus.gui.common.Views;
+import com.mechamic38.barattus.gui.main.MainActivity;
 import com.mechamic38.barattus.i18n.api.I18N;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public class LoginView extends BaseView implements Initializable {
 
     private final ILoginViewModel viewModel;
 
+    @FXML
+    protected GridPane graphic;
     @FXML
     private TextField usernameField;
     @FXML
@@ -43,7 +50,6 @@ public class LoginView extends BaseView implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         viewModel.loggedInProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) return;
-            //TODO Change view to Main
             getActivity().showInformationDialog(
                     I18N.getValue("login.notification.login"),
                     I18N.getValue(
@@ -54,6 +60,8 @@ public class LoginView extends BaseView implements Initializable {
                         viewModel.loggedInProperty().set(false);
                     }
             );
+            Platform.runLater(() -> new MainActivity().show());
+            getActivity().close();
         });
 
         viewModel.configMatchProperty().addListener((observable, oldValue, newValue) -> {
@@ -78,5 +86,20 @@ public class LoginView extends BaseView implements Initializable {
                     }
             );
         });
+    }
+
+    @Override
+    public Parent getGraphic() {
+        return graphic;
+    }
+
+    @Override
+    public void changeContent(Views view) {
+        //Not implemented
+    }
+
+    @Override
+    public void setViewChangeAction(Consumer<Views> viewChangeAction) {
+        //Not implemented
     }
 }

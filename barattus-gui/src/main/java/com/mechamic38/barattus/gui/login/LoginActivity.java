@@ -1,7 +1,6 @@
 package com.mechamic38.barattus.gui.login;
 
 import com.mechamic38.barattus.gui.common.BaseActivity;
-import com.mechamic38.barattus.gui.common.View;
 import com.mechamic38.barattus.gui.common.Views;
 
 /**
@@ -11,9 +10,6 @@ import com.mechamic38.barattus.gui.common.Views;
  * It can be started by the {@link LoginActivity#show()}.
  */
 public class LoginActivity extends BaseActivity {
-
-    private View view;
-
 
     public LoginActivity() {
         super();

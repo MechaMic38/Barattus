@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 /**
  * Mapper class for categories and fields.
  */
-class CategoryMapper {
+public class CategoryMapper {
 
     /**
      * Converts the given Category entity into a CategoryDTO object.

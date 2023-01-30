@@ -5,4 +5,6 @@ public interface ITradeParamRepository {
     TradeParams get();
 
     void save(TradeParams tradeParams);
+
+    void loadFromDataSource();
 }

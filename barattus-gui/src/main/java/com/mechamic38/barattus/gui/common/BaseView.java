@@ -1,8 +1,8 @@
 package com.mechamic38.barattus.gui.common;
 
-import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.layout.GridPane;
+
+import java.util.function.Consumer;
 
 /**
  * A {@link BaseView} wraps a UI element and adds extra functionality (like showing dialogs, overlays etc...)
@@ -13,8 +13,6 @@ import javafx.scene.layout.GridPane;
 abstract public class BaseView implements View {
 
     protected Activity activity;
-    @FXML
-    protected GridPane graphic;
 
     public BaseView() {
 
@@ -31,7 +29,11 @@ abstract public class BaseView implements View {
     }
 
     @Override
-    public Parent getGraphic() {
-        return graphic;
-    }
+    abstract public Parent getGraphic();
+
+    @Override
+    abstract public void changeContent(Views view);
+
+    @Override
+    abstract public void setViewChangeAction(Consumer<Views> viewChangeAction);
 }
