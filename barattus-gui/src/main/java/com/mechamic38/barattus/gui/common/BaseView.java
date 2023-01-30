@@ -1,7 +1,7 @@
 package com.mechamic38.barattus.gui.common;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -26,7 +26,12 @@ abstract public class BaseView implements View {
     }
 
     @Override
-    public Node getGraphic() {
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    @Override
+    public Parent getGraphic() {
         return graphic;
     }
 }

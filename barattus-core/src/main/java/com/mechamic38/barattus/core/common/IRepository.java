@@ -12,7 +12,11 @@ public interface IRepository<T extends Entity<K>, K> {
 
     T getById(K id);
 
+    List<T> getAll();
+
     void save(T entity);
+
+    void loadFromDataSource();
 
     //List<T> query();
 }

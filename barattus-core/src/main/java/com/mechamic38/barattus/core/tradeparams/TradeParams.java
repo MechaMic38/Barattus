@@ -30,7 +30,7 @@ public class TradeParams {
     }
 
     TradeParams(String square, int expirationDays,
-                       List<String> places, List<DayOfWeek> days, List<HourInterval> hourIntervals) {
+                List<String> places, List<DayOfWeek> days, List<HourInterval> hourIntervals) {
         this.setSquare(square);
         this.setExpirationDays(expirationDays);
         this.places = places;

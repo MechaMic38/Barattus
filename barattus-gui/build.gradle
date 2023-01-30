@@ -3,7 +3,7 @@ javafx {
 }
 
 dependencies {
+    implementation project(':barattus-core')
     implementation project(':barattus-i18n')
-
-    implementation 'com.dlsc.workbenchfx:workbenchfx-core:11.1.0'
+    implementation project(':barattus-util')
 }

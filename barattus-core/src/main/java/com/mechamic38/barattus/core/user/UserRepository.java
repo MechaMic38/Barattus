@@ -1,10 +1,10 @@
 package com.mechamic38.barattus.core.user;
 
 import com.mechamic38.barattus.persistence.user.IUserDataSource;
+import com.mechamic38.barattus.persistence.user.UserDTO;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Users repository.
@@ -24,11 +24,16 @@ public class UserRepository implements IUserRepository {
 
 
     @Override
-    public User getById(UUID id) {
+    public User getById(String id) {
         return users.stream()
                 .filter(user -> user.checkID(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return users;
     }
 
     @Override
@@ -38,6 +43,13 @@ public class UserRepository implements IUserRepository {
             dataSource.insert(mapper.toDto(user));
         } else {
             dataSource.update(mapper.toDto(user));
+        }
+    }
+
+    @Override
+    public void loadFromDataSource() {
+        for (UserDTO user : dataSource.getAll()) {
+            users.add(mapper.fromDto(user));
         }
     }
 }

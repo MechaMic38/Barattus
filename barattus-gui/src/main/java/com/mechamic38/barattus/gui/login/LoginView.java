@@ -1,6 +1,8 @@
 package com.mechamic38.barattus.gui.login;
 
 import com.mechamic38.barattus.gui.common.BaseView;
+import com.mechamic38.barattus.gui.common.Views;
+import com.mechamic38.barattus.i18n.api.I18N;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
@@ -11,14 +13,15 @@ import java.util.ResourceBundle;
 
 public class LoginView extends BaseView implements Initializable {
 
-    private final LoginViewModel viewModel;
+    private final ILoginViewModel viewModel;
+
     @FXML
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
 
 
-    public LoginView(LoginViewModel viewModel) {
+    public LoginView(ILoginViewModel viewModel) {
         super();
         this.viewModel = viewModel;
     }
@@ -28,49 +31,52 @@ public class LoginView extends BaseView implements Initializable {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        /*switch (viewModel.loginUser(username, password)) {
-
-            case CONFIG_MATCH:
-                this.changeScene(Scenes.REGISTRATION);
-                break;
-
-            case SUCCESS:
-                dialog = new Alert(
-                        Alert.AlertType.INFORMATION,
-                        presenter.getMessage(),
-                        ButtonType.OK
-                );
-                dialog.showAndWait();
-                this.changeScene(Scenes.MAIN_VIEW);
-                break;
-
-            case FAIL:
-                dialog = new Alert(
-                        Alert.AlertType.WARNING,
-                        presenter.getError(),
-                        ButtonType.OK
-                );
-                dialog.showAndWait();
-                break;
-
-            default:
-                throw new IllegalArgumentException("Unknown login status category");
-
-        }*/
+        viewModel.loginUser(username, password);
     }
 
     @FXML
     private void onSignup() {
-
-    }
-
-    public void reload() {
-        usernameField.clear();
-        passwordField.clear();
+        getActivity().setView(Views.REGISTER);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        viewModel.loggedInProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) return;
+            //TODO Change view to Main
+            getActivity().showInformationDialog(
+                    I18N.getValue("login.notification.login"),
+                    I18N.getValue(
+                            "login.notification.success",
+                            viewModel.loggedUserProperty().getValue().getUsername()
+                    ),
+                    buttonType -> {
+                        viewModel.loggedInProperty().set(false);
+                    }
+            );
+        });
 
+        viewModel.configMatchProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) return;
+            getActivity().showInformationDialog(
+                    I18N.getValue("login.notification.login"),
+                    I18N.getValue("login.notification.config.match"),
+                    buttonType -> {
+                        viewModel.configMatchProperty().set(false);
+                        getActivity().setView(Views.REGISTER);
+                    }
+            );
+        });
+
+        viewModel.errorMessageProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isBlank()) return;
+            getActivity().showErrorDialog(
+                    I18N.getValue("login.error.error"),
+                    I18N.getValue(newValue),
+                    buttonType -> {
+                        viewModel.errorMessageProperty().set("");
+                    }
+            );
+        });
     }
 }

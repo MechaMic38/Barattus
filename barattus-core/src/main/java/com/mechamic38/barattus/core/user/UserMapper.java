@@ -3,13 +3,12 @@ package com.mechamic38.barattus.core.user;
 import com.mechamic38.barattus.persistence.user.UserDTO;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
  * Mapper class for users.
  */
-class UserMapper {
+public class UserMapper {
 
     /**
      * Converts the given User entity into a UserDTO object.
@@ -42,7 +41,6 @@ class UserMapper {
                 .collect(Collectors.toList());
 
         User user = new User(
-                UUID.fromString(userDTO.getId()),
                 userDTO.getUsername(),
                 userDTO.getPassword()
         );

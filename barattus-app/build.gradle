@@ -18,4 +18,5 @@ javafx {
 
 dependencies {
     implementation project(':barattus-gui')
+    implementation project(':barattus-core')
 }

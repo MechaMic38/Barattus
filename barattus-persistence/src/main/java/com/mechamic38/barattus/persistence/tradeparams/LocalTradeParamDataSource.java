@@ -7,7 +7,6 @@ import com.mechamic38.barattus.persistence.common.InvalidFileException;
 import com.mechamic38.barattus.persistence.common.LocalDataSource;
 
 import java.io.File;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 

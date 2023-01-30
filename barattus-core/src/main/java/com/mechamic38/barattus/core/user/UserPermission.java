@@ -4,11 +4,11 @@ package com.mechamic38.barattus.core.user;
  * Enum for the different {@link User} permissions.
  */
 public enum UserPermission {
-    CONFIGURATOR("user.type.configurator"),
-    END_USER("user.type.end_user"),
-    MODERATOR("user.type.moderator");
+    CONFIGURATOR("user.permission.configurator"),
+    END_USER("user.permission.enduser"),
+    MODERATOR("user.permission.moderator");
 
-    private final String i18n;
+    public final String i18n;
 
 
     UserPermission(String i18n) {

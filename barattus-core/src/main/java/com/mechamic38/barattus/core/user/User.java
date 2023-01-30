@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * User of the application.
  */
-public class User extends Entity<UUID> {
+public class User extends Entity<String> {
 
     private final String username;
     private final String password;
@@ -27,18 +27,6 @@ public class User extends Entity<UUID> {
     }
 
     /**
-     * Creates a new user with the given unique identifier, username and password.
-     *
-     * @param uuid     Unique Identifier
-     * @param username Name of the user
-     * @param password Password of the user
-     */
-    public User(UUID uuid, String username, String password) {
-        this(username, password);
-        this.id = uuid;
-    }
-
-    /**
      * Creates a new user with the given username and password.
      *
      * @param username Name of the user
@@ -51,6 +39,7 @@ public class User extends Entity<UUID> {
         if (Objects.isNull(password) || password.isBlank())
             throw new IllegalArgumentException("Password is empty!");
 
+        this.id = username;
         this.username = username;
         this.password = password;
         this.permissions = new LinkedHashSet<>();
@@ -62,6 +51,10 @@ public class User extends Entity<UUID> {
 
     public String getPassword() {
         return password;
+    }
+
+    public boolean verifyPassword(String password) {
+        return this.password.equals(password);
     }
 
     public Set<UserPermission> getPermissions() {

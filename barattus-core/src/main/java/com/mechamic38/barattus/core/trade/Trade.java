@@ -16,8 +16,8 @@ public class Trade extends Entity<UUID> {
     private final UUID proposedUserID;
     private final UUID initiatorOfferID;
     private final UUID proposedOfferID;
-    private TradeDetails tradeDetails;
     int editedCount;
+    private TradeDetails tradeDetails;
     private LocalDateTime lastUpdate;
     private TradeStatus status;
 

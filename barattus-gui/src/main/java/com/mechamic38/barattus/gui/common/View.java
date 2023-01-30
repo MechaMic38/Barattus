@@ -1,10 +1,12 @@
 package com.mechamic38.barattus.gui.common;
 
-import javafx.scene.Node;
+import javafx.scene.Parent;
 
 public interface View {
 
     Activity getActivity();
 
-    Node getGraphic();
+    void setActivity(Activity activity);
+
+    Parent getGraphic();
 }

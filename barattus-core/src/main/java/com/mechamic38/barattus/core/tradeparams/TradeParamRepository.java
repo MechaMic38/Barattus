@@ -7,9 +7,9 @@ import com.mechamic38.barattus.persistence.tradeparams.ITradeParamDataSource;
  */
 public class TradeParamRepository implements ITradeParamRepository {
 
-    private TradeParams tradeParams;
     private final ITradeParamDataSource dataSource;
     private final TradeParamsMapper mapper;
+    private TradeParams tradeParams;
 
 
     public TradeParamRepository(ITradeParamDataSource dataSource, TradeParamsMapper mapper) {

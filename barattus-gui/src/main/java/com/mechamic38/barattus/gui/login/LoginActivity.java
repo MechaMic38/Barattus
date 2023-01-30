@@ -2,10 +2,7 @@ package com.mechamic38.barattus.gui.login;
 
 import com.mechamic38.barattus.gui.common.BaseActivity;
 import com.mechamic38.barattus.gui.common.View;
-import com.mechamic38.barattus.gui.common.ViewFactory;
-import com.mechamic38.barattus.gui.common.ViewFactory.Views;
-import com.mechamic38.barattus.gui.util.FXMLUtils;
-import com.mechamic38.barattus.i18n.api.I18N;
+import com.mechamic38.barattus.gui.common.Views;
 
 /**
  * A LoginActivity can be used for starting easily a {@link LoginView}.
@@ -25,12 +22,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onCreate() {
-        setTitle(I18N.getValue("window.login.title"));
-
-        this.view = FXMLUtils.loadViewFXML(
-                ViewFactory.createView(Views.LOGIN),
-                Views.LOGIN.fxml);
-        setView(view);
+        setView(Views.LOGIN);
     }
 
     /*public void show() {

@@ -4,7 +4,8 @@ import com.mechamic38.barattus.persistence.offer.OfferDTO;
 import com.mechamic38.barattus.persistence.offer.OfferFieldDTO;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Mapper class for trade offers.

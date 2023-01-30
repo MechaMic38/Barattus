@@ -1,22 +1,9 @@
 package com.mechamic38.barattus.gui.common;
 
-import com.mechamic38.barattus.gui.login.LoginView;
-import com.mechamic38.barattus.gui.login.LoginViewModel;
-import com.mechamic38.barattus.gui.login.RegistrationView;
-import com.mechamic38.barattus.gui.login.RegistrationViewModel;
+import com.mechamic38.barattus.core.common.ServiceProvider;
+import com.mechamic38.barattus.gui.login.*;
 
 public class ViewFactory {
-
-    public enum Views {
-        LOGIN("Login"),
-        REGISTER("Registration");
-
-        public final String fxml;
-
-        Views(String fxml) {
-            this.fxml = fxml;
-        }
-    }
 
     public static View createView(Views view) {
         return switch (view) {
@@ -27,12 +14,16 @@ public class ViewFactory {
     }
 
     private static View createLoginView() {
-        LoginViewModel viewModel = new LoginViewModel();
+        ILoginViewModel viewModel = new LoginViewModel(
+                ServiceProvider.getInstance().getLoginService()
+        );
         return new LoginView(viewModel);
     }
 
     private static View createRegistration() {
-        RegistrationViewModel viewModel = new RegistrationViewModel();
+        IRegistrationViewModel viewModel = new RegistrationViewModel(
+                ServiceProvider.getInstance().getRegistrationService()
+        );
         return new RegistrationView(viewModel);
     }
 }

@@ -3,7 +3,6 @@ package com.mechamic38.barattus.persistence.tradeparams;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Trade params data transfer object

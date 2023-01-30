@@ -1,8 +1,6 @@
 package com.mechamic38.barattus.gui.common;
 
-import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
-import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.NonBlocking;
 
 import java.util.function.Consumer;
@@ -15,6 +13,8 @@ public interface Activity extends Context {
 
     void setView(View view);
 
+    void setView(Views view);
+
     /**
      * Shows an error alert dialog.
      *
@@ -23,7 +23,7 @@ public interface Activity extends Context {
      * @param onResult the action when the user clicks the OK button
      */
     @NonBlocking
-    ContextDialog showErrorDialog(
+    void showErrorDialog(
             String title,
             String message,
             Consumer<ButtonType> onResult
@@ -39,7 +39,7 @@ public interface Activity extends Context {
      * @param onResult the action when the user clicks the OK button
      */
     @NonBlocking
-    ContextDialog showErrorDialog(
+    void showErrorDialog(
             String title,
             String message,
             Exception cause,
@@ -59,6 +59,20 @@ public interface Activity extends Context {
     }
 
     /**
+     * Shows a warning dialog.
+     *
+     * @param title    the title
+     * @param message  the message
+     * @param onResult the action that handles the button click-s on the dialog
+     */
+    @NonBlocking
+    void showWarningDialog(
+            String title,
+            String message,
+            Consumer<ButtonType> onResult
+    );
+
+    /**
      * Shows an information dialog.
      *
      * @param title    the title
@@ -66,7 +80,7 @@ public interface Activity extends Context {
      * @param onResult the action that handles the button click-s on the dialog
      */
     @NonBlocking
-    ContextDialog showInformationDialog(
+    void showInformationDialog(
             String title,
             String message,
             Consumer<ButtonType> onResult
@@ -80,49 +94,9 @@ public interface Activity extends Context {
      * @param onResult the action that handles the button click-s on the dialog
      */
     @NonBlocking
-    ContextDialog showConfirmationDialog(
+    void showConfirmationDialog(
             String title,
             String message,
             Consumer<ButtonType> onResult
-    );
-
-    @NonBlocking
-    ContextDialog showDialog(
-            String title,
-            Node content,
-            Consumer<ButtonType> onResult,
-            ButtonType... buttonTypes
-    );
-
-    @Blocking
-    ButtonType showErrorDialogAndWait(
-            String title,
-            String message
-    );
-
-    @Blocking
-    ButtonType showErrorDialogAndWait(
-            String title,
-            String message,
-            Exception e
-    );
-
-    @Blocking
-    ButtonType showInformationDialogAndWait(
-            String title,
-            String message
-    );
-
-    @Blocking
-    ButtonType showConfirmationDialogAndWait(
-            String title,
-            String message
-    );
-
-    @Blocking
-    ButtonType showDialogAndWait(
-            String title,
-            Node content,
-            ButtonType... buttonTypes
     );
 }

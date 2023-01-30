@@ -1,6 +1,7 @@
 package com.mechamic38.barattus.core.trade;
 
 import com.mechamic38.barattus.persistence.trade.ITradeDataSource;
+import com.mechamic38.barattus.persistence.trade.TradeDTO;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,12 +32,24 @@ public class TradeRepository implements ITradeRepository {
     }
 
     @Override
+    public List<Trade> getAll() {
+        return trades;
+    }
+
+    @Override
     public void save(Trade trade) {
         if (!this.trades.contains(trade)) {
             this.trades.add(trade);
             dataSource.insert(mapper.toDto(trade));
         } else {
             dataSource.update(mapper.toDto(trade));
+        }
+    }
+
+    @Override
+    public void loadFromDataSource() {
+        for (TradeDTO trade : dataSource.getAll()) {
+            trades.add(mapper.fromDto(trade));
         }
     }
 }

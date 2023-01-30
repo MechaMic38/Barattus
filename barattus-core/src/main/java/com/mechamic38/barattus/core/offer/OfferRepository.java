@@ -1,6 +1,7 @@
 package com.mechamic38.barattus.core.offer;
 
 import com.mechamic38.barattus.persistence.offer.IOfferDataSource;
+import com.mechamic38.barattus.persistence.offer.OfferDTO;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,12 +32,24 @@ public class OfferRepository implements IOfferRepository {
     }
 
     @Override
+    public List<Offer> getAll() {
+        return offers;
+    }
+
+    @Override
     public void save(Offer offer) {
         if (!this.offers.contains(offer)) {
             this.offers.add(offer);
             dataSource.insert(mapper.toDto(offer));
         } else {
             dataSource.update(mapper.toDto(offer));
+        }
+    }
+
+    @Override
+    public void loadFromDataSource() {
+        for (OfferDTO offer : dataSource.getAll()) {
+            offers.add(mapper.fromDto(offer));
         }
     }
 }

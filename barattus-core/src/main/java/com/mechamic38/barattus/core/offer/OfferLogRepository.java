@@ -1,6 +1,7 @@
 package com.mechamic38.barattus.core.offer;
 
 import com.mechamic38.barattus.persistence.offer.IOfferLogDataSource;
+import com.mechamic38.barattus.persistence.offer.OfferLogDTO;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,12 +32,24 @@ public class OfferLogRepository implements IOfferLogRepository {
     }
 
     @Override
+    public List<OfferLog> getAll() {
+        return offerLogs;
+    }
+
+    @Override
     public void save(OfferLog log) {
         if (!this.offerLogs.contains(log)) {
             this.offerLogs.add(log);
             dataSource.insert(mapper.toDto(log));
         } else {
             dataSource.update(mapper.toDto(log));
+        }
+    }
+
+    @Override
+    public void loadFromDataSource() {
+        for (OfferLogDTO log : dataSource.getAll()) {
+            offerLogs.add(mapper.fromDto(log));
         }
     }
 }

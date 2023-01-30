@@ -1,15 +1,23 @@
 package com.mechamic38.barattus.gui.login;
+
 import com.mechamic38.barattus.gui.common.BaseView;
+import com.mechamic38.barattus.gui.common.SessionState;
+import com.mechamic38.barattus.gui.common.Views;
+import com.mechamic38.barattus.i18n.api.I18N;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class RegistrationView extends BaseView implements Initializable {
 
-    private final RegistrationViewModel viewModel;
+    private final IRegistrationViewModel viewModel;
+
     @FXML
     private TextField usernameField;
     @FXML
@@ -18,13 +26,15 @@ public class RegistrationView extends BaseView implements Initializable {
     private Label userTypeLabel;
 
 
-    public RegistrationView(RegistrationViewModel viewModel) {
+    public RegistrationView(IRegistrationViewModel viewModel) {
+        super();
         this.viewModel = viewModel;
     }
 
     @FXML
     private void onBack() {
-
+        SessionState.getInstance().setAdminMode(false);
+        getActivity().setView(Views.LOGIN);
     }
 
     @FXML
@@ -32,37 +42,7 @@ public class RegistrationView extends BaseView implements Initializable {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        /*switch (controller.createUser(username, password)) {
-
-            case SUCCESS:
-                dialog = new Alert(
-                        Alert.AlertType.INFORMATION,
-                        presenter.getMessage(),
-                        ButtonType.OK
-                );
-                dialog.showAndWait();
-                this.changeScene(Scenes.LOGIN);
-                break;
-
-            case FAIL:
-
-            case ALREADY_EXISTS:
-                dialog = new Alert(Alert.AlertType.WARNING,
-                        presenter.getError(),
-                        ButtonType.OK
-                );
-                dialog.showAndWait();
-                break;
-
-            default:
-                throw new IllegalArgumentException("Unknown registration status category");
-
-        }*/
-    }
-
-    public void reload() {
-        usernameField.clear();
-        passwordField.clear();
+        viewModel.signupUser(username, password);
     }
 
     /**
@@ -70,15 +50,30 @@ public class RegistrationView extends BaseView implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        /*try {
-
-            userTypeLabel.textProperty().bind(
-                    ReadOnlyJavaBeanStringPropertyBuilder.create()
-                            .bean(presenter).name("userType").build()
+        viewModel.signedUpProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) return;
+            getActivity().showInformationDialog(
+                    I18N.getValue("signup.notification.signup"),
+                    I18N.getValue("signup.notification.success"),
+                    buttonType -> {
+                        onBack();
+                    }
             );
+        });
 
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }*/
+        viewModel.errorMessageProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isBlank()) return;
+            getActivity().showErrorDialog(
+                    I18N.getValue("signup.notification.signup"),
+                    I18N.getValue(newValue),
+                    buttonType -> {
+                    }
+            );
+            viewModel.errorMessageProperty().set("");
+        });
+
+        userTypeLabel.textProperty().bind(Bindings.createStringBinding(() -> {
+            return I18N.getValue(viewModel.userTypeProperty().getValue().i18n);
+        }, viewModel.userTypeProperty()));
     }
 }
