@@ -42,7 +42,7 @@ public class CategoryMapper {
         return new CategoryFieldDTO(
                 field.getName(),
                 field.getFieldType().name(),
-                field.isMandatory()
+                field.getMandatory()
         );
     }
 

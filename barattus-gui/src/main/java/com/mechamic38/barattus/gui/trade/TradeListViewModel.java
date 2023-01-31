@@ -9,4 +9,9 @@ public class TradeListViewModel implements ITradeListViewModel {
     public TradeListViewModel(ITradeService tradeService) {
         this.tradeService = tradeService;
     }
+
+    @Override
+    public void initialize() {
+
+    }
 }

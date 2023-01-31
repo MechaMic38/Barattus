@@ -3,12 +3,16 @@ package com.mechamic38.barattus.gui.trade;
 import com.mechamic38.barattus.core.offer.Offer;
 import com.mechamic38.barattus.gui.common.BaseView;
 import com.mechamic38.barattus.gui.common.Views;
+import com.mechamic38.barattus.i18n.api.I18N;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
@@ -39,7 +43,7 @@ public class SelectTradeOfferView extends BaseView implements Initializable {
     @FXML
     private TableColumn<Offer, String> publishCol;
     @FXML
-    private TableColumn<Offer, String> categoryCol;
+    private TableColumn<Offer, String> statusCol;
 
     public SelectTradeOfferView(ISelectTradeOfferViewModel viewModel) {
         this.viewModel = viewModel;
@@ -52,27 +56,15 @@ public class SelectTradeOfferView extends BaseView implements Initializable {
 
     @FXML
     private void onProposeTrade() {
-        /*controller.setInitiatorOffer(
+        if (viewModel.proposeTrade(
                 offerTable.getSelectionModel().getSelectedItem()
-        );
-
-        Alert dialog;
-        if (controller.proposeTrade()) {
-            dialog = new Alert(
-                    Alert.AlertType.INFORMATION,
-                    presenter.getMessage(),
-                    ButtonType.OK
+        )) {
+            getActivity().showInformationDialog(
+                    I18N.getValue("trade.compatible.title"),
+                    I18N.getValue("trade.create.success"),
+                    buttonType -> changeContent(Views.TRADE_EDITOR)
             );
-            dialog.showAndWait();
-            this.changeContent(Views.TRADE_EDITOR);
-        } else {
-            dialog = new Alert(
-                    Alert.AlertType.WARNING,
-                    presenter.getError(),
-                    ButtonType.OK
-            );
-            dialog.showAndWait();
-        }*/
+        }
     }
 
     @Override
@@ -91,7 +83,48 @@ public class SelectTradeOfferView extends BaseView implements Initializable {
     }
 
     @Override
+    public void onViewCreated() {
+        viewModel.initialize();
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //TODO
+        setViewProperties();
+        setCustomFactories();
+
+        viewModel.errorProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isBlank()) return;
+            getActivity().showErrorDialog(
+                    I18N.getValue("trade.compatible.title"),
+                    I18N.getValue(newValue),
+                    buttonType -> {
+                        viewModel.errorProperty().set("");
+                    }
+            );
+        });
+
+        viewModel.otherOfferProperty().addListener((observable, oldValue, offer) -> {
+            titleField.setText(offer.getTitle());
+            categoryField.setText(offer.getCategoryID());
+            usernameField.setText(offer.getUserID());
+        });
+
+        offerTable.itemsProperty().bind(viewModel.offersProperty());
+    }
+
+    private void setViewProperties() {
+        proposeTradeButton.disableProperty().bind(
+                offerTable.getSelectionModel().selectedItemProperty().isNull()
+        );
+    }
+
+    private void setCustomFactories() {
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        publishCol.setCellValueFactory(cell -> new SimpleStringProperty(
+                cell.getValue().getCreationDate().format(
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                )
+        ));
+        statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
 }

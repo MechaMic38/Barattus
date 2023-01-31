@@ -54,4 +54,9 @@ public class LoginViewModel implements ILoginViewModel {
     public StringProperty errorMessageProperty() {
         return errorMessage;
     }
+
+    @Override
+    public void initialize() {
+
+    }
 }

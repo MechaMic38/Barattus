@@ -1,14 +1,22 @@
 package com.mechamic38.barattus.gui.offer;
 
+import com.mechamic38.barattus.core.category.Category;
 import com.mechamic38.barattus.core.offer.Offer;
 import com.mechamic38.barattus.gui.common.BaseView;
+import com.mechamic38.barattus.gui.common.CellFactoryProvider;
 import com.mechamic38.barattus.gui.common.Views;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
@@ -21,9 +29,9 @@ public class OfferListView extends BaseView implements Initializable {
     private ScrollPane graphic;
 
     @FXML
-    private ComboBox<String> rootCategoryBox;
+    private ComboBox<Category> rootCategoryBox;
     @FXML
-    private ComboBox<String> leafCategoryBox;
+    private ComboBox<Category> leafCategoryBox;
 
     @FXML
     private CheckBox ownOffersBox;
@@ -48,26 +56,30 @@ public class OfferListView extends BaseView implements Initializable {
 
     @FXML
     private void onHierarchyChange() {
-        /*controller.updateLeafCategories(
+        viewModel.loadSubcategories(
                 rootCategoryBox.getSelectionModel().getSelectedItem()
-        );*/
+        );
     }
 
     @FXML
     private void onSearch() {
-        /*controller.updateOffers(
-                rootCategoryBox.getSelectionModel().getSelectedItem(),
-                leafCategoryBox.getSelectionModel().getSelectedItem(),
-                ownOffersBox.isSelected()
-        );*/
+        if (ownOffersBox.isSelected()) {
+            viewModel.loadOwnOffers(
+                    leafCategoryBox.getSelectionModel().getSelectedItem()
+            );
+        } else {
+            viewModel.loadOffers(
+                    leafCategoryBox.getSelectionModel().getSelectedItem()
+            );
+        }
     }
 
     @FXML
     private void onViewOffer() {
-        /*controller.setActiveTradeOffer(
+        viewModel.setActiveOffer(
                 offerTable.getSelectionModel().getSelectedItem()
         );
-        this.changeContent(Views.OFFER_DETAILS);*/
+        this.changeContent(Views.OFFER_DETAILS);
     }
 
     @Override
@@ -86,7 +98,60 @@ public class OfferListView extends BaseView implements Initializable {
     }
 
     @Override
+    public void onViewCreated() {
+        viewModel.initialize();
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //TODO
+        setAdminProperties();
+        setViewProperties();
+        setCustomFactories();
+
+        viewModel.offersProperty().addListener((observable, oldValue, offers) -> {
+            offerTable.itemsProperty().set(offers);
+        });
+
+        rootCategoryBox.itemsProperty().bind(viewModel.rootCategoriesProperty());
+        leafCategoryBox.itemsProperty().bind(viewModel.leafCategoriesProperty());
+    }
+
+    private void setAdminProperties() {
+    }
+
+    private void setNodeVisibility(Node node, ObservableValue<? extends Boolean> visible) {
+        node.visibleProperty().bind(visible);
+        node.managedProperty().bind(visible);
+    }
+
+    private void setViewProperties() {
+        leafCategoryBox.disableProperty().bind(
+                rootCategoryBox.getSelectionModel().selectedItemProperty().isNull()
+        );
+        searchOffersButton.disableProperty().bind(Bindings.and(
+                ownOffersBox.selectedProperty().not(),
+                Bindings.or(
+                        rootCategoryBox.getSelectionModel().selectedItemProperty().isNull(),
+                        leafCategoryBox.getSelectionModel().selectedItemProperty().isNull()
+                )
+        ));
+        viewOfferButton.disableProperty().bind(
+                offerTable.getSelectionModel().selectedItemProperty().isNull()
+        );
+    }
+
+    private void setCustomFactories() {
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        publishCol.setCellValueFactory(cell -> new SimpleStringProperty(
+                cell.getValue().getCreationDate().format(
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                )
+        ));
+        statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        rootCategoryBox.setCellFactory(listView -> CellFactoryProvider.getCategoryBoxCell());
+        rootCategoryBox.setButtonCell(CellFactoryProvider.getCategoryBoxCell());
+        leafCategoryBox.setCellFactory(listView -> CellFactoryProvider.getCategoryBoxCell());
+        leafCategoryBox.setButtonCell(CellFactoryProvider.getCategoryBoxCell());
     }
 }

@@ -11,7 +11,7 @@ public enum OfferStatus {
     IN_EXCHANGE("offer.status.exchange"),
     CLOSED("offer.status.closed");
 
-    private final String i18n;
+    public final String i18n;
 
 
     OfferStatus(String i18n) {

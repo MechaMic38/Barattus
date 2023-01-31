@@ -11,8 +11,8 @@ public class User extends Entity<String> {
 
     private final String username;
     private final String password;
-    private UserRole role;
     private final Set<UserPermission> permissions;
+    private UserRole role;
 
 
     /**
@@ -31,9 +31,9 @@ public class User extends Entity<String> {
     /**
      * Creates a new user with the given username, password, and role.
      *
-     * @param username    Name of the user
-     * @param password    Password of the user
-     * @param role        Role of the user
+     * @param username Name of the user
+     * @param password Password of the user
+     * @param role     Role of the user
      */
     public User(String username, String password, UserRole role) {
         this(username, password);

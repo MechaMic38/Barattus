@@ -2,7 +2,11 @@ package com.mechamic38.barattus.gui.category;
 
 import com.mechamic38.barattus.core.category.CategoryField;
 import com.mechamic38.barattus.gui.common.BaseView;
+import com.mechamic38.barattus.gui.common.CellFactoryProvider;
 import com.mechamic38.barattus.gui.common.Views;
+import com.mechamic38.barattus.i18n.api.I18N;
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -13,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
@@ -48,12 +53,53 @@ public class FieldEditorView extends BaseView implements Initializable {
         CategoryField.Type fieldType = fieldTypeBox.getSelectionModel().getSelectedItem();
         boolean mandatory = fieldMandatoryBox.isSelected();
 
-        viewModel.updateField(fieldName, fieldType, mandatory);
+        if (viewModel.updateField(fieldName, fieldType, mandatory)) {
+            getActivity().showInformationDialog(
+                    I18N.getValue("category.field.editor.title"),
+                    I18N.getValue("category.field.update.success"),
+                    buttonType -> {
+                    }
+            );
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //TODO
+        setViewProperties();
+        setCustomFactories();
+
+        viewModel.errorProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isBlank()) return;
+            getActivity().showErrorDialog(
+                    I18N.getValue("category.field.editor.title"),
+                    I18N.getValue(newValue),
+                    buttonType -> {
+                        viewModel.errorProperty().set("");
+                    }
+            );
+        });
+
+        viewModel.fieldProperty().addListener((observable, oldValue, newValue) -> {
+            fieldNameField.textProperty().set(newValue.getName());
+            fieldTypeBox.setValue(newValue.getFieldType());
+            fieldMandatoryBox.selectedProperty().set(newValue.getMandatory());
+        });
+
+        fieldTypeBox.itemsProperty().set(FXCollections.observableList(
+                Arrays.stream(CategoryField.Type.values()).toList()
+        ));
+    }
+
+    private void setViewProperties() {
+        applyButton.disableProperty().bind(Bindings.or(
+                fieldNameField.textProperty().isEmpty(),
+                fieldTypeBox.getSelectionModel().selectedItemProperty().isNull()
+        ));
+    }
+
+    private void setCustomFactories() {
+        fieldTypeBox.setCellFactory(listView -> CellFactoryProvider.getCategoryFieldTypeBoxCell());
+        fieldTypeBox.setButtonCell(CellFactoryProvider.getCategoryFieldTypeBoxCell());
     }
 
     @Override
@@ -69,5 +115,10 @@ public class FieldEditorView extends BaseView implements Initializable {
     @Override
     public void setViewChangeAction(Consumer<Views> viewChangeAction) {
         this.viewChangeAction = viewChangeAction;
+    }
+
+    @Override
+    public void onViewCreated() {
+        viewModel.initialize();
     }
 }

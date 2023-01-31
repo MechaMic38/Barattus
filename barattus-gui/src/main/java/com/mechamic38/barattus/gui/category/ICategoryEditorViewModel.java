@@ -3,8 +3,12 @@ package com.mechamic38.barattus.gui.category;
 import com.mechamic38.barattus.core.category.Category;
 import com.mechamic38.barattus.core.category.CategoryField;
 import com.mechamic38.barattus.gui.common.ViewModel;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.StringProperty;
 
-public interface ICategoryEditorVIewModel extends ViewModel {
+public interface ICategoryEditorViewModel extends ViewModel {
 
     void updateCategory(String description);
 
@@ -14,9 +18,21 @@ public interface ICategoryEditorVIewModel extends ViewModel {
 
     void deleteField(CategoryField field);
 
-    void setCategoryToEdit(String category);
+    void gotoHierarchy();
+
+    void gotoParent();
 
     void setCategoryToEdit(Category category);
 
     void setFieldToEdit(CategoryField field);
+
+    StringProperty errorProperty();
+
+    ObjectProperty<Category> categoryProperty();
+
+    BooleanProperty canGotoParentProperty();
+
+    ListProperty<Category> subcategoriesProperty();
+
+    ListProperty<CategoryField> fieldsProperty();
 }

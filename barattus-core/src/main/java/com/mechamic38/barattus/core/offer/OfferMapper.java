@@ -28,7 +28,7 @@ public class OfferMapper {
                 offer.getTitle(),
                 offer.getCreationDate().toString(),
                 offer.getCategoryID(),
-                offer.getUserID().toString(),
+                offer.getUserID(),
                 offer.getStatus().name(),
                 offerFields
         );
@@ -48,7 +48,7 @@ public class OfferMapper {
 
         Offer offer = new Offer(
                 UUID.fromString(offerDTO.getId()),
-                UUID.fromString(offerDTO.getUserID()),
+                offerDTO.getUserID(),
                 offerDTO.getCategoryID(),
                 offerDTO.getTitle(),
                 LocalDateTime.parse(offerDTO.getCreationDate())

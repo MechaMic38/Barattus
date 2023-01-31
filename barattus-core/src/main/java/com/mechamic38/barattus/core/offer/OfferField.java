@@ -59,7 +59,7 @@ public class OfferField {
      * Enum for the different {@link OfferField} types.
      */
     public enum Type {
-        STRING("field.type.string");
+        STRING("offer.field.type.string");
 
         private final String i18n;
 

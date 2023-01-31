@@ -21,4 +21,9 @@ public class TradeEditorViewModel implements ITradeEditorViewModel {
         this.offerRepository = offerRepository;
         this.tradeParamRepository = tradeParamRepository;
     }
+
+    @Override
+    public void initialize() {
+
+    }
 }

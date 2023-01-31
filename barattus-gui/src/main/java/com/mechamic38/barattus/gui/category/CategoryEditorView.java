@@ -3,20 +3,27 @@ package com.mechamic38.barattus.gui.category;
 import com.mechamic38.barattus.core.category.Category;
 import com.mechamic38.barattus.core.category.CategoryField;
 import com.mechamic38.barattus.gui.common.BaseView;
+import com.mechamic38.barattus.gui.common.CellFactoryProvider;
 import com.mechamic38.barattus.gui.common.Views;
+import com.mechamic38.barattus.gui.util.I18NButtonTypes;
 import com.mechamic38.barattus.i18n.api.I18N;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 public class CategoryEditorView extends BaseView implements Initializable {
 
-    private final ICategoryEditorVIewModel viewModel;
+    private final ICategoryEditorViewModel viewModel;
     @FXML
     protected ScrollPane graphic;
     private Consumer<Views> viewChangeAction;
@@ -75,22 +82,18 @@ public class CategoryEditorView extends BaseView implements Initializable {
     @FXML
     private TableColumn<Category, Boolean> catParentCol;
 
-    public CategoryEditorView(ICategoryEditorVIewModel viewModel) {
+    public CategoryEditorView(ICategoryEditorViewModel viewModel) {
         this.viewModel = viewModel;
     }
 
     @FXML
     private void onGotoHierarchy() {
-        viewModel.setCategoryToEdit(
-                hierarchyNameField.getText()
-        );
+        viewModel.gotoHierarchy();
     }
 
     @FXML
     private void onGotoParent() {
-        viewModel.setCategoryToEdit(
-                parentNameField.getText()
-        );
+        viewModel.gotoParent();
     }
 
     @FXML
@@ -113,10 +116,10 @@ public class CategoryEditorView extends BaseView implements Initializable {
         CategoryField field = fieldTable.getSelectionModel().getSelectedItem();
 
         getActivity().showConfirmationDialog(
-                "Delete Field",
+                I18N.getValue("category.editor.title"),
                 I18N.getValue("category.warning.field.delete"),
                 buttonType -> {
-                    if (buttonType.equals(ButtonType.YES)) {
+                    if (buttonType.equals(I18NButtonTypes.YES)) {
                         viewModel.deleteField(field);
                     }
                 }
@@ -149,11 +152,73 @@ public class CategoryEditorView extends BaseView implements Initializable {
         viewModel.setCategoryToEdit(
                 subcatTable.getSelectionModel().getSelectedItem()
         );
+        this.changeContent(Views.CATEGORY_EDITOR);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //TODO
+        setViewProperties();
+        setCustomFactories();
+
+        viewModel.errorProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isBlank()) return;
+            getActivity().showErrorDialog(
+                    I18N.getValue("category.editor.title"),
+                    I18N.getValue(newValue),
+                    buttonType -> {
+                        viewModel.errorProperty().set("");
+                    }
+            );
+        });
+
+        viewModel.categoryProperty().addListener((observable, oldValue, newValue) -> {
+            hierarchyNameField.setText(newValue.getHierarchyName());
+            parentNameField.setText(newValue.getParentName());
+            categoryNameField.setText(newValue.getName());
+            categoryDescriptionField.setText(newValue.getDescription());
+        });
+
+        subcatTable.itemsProperty().bind(viewModel.subcategoriesProperty());
+        fieldTable.itemsProperty().bind(viewModel.fieldsProperty());
+        fieldTypeBox.itemsProperty().set(FXCollections.observableList(
+                Arrays.stream(CategoryField.Type.values()).toList()
+        ));
+    }
+
+    private void setViewProperties() {
+        addFieldButton.disableProperty().bind(Bindings.or(
+                fieldNameField.textProperty().isEmpty(),
+                fieldTypeBox.getSelectionModel().selectedItemProperty().isNull()
+        ));
+        deleteFieldButton.disableProperty().bind(
+                fieldTable.getSelectionModel().selectedItemProperty().isNull()
+        );
+        editFieldButton.disableProperty().bind(
+                fieldTable.getSelectionModel().selectedItemProperty().isNull()
+        );
+        addSubcatButton.disableProperty().bind(Bindings.or(
+                subcatNameField.textProperty().isEmpty(),
+                subcatDescriptionField.textProperty().isEmpty()
+        ));
+        editSubcatButton.disableProperty().bind(
+                subcatTable.getSelectionModel().selectedItemProperty().isNull()
+        );
+        goToParentButton.disableProperty().bind(viewModel.canGotoParentProperty().not());
+    }
+
+    private void setCustomFactories() {
+        catNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        catDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        catParentCol.setCellValueFactory(new PropertyValueFactory<>("parentName"));
+
+        fieldNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        fieldTypeCol.setCellValueFactory(cell -> new SimpleStringProperty(
+                I18N.getValue(cell.getValue().getFieldType().i18n)
+        ));
+        fieldMandatoryCol.setCellValueFactory(new PropertyValueFactory<>("mandatory"));
+
+        fieldTypeBox.setCellFactory(listView -> CellFactoryProvider.getCategoryFieldTypeBoxCell());
+        fieldTypeBox.setButtonCell(CellFactoryProvider.getCategoryFieldTypeBoxCell());
     }
 
     @Override
@@ -163,11 +228,16 @@ public class CategoryEditorView extends BaseView implements Initializable {
 
     @Override
     public void changeContent(Views view) {
-
+        if (viewChangeAction != null) viewChangeAction.accept(view);
     }
 
     @Override
     public void setViewChangeAction(Consumer<Views> viewChangeAction) {
         this.viewChangeAction = viewChangeAction;
+    }
+
+    @Override
+    public void onViewCreated() {
+        viewModel.initialize();
     }
 }

@@ -34,7 +34,7 @@ public class ViewFactory {
     }
 
     private static View createCategoryEditorView() {
-        ICategoryEditorVIewModel viewModel = new CategoryEditorViewModel(
+        ICategoryEditorViewModel viewModel = new CategoryEditorViewModel(
                 ServiceProvider.getInstance().getCategoryService(),
                 ServiceProvider.getInstance().getCategoryRepository()
         );
@@ -52,7 +52,7 @@ public class ViewFactory {
     private static View createCreateOfferView() {
         ICreateOfferViewModel viewModel = new CreateOfferViewModel(
                 ServiceProvider.getInstance().getCategoryService(),
-                ServiceProvider.getInstance().getOfferRepository()
+                ServiceProvider.getInstance().getOfferService()
         );
         return new CreateOfferView(viewModel);
     }

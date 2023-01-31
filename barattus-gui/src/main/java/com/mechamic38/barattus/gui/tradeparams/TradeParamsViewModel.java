@@ -30,7 +30,6 @@ public class TradeParamsViewModel implements ITradeParamsViewModel {
     public TradeParamsViewModel(ITradeParamsService tradeParamsService, ITradeParamRepository tradeParamRepository) {
         this.tradeParamsService = tradeParamsService;
         this.tradeParamRepository = tradeParamRepository;
-        tradeParams = tradeParamRepository.get();
 
         setProperties();
     }
@@ -39,18 +38,6 @@ public class TradeParamsViewModel implements ITradeParamsViewModel {
         admin.set(
                 SessionState.getInstance().getUser().getRole().equals(UserRole.CONFIGURATOR)
         );
-
-        square.set(tradeParams.getSquare());
-        expiration.set(Integer.toString(tradeParams.getExpirationDays()));
-        places.set(FXCollections.observableList(
-                ListUtils.copy(tradeParams.getPlaces())
-        ));
-        days.set(FXCollections.observableList(
-                ListUtils.copy(tradeParams.getDays())
-        ));
-        intervals.set(FXCollections.observableList(
-                ListUtils.copy(tradeParams.getHourIntervals())
-        ));
     }
 
     @Override
@@ -165,5 +152,22 @@ public class TradeParamsViewModel implements ITradeParamsViewModel {
     @Override
     public ListProperty<HourInterval> intervalsProperty() {
         return intervals;
+    }
+
+    @Override
+    public void initialize() {
+        tradeParams = tradeParamRepository.get();
+
+        square.set(tradeParams.getSquare());
+        expiration.set(Integer.toString(tradeParams.getExpirationDays()));
+        places.set(FXCollections.observableList(
+                ListUtils.copy(tradeParams.getPlaces())
+        ));
+        days.set(FXCollections.observableList(
+                ListUtils.copy(tradeParams.getDays())
+        ));
+        intervals.set(FXCollections.observableList(
+                ListUtils.copy(tradeParams.getHourIntervals())
+        ));
     }
 }

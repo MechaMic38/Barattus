@@ -15,4 +15,6 @@ public interface View {
     void changeContent(Views view);
 
     void setViewChangeAction(Consumer<Views> viewChangeAction);
+
+    void onViewCreated();
 }

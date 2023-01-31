@@ -9,20 +9,20 @@ public class CategoryField {
 
     private final String name;
     private Type type;
-    private boolean isMandatory;
+    private boolean mandatory;
 
 
     /**
      * Creates a new category field with the given name, type and "mandatoryness".
      *
-     * @param name        Name of the field
-     * @param type        Type of the field
-     * @param isMandatory If it is mandatory
+     * @param name      Name of the field
+     * @param type      Type of the field
+     * @param mandatory If it is mandatory
      */
-    public CategoryField(String name, Type type, boolean isMandatory) {
+    public CategoryField(String name, Type type, boolean mandatory) {
         this.name = name;
         this.type = type;
-        this.isMandatory = isMandatory;
+        this.mandatory = mandatory;
     }
 
     public String getName() {
@@ -37,12 +37,12 @@ public class CategoryField {
         this.type = type;
     }
 
-    public boolean isMandatory() {
-        return isMandatory;
+    public boolean getMandatory() {
+        return mandatory;
     }
 
     public void setMandatory(boolean mandatory) {
-        isMandatory = mandatory;
+        this.mandatory = mandatory;
     }
 
     @Override
@@ -63,9 +63,9 @@ public class CategoryField {
      * Enum for the different {@link CategoryField} types.
      */
     public enum Type {
-        STRING("field.type.string");
+        STRING("category.field.type.string");
 
-        private final String i18n;
+        public final String i18n;
 
 
         Type(String i18n) {

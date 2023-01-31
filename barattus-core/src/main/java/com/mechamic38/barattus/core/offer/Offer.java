@@ -1,6 +1,7 @@
 package com.mechamic38.barattus.core.offer;
 
 import com.mechamic38.barattus.core.common.Entity;
+import com.mechamic38.barattus.core.user.User;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -15,7 +16,7 @@ public class Offer extends Entity<UUID> {
 
     private final LocalDateTime creationDate;
     private final String categoryID;
-    private final UUID userID;
+    private final String userID;
     private final Set<OfferField> offerFields;
     private String title;
     private OfferStatus status;
@@ -30,7 +31,7 @@ public class Offer extends Entity<UUID> {
      * @param title        Title of the offer
      * @param creationDate Time the offer was created
      */
-    public Offer(UUID uuid, UUID userID, String categoryID, String title, LocalDateTime creationDate) {
+    public Offer(UUID uuid, String userID, String categoryID, String title, LocalDateTime creationDate) {
         this(userID, categoryID, title, creationDate);
         this.id = uuid;
     }
@@ -43,7 +44,7 @@ public class Offer extends Entity<UUID> {
      * @param title        Title of the offer
      * @param creationDate Time the offer was created
      */
-    public Offer(UUID userID, String categoryID, String title, LocalDateTime creationDate) {
+    public Offer(String userID, String categoryID, String title, LocalDateTime creationDate) {
         this.userID = userID;
         this.categoryID = categoryID;
         this.title = title;
@@ -67,7 +68,7 @@ public class Offer extends Entity<UUID> {
         return categoryID;
     }
 
-    public UUID getUserID() {
+    public String getUserID() {
         return userID;
     }
 
@@ -97,5 +98,17 @@ public class Offer extends Entity<UUID> {
 
     protected boolean removeOfferField(OfferField field) {
         return offerFields.add(field);
+    }
+
+    public boolean isOwner(User user) {
+        return userID.equals(user.getUsername());
+    }
+
+    public boolean canWithdraw(User user) {
+        return userID.equals(user.getID()) && status == OfferStatus.OPEN;
+    }
+
+    public boolean canPropose(User user) {
+        return !userID.equals(user.getID()) && status == OfferStatus.OPEN;
     }
 }

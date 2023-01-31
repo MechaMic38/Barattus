@@ -1,6 +1,5 @@
 package com.mechamic38.barattus.util;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -51,4 +51,9 @@ public class RegistrationViewModel implements IRegistrationViewModel {
     public StringProperty errorMessageProperty() {
         return errorMessage;
     }
+
+    @Override
+    public void initialize() {
+
+    }
 }

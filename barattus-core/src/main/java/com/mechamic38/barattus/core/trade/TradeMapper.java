@@ -25,9 +25,9 @@ public class TradeMapper {
                 trade.getLastUpdate().toString(),
                 trade.getStatus().name(),
                 trade.getEditedCount(),
-                trade.getInitiatorUserID().toString(),
+                trade.getInitiatorUserID(),
                 trade.getInitiatorOfferID().toString(),
-                trade.getProposedUserID().toString(),
+                trade.getProposedUserID(),
                 trade.getProposedOfferID().toString(),
                 place,
                 day,
@@ -48,8 +48,8 @@ public class TradeMapper {
 
         Trade trade = new Trade(
                 UUID.fromString(tradeDTO.getId()),
-                UUID.fromString(tradeDTO.getInitiatorUserID()),
-                UUID.fromString(tradeDTO.getProposedUserID()),
+                tradeDTO.getInitiatorUserID(),
+                tradeDTO.getProposedUserID(),
                 UUID.fromString(tradeDTO.getInitiatorOfferID()),
                 UUID.fromString(tradeDTO.getProposedOfferID())
         );

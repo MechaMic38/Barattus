@@ -62,8 +62,6 @@ public class I18N {
      * Maps the given locale to the language-pack.
      */
     private static Optional<LanguagePack> getLanguagePackForLocale(Locale locale) {
-        System.out.println(availableLanguagePacks.keySet());
-        System.out.println(locale);
         return availableLanguagePacks.getOrDefault(locale, Collections.emptyList()).stream().findFirst();
     }
 

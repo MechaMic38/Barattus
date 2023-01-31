@@ -70,6 +70,11 @@ public class TradeListView extends BaseView implements Initializable {
     }
 
     @Override
+    public void onViewCreated() {
+        viewModel.initialize();
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }

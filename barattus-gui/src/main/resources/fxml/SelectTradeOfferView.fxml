@@ -74,8 +74,8 @@
                                    VBox.vgrow="ALWAYS">
                             <columns>
                                 <TableColumn fx:id="titleCol" prefWidth="504.0000419616699" text="%offer.offer.title"/>
-                                <TableColumn fx:id="categoryCol" prefWidth="223.99993896484375"
-                                             text="%offer.offer.category"/>
+                                <TableColumn fx:id="statusCol" prefWidth="223.99993896484375"
+                                             text="%offer.offer.status"/>
                                 <TableColumn fx:id="publishCol" prefWidth="459.99993896484375"
                                              text="%offer.offer.date"/>
                             </columns>

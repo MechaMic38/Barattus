@@ -12,8 +12,8 @@ import java.util.UUID;
  */
 public class Trade extends Entity<UUID> {
 
-    private final UUID initiatorUserID;
-    private final UUID proposedUserID;
+    private final String initiatorUserID;
+    private final String proposedUserID;
     private final UUID initiatorOfferID;
     private final UUID proposedOfferID;
     int editedCount;
@@ -32,7 +32,7 @@ public class Trade extends Entity<UUID> {
      * @param proposedOfferID  ID of the offer that was put availabe for trade
      */
     public Trade(UUID uuid,
-                 UUID initiatorUserID, UUID proposedUserID,
+                 String initiatorUserID, String proposedUserID,
                  UUID initiatorOfferID, UUID proposedOfferID) {
         this(initiatorUserID, proposedUserID, initiatorOfferID, proposedOfferID);
         this.id = uuid;
@@ -46,7 +46,7 @@ public class Trade extends Entity<UUID> {
      * @param initiatorOfferID ID of the offer used to propose the trade
      * @param proposedOfferID  ID of the offer that was put availabe for trade
      */
-    public Trade(UUID initiatorUserID, UUID proposedUserID,
+    public Trade(String initiatorUserID, String proposedUserID,
                  UUID initiatorOfferID, UUID proposedOfferID) {
         this.initiatorUserID = initiatorUserID;
         this.proposedUserID = proposedUserID;
@@ -61,7 +61,7 @@ public class Trade extends Entity<UUID> {
      *
      * @return user ID
      */
-    public UUID getEditTurnUser() {
+    public String getEditTurnUser() {
         return (editedCount % 2 == 0) ? proposedUserID : initiatorUserID;
     }
 
@@ -71,7 +71,7 @@ public class Trade extends Entity<UUID> {
      * @param userID user ID
      * @return true/false
      */
-    public boolean hasParticipant(UUID userID) {
+    public boolean hasParticipant(String userID) {
         return this.initiatorUserID.equals(userID)
                 || this.proposedUserID.equals(userID);
     }
@@ -100,11 +100,11 @@ public class Trade extends Entity<UUID> {
         this.editedCount = editedCount;
     }
 
-    public UUID getInitiatorUserID() {
+    public String getInitiatorUserID() {
         return initiatorUserID;
     }
 
-    public UUID getProposedUserID() {
+    public String getProposedUserID() {
         return proposedUserID;
     }
 

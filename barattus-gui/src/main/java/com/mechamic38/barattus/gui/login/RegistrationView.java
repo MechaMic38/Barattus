@@ -96,4 +96,9 @@ public class RegistrationView extends BaseView implements Initializable {
     public void setViewChangeAction(Consumer<Views> viewChangeAction) {
         //Not implemented
     }
+
+    @Override
+    public void onViewCreated() {
+        viewModel.initialize();
+    }
 }

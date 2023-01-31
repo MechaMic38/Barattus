@@ -29,7 +29,7 @@ public class MainViewModel implements IMainViewModel {
 
     @Override
     public void logout() {
-        SessionState.getInstance().setUser(null);
+        SessionState.getInstance().reset();
     }
 
     @Override
@@ -40,5 +40,10 @@ public class MainViewModel implements IMainViewModel {
     @Override
     public ObjectProperty<UserRole> loggedUserRoleProperty() {
         return loggedUserRole;
+    }
+
+    @Override
+    public void initialize() {
+
     }
 }

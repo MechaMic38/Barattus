@@ -2,6 +2,7 @@ package com.mechamic38.barattus.gui.tradeparams;
 
 import com.mechamic38.barattus.core.tradeparams.HourInterval;
 import com.mechamic38.barattus.gui.common.BaseView;
+import com.mechamic38.barattus.gui.common.CellFactoryProvider;
 import com.mechamic38.barattus.gui.common.Views;
 import com.mechamic38.barattus.gui.util.I18NButtonTypes;
 import com.mechamic38.barattus.i18n.api.I18N;
@@ -14,12 +15,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
-import javafx.util.Callback;
 
 import java.io.File;
 import java.net.URL;
 import java.time.DayOfWeek;
-import java.time.format.TextStyle;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -182,6 +181,11 @@ public class TradeParamsView extends BaseView implements Initializable {
     }
 
     @Override
+    public void onViewCreated() {
+        viewModel.initialize();
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         setAdminProperties();
         setViewProperties();
@@ -274,59 +278,9 @@ public class TradeParamsView extends BaseView implements Initializable {
         startMinuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59));
         endMinuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59));
 
-        dayBox.setCellFactory(new Callback<>() {
-            @Override
-            public ListCell<DayOfWeek> call(ListView<DayOfWeek> param) {
-                return new ListCell<>() {
-                    @Override
-                    protected void updateItem(DayOfWeek day, boolean empty) {
-                        super.updateItem(day, empty);
-                        if (empty || day == null) {
-                            setText(null);
-                        } else {
-                            setText(day.getDisplayName(
-                                    TextStyle.FULL,
-                                    I18N.getLocale()
-                            ));
-                        }
-                    }
-                };
-            }
-        });
-        dayListView.setCellFactory(new Callback<>() {
-            @Override
-            public ListCell<DayOfWeek> call(ListView<DayOfWeek> param) {
-                return new ListCell<>() {
-                    @Override
-                    protected void updateItem(DayOfWeek day, boolean empty) {
-                        super.updateItem(day, empty);
-                        if (empty || day == null) {
-                            setText(null);
-                        } else {
-                            setText(day.getDisplayName(
-                                    TextStyle.FULL,
-                                    I18N.getLocale()
-                            ));
-                        }
-                    }
-                };
-            }
-        });
-        intervalListView.setCellFactory(new Callback<>() {
-            @Override
-            public ListCell<HourInterval> call(ListView<HourInterval> param) {
-                return new ListCell<>() {
-                    @Override
-                    protected void updateItem(HourInterval interval, boolean empty) {
-                        super.updateItem(interval, empty);
-                        if (empty || interval == null) {
-                            setText(null);
-                        } else {
-                            setText(interval.startTime().toString() + " - " + interval.endTime().toString());
-                        }
-                    }
-                };
-            }
-        });
+        dayBox.setCellFactory(listView -> CellFactoryProvider.getDayBoxCell());
+        dayBox.setButtonCell(CellFactoryProvider.getDayBoxCell());
+        dayListView.setCellFactory(listView -> CellFactoryProvider.getDayListCell());
+        intervalListView.setCellFactory(listView -> CellFactoryProvider.getIntervalListCell());
     }
 }

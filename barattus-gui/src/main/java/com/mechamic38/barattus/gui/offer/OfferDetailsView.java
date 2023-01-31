@@ -1,24 +1,33 @@
 package com.mechamic38.barattus.gui.offer;
 
+import com.mechamic38.barattus.core.offer.OfferField;
 import com.mechamic38.barattus.gui.common.BaseView;
 import com.mechamic38.barattus.gui.common.Views;
+import com.mechamic38.barattus.i18n.api.I18N;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class OfferDetailsView extends BaseView implements Initializable {
 
     private final IOfferDetailsViewModel viewModel;
+    private final HashMap<OfferField, TextField> offerFields;
     private Consumer<Views> viewChangeAction;
-
     @FXML
     private ScrollPane graphic;
     @FXML
@@ -44,6 +53,7 @@ public class OfferDetailsView extends BaseView implements Initializable {
 
     public OfferDetailsView(IOfferDetailsViewModel viewModel) {
         this.viewModel = viewModel;
+        this.offerFields = new LinkedHashMap<>();
     }
 
     @FXML
@@ -58,18 +68,14 @@ public class OfferDetailsView extends BaseView implements Initializable {
 
     @FXML
     private void onWithdraw() {
-        /*Alert dialog = new Alert(
-                Alert.AlertType.WARNING,
-                presenter.getMessage("withdrawConfirmation"),
-                ButtonType.NO,
-                ButtonType.YES
-        );
-        dialog.showAndWait();
-
-        if (dialog.getResult() == ButtonType.YES) {
-            controller.withdrawOffer();
-            reload();
-        }*/
+        if (viewModel.withdrawOffer()) {
+            getActivity().showInformationDialog(
+                    I18N.getValue("offer.details.title"),
+                    I18N.getValue("offer.withdraw.confirmation"),
+                    buttonType -> {
+                    }
+            );
+        }
     }
 
     @Override
@@ -88,7 +94,84 @@ public class OfferDetailsView extends BaseView implements Initializable {
     }
 
     @Override
+    public void onViewCreated() {
+        viewModel.initialize();
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //TODO
+        setOwnerProperties();
+        setViewProperties();
+        setCustomFactories();
+
+        viewModel.errorProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isBlank()) return;
+            getActivity().showErrorDialog(
+                    I18N.getValue("offer.details.title"),
+                    I18N.getValue(newValue),
+                    buttonType -> {
+                        viewModel.errorProperty().set("");
+                    }
+            );
+        });
+
+        viewModel.offerProperty().addListener((observable, oldValue, offer) -> {
+            titleField.setText(offer.getTitle());
+            categoryField.setText(offer.getCategoryID());
+            usernameField.setText(offer.getUserID());
+            creationDateField.setText(offer.getCreationDate().format(
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            ));
+            statusField.setText(I18N.getValue(offer.getStatus().i18n));
+
+            createFields(offer.getOfferFields());
+        });
+    }
+
+    private void setOwnerProperties() {
+        withdrawButton.disableProperty().bind(viewModel.withdrawableProperty().not());
+        proposeTradeButton.disableProperty().bind(viewModel.proposableProperty().not());
+
+        setNodeVisibility(withdrawButton, viewModel.ownerProperty());
+        setNodeVisibility(proposeTradeButton, viewModel.proposableProperty());
+    }
+
+    private void setNodeVisibility(Node node, ObservableValue<? extends Boolean> visible) {
+        node.visibleProperty().bind(visible);
+        node.managedProperty().bind(visible);
+    }
+
+    private void setViewProperties() {
+
+    }
+
+    private void setCustomFactories() {
+
+    }
+
+    private void createFields(Set<OfferField> offerFields) {
+        int row = 0;
+        for (OfferField field : offerFields) {
+            TextField txtField = createField(field, row++);
+            this.offerFields.put(field, txtField);
+        }
+    }
+
+    private TextField createField(OfferField field, int row) {
+        Label label = new Label(field.getName());
+
+        TextField txtField = new TextField();
+        txtField.setText(field.getContent());
+        txtField.setEditable(false);
+
+        fieldContainer.add(label, 0, row, 2, 1);
+        fieldContainer.add(txtField, 2, row, GridPane.REMAINING, 1);
+
+        return txtField;
+    }
+
+    private void removeFields() {
+        offerFields.clear();
+        fieldContainer.getChildren().clear();
     }
 }
