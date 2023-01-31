@@ -15,14 +15,17 @@ public class UserDTO {
     private final String username;
     @SerializedName("password")
     private final String password;
+    @SerializedName("role")
+    private final String role;
     @SerializedName("permissions")
     private final List<String> permissions;
 
 
-    public UserDTO(String id, String username, String password, List<String> permissions) {
+    public UserDTO(String id, String username, String password, String role, List<String> permissions) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.role = role;
         this.permissions = permissions;
     }
 
@@ -36,6 +39,10 @@ public class UserDTO {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     public List<String> getPermissions() {

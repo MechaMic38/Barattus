@@ -22,9 +22,10 @@ public class UserMapper {
                 .collect(Collectors.toList());
 
         return new UserDTO(
-                user.getID().toString(),
+                user.getID(),
                 user.getUsername(),
                 user.getPassword(),
+                user.getRole().name(),
                 permissions
         );
     }
@@ -42,7 +43,8 @@ public class UserMapper {
 
         User user = new User(
                 userDTO.getUsername(),
-                userDTO.getPassword()
+                userDTO.getPassword(),
+                UserRole.valueOf(userDTO.getRole())
         );
         user.addPermissions(permissions);
 

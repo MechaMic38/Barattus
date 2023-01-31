@@ -56,7 +56,9 @@ public class TradeParams {
      * @throws IllegalArgumentException if a non-empty square has already been set
      */
     public void setSquare(String square) {
-        if (isSquareSet())
+        if (square.equals(this.square)) return;
+
+        if (isSquareSet() && !square.equals(this.square))
             throw new IllegalArgumentException("trade.params.error.square.set");
 
         this.square = square;

@@ -40,7 +40,7 @@ abstract public class BaseActivity extends Stage implements Activity {
         return new DialogBuilder(
                 title,
                 message,
-                Alert.AlertType.ERROR,
+                Alert.AlertType.WARNING,
                 I18NButtonTypes.NO, I18NButtonTypes.YES
         ).build();
     }
@@ -60,7 +60,7 @@ abstract public class BaseActivity extends Stage implements Activity {
         return new DialogBuilder(
                 title,
                 message,
-                Alert.AlertType.INFORMATION,
+                Alert.AlertType.CONFIRMATION,
                 I18NButtonTypes.NO, I18NButtonTypes.YES
         ).build();
     }
@@ -121,7 +121,7 @@ abstract public class BaseActivity extends Stage implements Activity {
 
     @Override
     public Window getContextWindow() {
-        return getScene().getWindow();
+        return this;
     }
 
     @Override

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:id="graphic" fitToWidth="true" prefHeight="720.0" prefWidth="1080.0"
-            xmlns="http://javafx.com/javafx/18" fx:controller="com.mechamic38.barattus.gui.tradeparams.TradeParamsView">
+            xmlns="http://javafx.com/javafx/19" fx:controller="com.mechamic38.barattus.gui.tradeparams.TradeParamsView">
     <content>
         <GridPane hgap="10.0" vgap="10.0">
             <columnConstraints>
@@ -124,15 +124,15 @@
                        GridPane.rowIndex="10"/>
                 <HBox GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="10">
                     <children>
-                        <ComboBox fx:id="startHourBox" maxWidth="1.7976931348623157E308" prefWidth="150.0"
-                                  HBox.hgrow="ALWAYS"/>
+                        <Spinner fx:id="startHourSpinner" maxWidth="1.7976931348623157E308" prefWidth="150.0"
+                                 HBox.hgrow="ALWAYS"/>
                     </children>
                 </HBox>
                 <HBox layoutX="20.0" layoutY="20.0" GridPane.columnIndex="4" GridPane.columnSpan="2"
                       GridPane.rowIndex="10">
                     <children>
-                        <ComboBox fx:id="startMinuteBox" maxWidth="1.7976931348623157E308" prefWidth="150.0"
-                                  HBox.hgrow="ALWAYS"/>
+                        <Spinner fx:id="startMinuteSpinner" maxWidth="1.7976931348623157E308" prefWidth="150.0"
+                                 HBox.hgrow="ALWAYS"/>
                     </children>
                 </HBox>
                 <Label fx:id="endIntervalLabel" text="%trade.params.interval.end" GridPane.columnIndex="6"
@@ -140,15 +140,15 @@
                 <HBox layoutX="20.0" layoutY="20.0" GridPane.columnIndex="8" GridPane.columnSpan="2"
                       GridPane.rowIndex="10">
                     <children>
-                        <ComboBox fx:id="endHourBox" maxWidth="1.7976931348623157E308" prefWidth="150.0"
-                                  HBox.hgrow="ALWAYS"/>
+                        <Spinner fx:id="endHourSpinner" maxWidth="1.7976931348623157E308" prefWidth="150.0"
+                                 HBox.hgrow="ALWAYS"/>
                     </children>
                 </HBox>
                 <HBox layoutX="20.0" layoutY="20.0" GridPane.columnIndex="10" GridPane.columnSpan="2"
                       GridPane.rowIndex="10">
                     <children>
-                        <ComboBox fx:id="endMinuteBox" maxWidth="1.7976931348623157E308" prefWidth="150.0"
-                                  HBox.hgrow="ALWAYS"/>
+                        <Spinner fx:id="endMinuteSpinner" maxWidth="1.7976931348623157E308" prefWidth="150.0"
+                                 HBox.hgrow="ALWAYS"/>
                     </children>
                 </HBox>
                 <ListView fx:id="intervalListView" prefHeight="150.0" prefWidth="200.0" GridPane.columnSpan="12"

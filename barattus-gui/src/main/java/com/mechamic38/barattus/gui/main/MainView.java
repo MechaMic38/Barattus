@@ -98,6 +98,7 @@ public class MainView extends BaseView implements Initializable {
                 view.fxml
         );
         contentView.setViewChangeAction(this::changeContent);
+        contentView.setActivity(this.activity);
 
         currentScene = contentView.getGraphic();
         graphic.add(currentScene, 1, 0);

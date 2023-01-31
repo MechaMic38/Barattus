@@ -22,7 +22,7 @@ public class RegistrationService implements IRegistrationService {
 
         Set<UserPermission> perms = getUserPermissions(userRole);
 
-        User user = new User(username, password, perms);
+        User user = new User(username, password, userRole, perms);
         userRepository.save(user);
 
         return Result.success(user);

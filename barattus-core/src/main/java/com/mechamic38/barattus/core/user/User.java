@@ -11,19 +11,33 @@ public class User extends Entity<String> {
 
     private final String username;
     private final String password;
+    private UserRole role;
     private final Set<UserPermission> permissions;
 
 
     /**
-     * Creates a new user with the given username, password and permissions.
+     * Creates a new user with the given username, password, role and permissions.
      *
      * @param username    Name of the user
      * @param password    Password of the user
+     * @param role        Role of the user
      * @param permissions Permissions of the user
      */
-    public User(String username, String password, Set<UserPermission> permissions) {
-        this(username, password);
+    public User(String username, String password, UserRole role, Set<UserPermission> permissions) {
+        this(username, password, role);
         this.addPermissions(permissions);
+    }
+
+    /**
+     * Creates a new user with the given username, password, and role.
+     *
+     * @param username    Name of the user
+     * @param password    Password of the user
+     * @param role        Role of the user
+     */
+    public User(String username, String password, UserRole role) {
+        this(username, password);
+        this.role = role;
     }
 
     /**
@@ -32,7 +46,7 @@ public class User extends Entity<String> {
      * @param username Name of the user
      * @param password Password of the user
      */
-    public User(String username, String password) {
+    private User(String username, String password) {
         if (Objects.isNull(username) || username.isBlank())
             throw new IllegalArgumentException("Username is empty!");
 
@@ -117,5 +131,13 @@ public class User extends Entity<String> {
      */
     public boolean removePermission(UserPermission permission) {
         return permissions.remove(permission);
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 }

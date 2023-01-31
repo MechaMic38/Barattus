@@ -130,6 +130,7 @@ public class ViewFactory {
 
     private static View createTradeParamsView() {
         ITradeParamsViewModel viewModel = new TradeParamsViewModel(
+                ServiceProvider.getInstance().getTradeParamsService(),
                 ServiceProvider.getInstance().getTradeParamRepository()
         );
         return new TradeParamsView(viewModel);

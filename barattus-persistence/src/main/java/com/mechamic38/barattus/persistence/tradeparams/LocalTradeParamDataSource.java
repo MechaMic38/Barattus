@@ -65,9 +65,11 @@ public class LocalTradeParamDataSource extends LocalDataSource implements ITrade
         //System.out.println("Trade params during save:");
         //System.out.println(params);
 
-        JsonElement oldJsonParams = params.get(0);
+        if (params.size() > 0) {
+            JsonElement oldJsonParams = params.get(0);
+            params.remove(oldJsonParams);
+        }
         JsonElement jsonParams = gson.toJsonTree(tradeParamsDTO);
-        params.remove(oldJsonParams);
         params.add(jsonParams);
 
         return uploadToFile(json, DATA);

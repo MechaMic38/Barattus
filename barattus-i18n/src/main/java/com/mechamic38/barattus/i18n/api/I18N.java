@@ -43,21 +43,9 @@ public class I18N {
     private static Map<Locale, List<LanguagePack>> getAvailableLanguagePacks() {
         LinkedHashMap<Locale, List<LanguagePack>> languagePacks = new LinkedHashMap<>();
         languagePacks.put(Locale.ENGLISH, List.of(new EnglishLanguagePack()));
-        languagePacks.put(Locale.ITALIAN, List.of(new ItalianLanguagePack()));
+        languagePacks.put(Locale.ITALY, List.of(new ItalianLanguagePack()));
 
         return languagePacks;
-    }
-
-    /**
-     * Sets the default locale for this instance of the Java Virtual Machine (see {@link Locale#setDefault(Locale)}),
-     * and searches for the right {@link LanguagePack} mapped to it. If no language-pack found for the given locale,
-     * the English language pack is configured.
-     *
-     * @param locale the locale representing the language/area
-     */
-    public static synchronized void setLocale(@NotNull Locale locale) {
-        Locale.setDefault(locale);
-        languagePack = recognizeLanguagePack();
     }
 
     /**
@@ -74,6 +62,8 @@ public class I18N {
      * Maps the given locale to the language-pack.
      */
     private static Optional<LanguagePack> getLanguagePackForLocale(Locale locale) {
+        System.out.println(availableLanguagePacks.keySet());
+        System.out.println(locale);
         return availableLanguagePacks.getOrDefault(locale, Collections.emptyList()).stream().findFirst();
     }
 
@@ -83,6 +73,23 @@ public class I18N {
     @NotNull
     public static ResourceBundle getValues() {
         return languagePack.getValues();
+    }
+
+    @NotNull
+    public static Locale getLocale() {
+        return languagePack.getLocale();
+    }
+
+    /**
+     * Sets the default locale for this instance of the Java Virtual Machine (see {@link Locale#setDefault(Locale)}),
+     * and searches for the right {@link LanguagePack} mapped to it. If no language-pack found for the given locale,
+     * the English language pack is configured.
+     *
+     * @param locale the locale representing the language/area
+     */
+    public static synchronized void setLocale(@NotNull Locale locale) {
+        Locale.setDefault(locale);
+        languagePack = recognizeLanguagePack();
     }
 
     /**

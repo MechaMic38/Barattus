@@ -23,7 +23,7 @@ public class MainViewModel implements IMainViewModel {
         User user = SessionState.getInstance().getUser();
         loggedUser.set(user);
 
-        UserRole userRole = userService.getUserRole(user);
+        UserRole userRole = user.getRole();
         loggedUserRole.set(userRole);
     }
 

@@ -3,9 +3,7 @@ package com.mechamic38.barattus.core.common;
 import com.mechamic38.barattus.core.category.*;
 import com.mechamic38.barattus.core.offer.*;
 import com.mechamic38.barattus.core.trade.*;
-import com.mechamic38.barattus.core.tradeparams.ITradeParamRepository;
-import com.mechamic38.barattus.core.tradeparams.TradeParamRepository;
-import com.mechamic38.barattus.core.tradeparams.TradeParamsMapper;
+import com.mechamic38.barattus.core.tradeparams.*;
 import com.mechamic38.barattus.core.user.*;
 import com.mechamic38.barattus.persistence.category.ICategoryDataSource;
 import com.mechamic38.barattus.persistence.category.LocalCategoryDataSource;
@@ -38,6 +36,7 @@ public class ServiceProvider {
     private ITradeRepository tradeRepository;
     private ITradeDataSource tradeDataSource;
 
+    private ITradeParamsService tradeParamsService;
     private ITradeParamRepository tradeParamRepository;
     private ITradeParamDataSource tradeParamDataSource;
 
@@ -75,6 +74,7 @@ public class ServiceProvider {
 
         tradeParamDataSource = new LocalTradeParamDataSource();
         tradeParamRepository = new TradeParamRepository(tradeParamDataSource, new TradeParamsMapper());
+        tradeParamsService = new TradeParamsService(tradeParamRepository, tradeParamDataSource, new TradeParamsMapper());
 
         userDataSource = new LocalUserDataSource();
         userRepository = new UserRepository(userDataSource, new UserMapper());
@@ -92,6 +92,10 @@ public class ServiceProvider {
         offerRepository.loadFromDataSource();
         offerLogRepository.loadFromDataSource();
         tradeRepository.loadFromDataSource();
+    }
+
+    public ITradeParamsService getTradeParamsService() {
+        return tradeParamsService;
     }
 
     public IOfferService getOfferService() {

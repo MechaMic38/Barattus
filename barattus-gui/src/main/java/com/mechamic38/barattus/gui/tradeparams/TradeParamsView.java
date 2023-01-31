@@ -3,14 +3,24 @@ package com.mechamic38.barattus.gui.tradeparams;
 import com.mechamic38.barattus.core.tradeparams.HourInterval;
 import com.mechamic38.barattus.gui.common.BaseView;
 import com.mechamic38.barattus.gui.common.Views;
+import com.mechamic38.barattus.gui.util.I18NButtonTypes;
 import com.mechamic38.barattus.i18n.api.I18N;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
+import javafx.util.Callback;
 
+import java.io.File;
 import java.net.URL;
 import java.time.DayOfWeek;
+import java.time.format.TextStyle;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
@@ -52,13 +62,13 @@ public class TradeParamsView extends BaseView implements Initializable {
     @FXML
     private ComboBox<DayOfWeek> dayBox;
     @FXML
-    private ComboBox<Integer> startHourBox;
+    private Spinner<Integer> startHourSpinner;
     @FXML
-    private ComboBox<Integer> startMinuteBox;
+    private Spinner<Integer> startMinuteSpinner;
     @FXML
-    private ComboBox<Integer> endHourBox;
+    private Spinner<Integer> endHourSpinner;
     @FXML
-    private ComboBox<Integer> endMinuteBox;
+    private Spinner<Integer> endMinuteSpinner;
 
     @FXML
     private ListView<String> placeListView;
@@ -73,54 +83,44 @@ public class TradeParamsView extends BaseView implements Initializable {
 
     @FXML
     private void onApply() {
-        viewModel.saveChanges();
-        getActivity().showInformationDialog(
-                "Save",
-                I18N.getValue("trade.params.save.success"),
-                buttonType -> {
-                }
-        );
+        if (viewModel.saveChanges()) {
+            getActivity().showInformationDialog(
+                    I18N.getValue("trade.params.title"),
+                    I18N.getValue("trade.params.save.success"),
+                    buttonType -> {
+                    }
+            );
+        }
+        ;
     }
 
     @FXML
     private void onLoad() {
-        /*Alert dialog;
-        dialog = new Alert(
-                Alert.AlertType.WARNING,
-                presenter.getMessage("loadFromFileWarning"),
-                ButtonType.YES,
-                ButtonType.NO
+        getActivity().showWarningDialog(
+                I18N.getValue("trade.params.title"),
+                I18N.getValue("trade.params.warning.load"),
+                buttonType -> {
+                    if (buttonType.equals(I18NButtonTypes.YES)) {
+                        FileChooser fc = new FileChooser();
+                        fc.getExtensionFilters().add(
+                                new FileChooser.ExtensionFilter("Json Files", "*.json")
+                        );
+
+                        File selectedFile = fc.showOpenDialog(getActivity().getContextWindow());
+                        if (selectedFile == null) return;
+
+                        if (viewModel.loadFromFile(selectedFile.getPath())) {
+                            getActivity().showInformationDialog(
+                                    I18N.getValue("trade.params.title"),
+                                    I18N.getValue("trade.params.load.success"),
+                                    ignored -> {
+                                    }
+                            );
+                        }
+                        ;
+                    }
+                }
         );
-        dialog.showAndWait();
-
-        if (dialog.getResult() == ButtonType.NO) return;
-
-        FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Json Files", "*.json")
-        );
-
-        File selectedFile = fc.showOpenDialog(windowHandler.getStage());
-        if (selectedFile == null) return;
-
-        boolean success = viewModel.loadFromFile(selectedFile.getPath());
-        if (success) {
-            dialog = new Alert(
-                    Alert.AlertType.INFORMATION,
-                    presenter.getMessage(),
-                    ButtonType.OK
-            );
-            dialog.showAndWait();
-        } else {
-            dialog = new Alert(
-                    Alert.AlertType.ERROR,
-                    presenter.getError(),
-                    ButtonType.OK
-            );
-            dialog.showAndWait();
-        }
-
-        reload();*/
     }
 
     @FXML
@@ -152,10 +152,10 @@ public class TradeParamsView extends BaseView implements Initializable {
     @FXML
     private void onAddInterval() {
         viewModel.addInterval(
-                startHourBox.getSelectionModel().getSelectedItem(),
-                startMinuteBox.getSelectionModel().getSelectedItem(),
-                endHourBox.getSelectionModel().getSelectedItem(),
-                endMinuteBox.getSelectionModel().getSelectedItem()
+                startHourSpinner.getValue(),
+                startMinuteSpinner.getValue(),
+                endHourSpinner.getValue(),
+                endMinuteSpinner.getValue()
         );
     }
 
@@ -183,6 +183,150 @@ public class TradeParamsView extends BaseView implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //TODO
+        setAdminProperties();
+        setViewProperties();
+        setCustomFactories();
+
+        viewModel.errorProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isBlank()) return;
+            getActivity().showErrorDialog(
+                    I18N.getValue("trade.params.title"),
+                    I18N.getValue(newValue),
+                    buttonType -> {
+                        viewModel.errorProperty().set("");
+                    }
+            );
+        });
+
+        squareField.textProperty().bindBidirectional(viewModel.squareProperty());
+        expirationDaysField.textProperty().bindBidirectional(viewModel.expirationProperty());
+        placeListView.itemsProperty().bind(viewModel.placesProperty());
+        dayListView.itemsProperty().bind(viewModel.daysProperty());
+        intervalListView.itemsProperty().bind(viewModel.intervalsProperty());
+    }
+
+    private void setAdminProperties() {
+        ReadOnlyBooleanProperty admin = viewModel.adminProperty();
+
+        squareField.editableProperty().bind(admin);
+        expirationDaysField.editableProperty().bind(admin);
+
+        setNodeVisibility(loadFromFileButton, admin);
+        setNodeVisibility(placeField, admin);
+        setNodeVisibility(addIntervalButton, admin);
+        setNodeVisibility(removeIntervalButton, admin);
+        setNodeVisibility(addDayButton, admin);
+        setNodeVisibility(removeDayButton, admin);
+        setNodeVisibility(addPlaceButton, admin);
+        setNodeVisibility(removePlaceButton, admin);
+        setNodeVisibility(applyButton, admin);
+        setNodeVisibility(dayBox, admin);
+        setNodeVisibility(startHourSpinner, admin);
+        setNodeVisibility(startMinuteSpinner, admin);
+        setNodeVisibility(endHourSpinner, admin);
+        setNodeVisibility(endMinuteSpinner, admin);
+        setNodeVisibility(startIntervalLabel, admin);
+        setNodeVisibility(endIntervalLabel, admin);
+    }
+
+    private void setNodeVisibility(Node node, ReadOnlyBooleanProperty visible) {
+        node.visibleProperty().bind(visible);
+        node.managedProperty().bind(visible);
+    }
+
+    private void setViewProperties() {
+        applyButton.disableProperty().bind(Bindings.or(
+                squareField.textProperty().isEmpty(),
+                expirationDaysField.textProperty().isEmpty()
+        ));
+        addPlaceButton.disableProperty().bind(
+                placeField.textProperty().isEmpty()
+        );
+        removePlaceButton.disableProperty().bind(
+                placeListView.getSelectionModel().selectedItemProperty().isNull()
+        );
+        addDayButton.disableProperty().bind(
+                dayBox.getSelectionModel().selectedItemProperty().isNull()
+        );
+        removeDayButton.disableProperty().bind(
+                dayListView.getSelectionModel().selectedItemProperty().isNull()
+        );
+        removeIntervalButton.disableProperty().bind(
+                intervalListView.getSelectionModel().selectedItemProperty().isNull()
+        );
+        addIntervalButton.disableProperty().bind(Bindings.or(
+                Bindings.or(
+                        startHourSpinner.valueProperty().isNull(),
+                        startMinuteSpinner.valueProperty().isNull()
+                ),
+                Bindings.or(
+                        endHourSpinner.valueProperty().isNull(),
+                        endMinuteSpinner.valueProperty().isNull()
+                )
+        ));
+
+        dayBox.itemsProperty().set(FXCollections.observableList(Arrays.stream(DayOfWeek.values()).toList()));
+    }
+
+    private void setCustomFactories() {
+        startHourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23));
+        endHourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23));
+        startMinuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59));
+        endMinuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59));
+
+        dayBox.setCellFactory(new Callback<>() {
+            @Override
+            public ListCell<DayOfWeek> call(ListView<DayOfWeek> param) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(DayOfWeek day, boolean empty) {
+                        super.updateItem(day, empty);
+                        if (empty || day == null) {
+                            setText(null);
+                        } else {
+                            setText(day.getDisplayName(
+                                    TextStyle.FULL,
+                                    I18N.getLocale()
+                            ));
+                        }
+                    }
+                };
+            }
+        });
+        dayListView.setCellFactory(new Callback<>() {
+            @Override
+            public ListCell<DayOfWeek> call(ListView<DayOfWeek> param) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(DayOfWeek day, boolean empty) {
+                        super.updateItem(day, empty);
+                        if (empty || day == null) {
+                            setText(null);
+                        } else {
+                            setText(day.getDisplayName(
+                                    TextStyle.FULL,
+                                    I18N.getLocale()
+                            ));
+                        }
+                    }
+                };
+            }
+        });
+        intervalListView.setCellFactory(new Callback<>() {
+            @Override
+            public ListCell<HourInterval> call(ListView<HourInterval> param) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(HourInterval interval, boolean empty) {
+                        super.updateItem(interval, empty);
+                        if (empty || interval == null) {
+                            setText(null);
+                        } else {
+                            setText(interval.startTime().toString() + " - " + interval.endTime().toString());
+                        }
+                    }
+                };
+            }
+        });
     }
 }

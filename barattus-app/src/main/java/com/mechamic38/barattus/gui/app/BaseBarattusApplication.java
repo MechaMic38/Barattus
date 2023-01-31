@@ -6,6 +6,10 @@ import javafx.stage.Stage;
 
 abstract public class BaseBarattusApplication extends Application {
 
+    public static <T extends Class<? extends BaseBarattusApplication>> void launchApp(T appClass, String... args) {
+        LauncherImpl.launchApplication(appClass, args);
+    }
+
     @Override
     final public void start(Stage primaryStage) {
 
@@ -16,8 +20,4 @@ abstract public class BaseBarattusApplication extends Application {
      */
     @Override
     abstract public void init();
-
-    public static <T extends Class<? extends BaseBarattusApplication>> void launchApp(T appClass, String... args) {
-        LauncherImpl.launchApplication(appClass, args);
-    }
 }
