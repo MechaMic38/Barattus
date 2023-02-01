@@ -3,8 +3,9 @@ package com.mechamic38.barattus.gui.offer;
 import com.mechamic38.barattus.core.category.Category;
 import com.mechamic38.barattus.core.offer.Offer;
 import com.mechamic38.barattus.gui.common.BaseView;
-import com.mechamic38.barattus.gui.common.CellFactoryProvider;
 import com.mechamic38.barattus.gui.common.Views;
+import com.mechamic38.barattus.gui.util.CellFactoryProvider;
+import com.mechamic38.barattus.gui.util.GUIUtils;
 import com.mechamic38.barattus.i18n.api.I18N;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,7 +18,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
@@ -144,9 +144,7 @@ public class OfferListView extends BaseView implements Initializable {
     private void setCustomFactories() {
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         publishCol.setCellValueFactory(cell -> new SimpleStringProperty(
-                cell.getValue().getCreationDate().format(
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                )
+                GUIUtils.convertLocalDateTime(cell.getValue().getCreationDate())
         ));
         statusCol.setCellValueFactory(cell -> new SimpleStringProperty(
                 I18N.getValue(cell.getValue().getStatus().i18n)

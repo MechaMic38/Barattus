@@ -3,6 +3,8 @@ package com.mechamic38.barattus.gui.offer;
 import com.mechamic38.barattus.core.offer.OfferField;
 import com.mechamic38.barattus.gui.common.BaseView;
 import com.mechamic38.barattus.gui.common.Views;
+import com.mechamic38.barattus.gui.util.GUIUtils;
+import com.mechamic38.barattus.gui.util.I18NButtonTypes;
 import com.mechamic38.barattus.i18n.api.I18N;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -16,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
@@ -68,14 +69,15 @@ public class OfferDetailsView extends BaseView implements Initializable {
 
     @FXML
     private void onWithdraw() {
-        if (viewModel.withdrawOffer()) {
-            getActivity().showInformationDialog(
-                    I18N.getValue("offer.details.title"),
-                    I18N.getValue("offer.withdraw.confirmation"),
-                    buttonType -> {
+        getActivity().showConfirmationDialog(
+                I18N.getValue("offer.details.title"),
+                I18N.getValue("offer.withdraw.confirmation"),
+                buttonType -> {
+                    if (buttonType == I18NButtonTypes.YES) {
+                        viewModel.withdrawOffer();
                     }
-            );
-        }
+                }
+        );
     }
 
     @Override
@@ -115,16 +117,18 @@ public class OfferDetailsView extends BaseView implements Initializable {
             );
         });
 
-        viewModel.offerProperty().addListener((observable, oldValue, offer) -> {
-            titleField.setText(offer.getTitle());
-            categoryField.setText(offer.getCategoryID());
-            usernameField.setText(offer.getUserID());
-            creationDateField.setText(offer.getCreationDate().format(
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            ));
-            statusField.setText(I18N.getValue(offer.getStatus().i18n));
+        viewModel.offerProperty().addListener((observable, oldValue, offerData) -> {
+            titleField.setText(offerData.getOffer().getTitle());
+            categoryField.setText(
+                    GUIUtils.convertCategoryName(offerData.getCategory())
+            );
+            usernameField.setText(offerData.getOffer().getUserID());
+            creationDateField.setText(
+                    GUIUtils.convertLocalDateTime(offerData.getOffer().getCreationDate())
+            );
+            statusField.setText(I18N.getValue(offerData.getOffer().getStatus().i18n));
 
-            createFields(offer.getOfferFields());
+            createFields(offerData.getOffer().getOfferFields());
         });
     }
 

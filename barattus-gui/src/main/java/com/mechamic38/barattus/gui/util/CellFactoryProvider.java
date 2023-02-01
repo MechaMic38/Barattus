@@ -1,4 +1,4 @@
-package com.mechamic38.barattus.gui.common;
+package com.mechamic38.barattus.gui.util;
 
 import com.mechamic38.barattus.core.category.Category;
 import com.mechamic38.barattus.core.category.CategoryField;
@@ -9,8 +9,6 @@ import javafx.scene.control.ListCell;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.TextStyle;
 
 public class CellFactoryProvider {
 
@@ -51,11 +49,9 @@ public class CellFactoryProvider {
                 super.updateItem(day, empty);
                 if (empty || day == null) {
                     setText(null);
+                    setGraphic(null);
                 } else {
-                    setText(day.getDisplayName(
-                            TextStyle.FULL,
-                            I18N.getLocale()
-                    ));
+                    setText(GUIUtils.convertDayOfWeek(day));
                 }
             }
 
@@ -69,11 +65,9 @@ public class CellFactoryProvider {
                 super.updateItem(day, empty);
                 if (empty || day == null) {
                     setText(null);
+                    setGraphic(null);
                 } else {
-                    setText(day.getDisplayName(
-                            TextStyle.FULL,
-                            I18N.getLocale()
-                    ));
+                    setText(GUIUtils.convertDayOfWeek(day));
                 }
             }
         };
@@ -86,8 +80,9 @@ public class CellFactoryProvider {
                 super.updateItem(interval, empty);
                 if (empty || interval == null) {
                     setText(null);
+                    setGraphic(null);
                 } else {
-                    setText(interval.startTime().toString() + " - " + interval.endTime().toString());
+                    setText(GUIUtils.convertHourInterval(interval));
                 }
             }
         };
@@ -117,7 +112,7 @@ public class CellFactoryProvider {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    setText(time.format(DateTimeFormatter.ISO_LOCAL_TIME));
+                    setText(GUIUtils.convertLocalTime(time));
                 }
             }
         };

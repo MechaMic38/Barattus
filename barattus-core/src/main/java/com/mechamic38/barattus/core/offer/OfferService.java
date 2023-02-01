@@ -1,7 +1,6 @@
 package com.mechamic38.barattus.core.offer;
 
 import com.mechamic38.barattus.core.category.Category;
-import com.mechamic38.barattus.core.trade.Trade;
 import com.mechamic38.barattus.core.user.User;
 import com.mechamic38.barattus.util.Result;
 
@@ -40,18 +39,32 @@ public class OfferService implements IOfferService {
                 time
         );
         offer.addOfferFields(offerFields);
-        offer.setStatus(OfferStatus.OPEN);
 
-        OfferLog offerLog = new OfferLog(
-                UUID.randomUUID(),
-                time,
-                offer.getID(),
-                OfferStatus.OPEN
+        return updateOfferStatus(
+                offer,
+                OfferStatus.OPEN,
+                time
         );
+    }
 
-        offerRepository.save(offer);
-        offerLogRepository.save(offerLog);
-        return Result.success(offer);
+    /**
+     * Withdraws an offer
+     *
+     * @param offer Offer to withdraw
+     * @param user  Requesting user
+     * @return Result of the operation
+     */
+    @Override
+    public Result<Offer> withdrawOffer(Offer offer, User user) {
+        if (!offer.canWithdraw(user)) {
+            return Result.error("offer.withdraw.fail");
+        }
+
+        return updateOfferStatus(
+                offer,
+                OfferStatus.WITHDRAWN,
+                LocalDateTime.now()
+        );
     }
 
     /**

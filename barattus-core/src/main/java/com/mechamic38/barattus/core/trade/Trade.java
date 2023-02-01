@@ -2,9 +2,7 @@ package com.mechamic38.barattus.core.trade;
 
 import com.mechamic38.barattus.core.common.Entity;
 
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.UUID;
 
 /**

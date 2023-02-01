@@ -116,28 +116,28 @@
                           promptText="%trade.trade.time" GridPane.columnIndex="8" GridPane.columnSpan="4"
                           GridPane.rowIndex="10"/>
                 <Button fx:id="backButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                        onAction="#backClicked" prefHeight="50.0" text="%app.button.back" GridPane.columnSpan="4"
+                        onAction="#onBack" prefHeight="50.0" text="%app.button.back" GridPane.columnSpan="4"
                         GridPane.rowIndex="12"/>
                 <Button fx:id="editButton" layoutX="30.0" layoutY="659.0" maxWidth="1.7976931348623157E308"
-                        mnemonicParsing="false" onAction="#editClicked" prefHeight="50.0"
+                        mnemonicParsing="false" onAction="#onEditTrade" prefHeight="50.0"
                         text="%trade.editor.button.edit" GridPane.columnIndex="4" GridPane.columnSpan="4"
                         GridPane.rowIndex="12"/>
                 <Button fx:id="acceptButton" layoutX="30.0" layoutY="30.0" maxWidth="1.7976931348623157E308"
-                        mnemonicParsing="false" onAction="#acceptClicked" prefHeight="50.0"
+                        mnemonicParsing="false" onAction="#onAcceptTrade" prefHeight="50.0"
                         text="%trade.editor.button.accept" GridPane.columnIndex="8" GridPane.columnSpan="4"
                         GridPane.rowIndex="12"/>
                 <Button fx:id="rejectTradeButton" layoutX="380.0" layoutY="658.0" maxWidth="1.7976931348623157E308"
-                        mnemonicParsing="false" onAction="#rejectTradeClicked" prefHeight="50.0"
+                        mnemonicParsing="false" onAction="#onRejectTrade" prefHeight="50.0"
                         text="%trade.editor.button.reject" GridPane.columnIndex="4" GridPane.columnSpan="4"
                         GridPane.rowIndex="12"/>
                 <Button fx:id="confirmTradeButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                        onAction="#confirmTradeClicked" prefHeight="50.0" text="%trade.editor.button.confirm"
+                        onAction="#onConfirmTrade" prefHeight="50.0" text="%trade.editor.button.confirm"
                         GridPane.columnIndex="8" GridPane.columnSpan="2147483647" GridPane.rowIndex="12"/>
                 <Button fx:id="viewInitiatorOfferButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                        onAction="#viewInitiatorOfferClicked" text="%trade.editor.button.offer.initiator.view"
+                        onAction="#onViewInitiatorOffer" text="%trade.editor.button.offer.initiator.view"
                         GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="6"/>
                 <Button fx:id="viewProposedOfferButton" layoutX="30.0" layoutY="262.0" maxWidth="1.7976931348623157E308"
-                        mnemonicParsing="false" onAction="#viewProposedOfferClicked"
+                        mnemonicParsing="false" onAction="#onViewProposedOffer"
                         text="%trade.editor.button.offer.proposed.view" GridPane.columnIndex="8" GridPane.columnSpan="4"
                         GridPane.rowIndex="6"/>
             </children>

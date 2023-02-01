@@ -1,8 +1,9 @@
 package com.mechamic38.barattus.gui.trade;
 
 import com.mechamic38.barattus.gui.common.BaseView;
-import com.mechamic38.barattus.gui.common.CellFactoryProvider;
 import com.mechamic38.barattus.gui.common.Views;
+import com.mechamic38.barattus.gui.util.CellFactoryProvider;
+import com.mechamic38.barattus.gui.util.GUIUtils;
 import com.mechamic38.barattus.i18n.api.I18N;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -72,102 +73,76 @@ public class TradeEditorView extends BaseView implements Initializable {
     }
 
     @FXML
-    private void viewInitiatorOfferClicked() {
-        /*controller.setInitiatorActive();
-        this.changeContent(Views.OFFER_DETAILS);*/
+    private void onViewInitiatorOffer() {
+        viewModel.setInitiatorActive();
+        this.changeContent(Views.OFFER_DETAILS);
     }
 
     @FXML
-    private void viewProposedOfferClicked() {
-        /*controller.setProposedActive();
-        this.changeContent(Views.OFFER_DETAILS);*/
+    private void onViewProposedOffer() {
+        viewModel.setProposedActive();
+        this.changeContent(Views.OFFER_DETAILS);
     }
 
     @FXML
-    private void backClicked() {
+    private void onBack() {
         this.changeContent(Views.TRADE_LIST);
     }
 
     @FXML
-    private void confirmTradeClicked() {
-        /*Alert dialog;
-
-        if (controller.confirmTrade(
+    private void onConfirmTrade() {
+        if (viewModel.confirmTrade(
                 placeBox.getSelectionModel().getSelectedItem(),
                 dayBox.getSelectionModel().getSelectedItem(),
                 timeBox.getSelectionModel().getSelectedItem()
         )) {
-            dialog = new Alert(
-                    Alert.AlertType.INFORMATION,
-                    presenter.getMessage(),
-                    ButtonType.OK
+            getActivity().showInformationDialog(
+                    I18N.getValue("trade.editor.title"),
+                    I18N.getValue("trade.confirm.success"),
+                    buttonType -> {
+                    }
             );
-            dialog.showAndWait();
-        } else {
-            dialog = new Alert(
-                    Alert.AlertType.WARNING,
-                    presenter.getError(),
-                    ButtonType.OK
-            );
-            dialog.showAndWait();
         }
-
-        reload();*/
     }
 
     @FXML
-    private void editClicked() {
-        /*Alert dialog;
-
-        if (controller.editTrade(
+    private void onEditTrade() {
+        if (viewModel.editTrade(
                 placeBox.getSelectionModel().getSelectedItem(),
                 dayBox.getSelectionModel().getSelectedItem(),
                 timeBox.getSelectionModel().getSelectedItem()
         )) {
-            dialog = new Alert(
-                    Alert.AlertType.INFORMATION,
-                    presenter.getMessage(),
-                    ButtonType.OK
+            getActivity().showInformationDialog(
+                    I18N.getValue("trade.editor.title"),
+                    I18N.getValue("trade.edited.success"),
+                    buttonType -> {
+                    }
             );
-            dialog.showAndWait();
-        } else {
-            dialog = new Alert(
-                    Alert.AlertType.WARNING,
-                    presenter.getError(),
-                    ButtonType.OK
-            );
-            dialog.showAndWait();
         }
-
-        reload();*/
     }
 
     @FXML
-    private void rejectTradeClicked() {
-        /*controller.rejectTrade();
-
-        Alert dialog = new Alert(
-                Alert.AlertType.INFORMATION,
-                presenter.getMessage(),
-                ButtonType.OK
-        );
-        dialog.showAndWait();
-
-        reload();*/
+    private void onRejectTrade() {
+        if (viewModel.rejectTrade()) {
+            getActivity().showInformationDialog(
+                    I18N.getValue("trade.editor.title"),
+                    I18N.getValue("trade.reject.success"),
+                    buttonType -> {
+                    }
+            );
+        }
     }
 
     @FXML
-    private void acceptClicked() {
-        /*controller.acceptTrade();
-
-        Alert dialog = new Alert(
-                Alert.AlertType.INFORMATION,
-                presenter.getMessage(),
-                ButtonType.OK
-        );
-        dialog.showAndWait();
-
-        reload();*/
+    private void onAcceptTrade() {
+        if (viewModel.acceptTrade()) {
+            getActivity().showInformationDialog(
+                    I18N.getValue("trade.editor.title"),
+                    I18N.getValue("trade.accept.success"),
+                    buttonType -> {
+                    }
+            );
+        }
     }
 
     @Override
@@ -196,6 +171,10 @@ public class TradeEditorView extends BaseView implements Initializable {
         setViewProperties();
         setCustomFactories();
 
+        placeBox.itemsProperty().bind(viewModel.placesProperty());
+        dayBox.itemsProperty().bind(viewModel.daysProperty());
+        timeBox.itemsProperty().bind(viewModel.timesProperty());
+
         viewModel.errorProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.isBlank()) return;
             getActivity().showErrorDialog(
@@ -205,6 +184,39 @@ public class TradeEditorView extends BaseView implements Initializable {
                         viewModel.errorProperty().set("");
                     }
             );
+        });
+
+        viewModel.tradeDataProperty().addListener((observable, oldValue, tradeData) -> {
+            initiatorTitleField.setText(
+                    tradeData.getInitiatorOfferData().getOffer().getTitle()
+            );
+            initiatorUsernameField.setText(
+                    tradeData.getInitiatorOfferData().getOffer().getUserID()
+            );
+            initiatorCategoryField.setText(
+                    GUIUtils.convertCategoryName(tradeData.getInitiatorOfferData().getCategory())
+            );
+            proposedTitleField.setText(
+                    tradeData.getProposedOfferData().getOffer().getTitle()
+            );
+            proposedUsernameField.setText(
+                    tradeData.getProposedOfferData().getOffer().getUserID()
+            );
+            proposedCategoryField.setText(
+                    GUIUtils.convertCategoryName(tradeData.getProposedOfferData().getCategory())
+            );
+            lastEditField.setText(
+                    GUIUtils.convertLocalDateTime(tradeData.getTrade().getLastUpdate())
+            );
+
+            String place = tradeData.getTrade().getTradeDetails().getPlace();
+            if (place != null && !place.isBlank()) placeBox.setValue(place);
+
+            DayOfWeek day = tradeData.getTrade().getTradeDetails().getDay();
+            if (day != null) dayBox.setValue(day);
+
+            LocalTime time = tradeData.getTrade().getTradeDetails().getTime();
+            if (time != null) timeBox.setValue(time);
         });
     }
 

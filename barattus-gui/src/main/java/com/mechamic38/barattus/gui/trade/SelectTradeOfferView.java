@@ -3,6 +3,7 @@ package com.mechamic38.barattus.gui.trade;
 import com.mechamic38.barattus.core.offer.Offer;
 import com.mechamic38.barattus.gui.common.BaseView;
 import com.mechamic38.barattus.gui.common.Views;
+import com.mechamic38.barattus.gui.util.GUIUtils;
 import com.mechamic38.barattus.i18n.api.I18N;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -12,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
@@ -104,9 +104,11 @@ public class SelectTradeOfferView extends BaseView implements Initializable {
         });
 
         viewModel.otherOfferProperty().addListener((observable, oldValue, offer) -> {
-            titleField.setText(offer.getTitle());
-            categoryField.setText(offer.getCategoryID());
-            usernameField.setText(offer.getUserID());
+            titleField.setText(offer.getOffer().getTitle());
+            categoryField.setText(
+                    GUIUtils.convertCategoryName(offer.getCategory())
+            );
+            usernameField.setText(offer.getOffer().getUserID());
         });
 
         offerTable.itemsProperty().bind(viewModel.offersProperty());
@@ -121,9 +123,7 @@ public class SelectTradeOfferView extends BaseView implements Initializable {
     private void setCustomFactories() {
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         publishCol.setCellValueFactory(cell -> new SimpleStringProperty(
-                cell.getValue().getCreationDate().format(
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                )
+                GUIUtils.convertLocalDateTime(cell.getValue().getCreationDate())
         ));
         statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
     }

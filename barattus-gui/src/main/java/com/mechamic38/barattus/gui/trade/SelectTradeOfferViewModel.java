@@ -1,10 +1,11 @@
 package com.mechamic38.barattus.gui.trade;
 
-import com.mechamic38.barattus.core.offer.IOfferRepository;
 import com.mechamic38.barattus.core.offer.IOfferService;
 import com.mechamic38.barattus.core.offer.Offer;
 import com.mechamic38.barattus.core.trade.ITradeService;
 import com.mechamic38.barattus.core.trade.Trade;
+import com.mechamic38.barattus.core.usecase.IGetOfferDataUseCase;
+import com.mechamic38.barattus.core.usecase.OfferData;
 import com.mechamic38.barattus.gui.common.SessionState;
 import com.mechamic38.barattus.util.Result;
 import javafx.beans.property.*;
@@ -14,28 +15,26 @@ public class SelectTradeOfferViewModel implements ISelectTradeOfferViewModel {
 
     private final ITradeService tradeService;
     private final IOfferService offerService;
-    private final IOfferRepository offerRepository;
+    private final IGetOfferDataUseCase getOfferDataUseCase;
 
     private final StringProperty error = new SimpleStringProperty("");
-    private final ObjectProperty<Offer> otherOffer = new SimpleObjectProperty<>();
+    private final ObjectProperty<OfferData> otherOffer = new SimpleObjectProperty<>();
     private final ListProperty<Offer> offers = new SimpleListProperty<>();
 
-    public SelectTradeOfferViewModel(ITradeService tradeService,
-                                     IOfferService offerService,
-                                     IOfferRepository offerRepository) {
+    public SelectTradeOfferViewModel(ITradeService tradeService, IOfferService offerService, IGetOfferDataUseCase getOfferDataUseCase) {
         this.tradeService = tradeService;
         this.offerService = offerService;
-        this.offerRepository = offerRepository;
+        this.getOfferDataUseCase = getOfferDataUseCase;
     }
 
     @Override
     public void initialize() {
-        otherOffer.set(
+        otherOffer.set(getOfferDataUseCase.apply(
                 SessionState.getInstance().getOffer()
-        );
+        ));
         offers.set(FXCollections.observableList(
                 offerService.getCompatibleOffers(
-                        otherOffer.get(),
+                        otherOffer.get().getOffer(),
                         SessionState.getInstance().getUser()
                 )
         ));
@@ -63,7 +62,7 @@ public class SelectTradeOfferViewModel implements ISelectTradeOfferViewModel {
     }
 
     @Override
-    public ObjectProperty<Offer> otherOfferProperty() {
+    public ObjectProperty<OfferData> otherOfferProperty() {
         return otherOffer;
     }
 

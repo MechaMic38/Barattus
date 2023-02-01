@@ -2,8 +2,8 @@ package com.mechamic38.barattus.gui.tradeparams;
 
 import com.mechamic38.barattus.core.tradeparams.HourInterval;
 import com.mechamic38.barattus.gui.common.BaseView;
-import com.mechamic38.barattus.gui.common.CellFactoryProvider;
 import com.mechamic38.barattus.gui.common.Views;
+import com.mechamic38.barattus.gui.util.CellFactoryProvider;
 import com.mechamic38.barattus.gui.util.I18NButtonTypes;
 import com.mechamic38.barattus.i18n.api.I18N;
 import javafx.beans.binding.Bindings;

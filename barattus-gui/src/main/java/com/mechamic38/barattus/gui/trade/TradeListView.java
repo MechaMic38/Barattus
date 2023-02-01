@@ -1,10 +1,12 @@
 package com.mechamic38.barattus.gui.trade;
 
-import com.mechamic38.barattus.core.trade.Trade;
 import com.mechamic38.barattus.core.trade.TradeStatus;
+import com.mechamic38.barattus.core.usecase.TradeData;
 import com.mechamic38.barattus.gui.common.BaseView;
-import com.mechamic38.barattus.gui.common.CellFactoryProvider;
 import com.mechamic38.barattus.gui.common.Views;
+import com.mechamic38.barattus.gui.util.CellFactoryProvider;
+import com.mechamic38.barattus.gui.util.GUIUtils;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,13 +33,13 @@ public class TradeListView extends BaseView implements Initializable {
     private ComboBox<TradeStatus> tradeStatusBox;
 
     @FXML
-    private TableView<Trade> tradeTable;
+    private TableView<TradeData> tradeTable;
     @FXML
-    private TableColumn<Trade, String> initiatorOfferCol;
+    private TableColumn<TradeData, String> initiatorOfferCol;
     @FXML
-    private TableColumn<Trade, String> proposedOfferCol;
+    private TableColumn<TradeData, String> proposedOfferCol;
     @FXML
-    private TableColumn<Trade, String> lastEditCol;
+    private TableColumn<TradeData, String> lastEditCol;
 
     public TradeListView(ITradeListViewModel viewModel) {
         this.viewModel = viewModel;
@@ -46,7 +48,7 @@ public class TradeListView extends BaseView implements Initializable {
     @FXML
     private void viewTradeClicked() {
         viewModel.setActiveTrade(
-                tradeTable.getSelectionModel().getSelectedItem()
+                tradeTable.getSelectionModel().getSelectedItem().getTrade()
         );
         this.changeContent(Views.TRADE_EDITOR);
     }
@@ -86,6 +88,8 @@ public class TradeListView extends BaseView implements Initializable {
         tradeStatusBox.itemsProperty().set(FXCollections.observableList(
                 Arrays.stream(TradeStatus.values()).toList()
         ));
+
+        tradeTable.itemsProperty().bind(viewModel.tradesProperty());
     }
 
     private void setViewProperties() {
@@ -95,9 +99,17 @@ public class TradeListView extends BaseView implements Initializable {
     }
 
     private void setCustomFactories() {
-        //TODO
-
         tradeStatusBox.setCellFactory(listView -> CellFactoryProvider.getTradeStatusBoxCell());
         tradeStatusBox.setButtonCell(CellFactoryProvider.getTradeStatusBoxCell());
+
+        initiatorOfferCol.setCellValueFactory(cell -> new SimpleStringProperty(
+                cell.getValue().getInitiatorOfferData().getOffer().getTitle()
+        ));
+        proposedOfferCol.setCellValueFactory(cell -> new SimpleStringProperty(
+                cell.getValue().getProposedOfferData().getOffer().getTitle()
+        ));
+        lastEditCol.setCellValueFactory(cell -> new SimpleStringProperty(
+                GUIUtils.convertLocalDateTime(cell.getValue().getTrade().getLastUpdate())
+        ));
     }
 }

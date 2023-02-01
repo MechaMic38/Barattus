@@ -1,6 +1,7 @@
 package com.mechamic38.barattus.gui.common;
 
 import com.mechamic38.barattus.core.common.ServiceProvider;
+import com.mechamic38.barattus.core.common.UseCaseProvider;
 import com.mechamic38.barattus.gui.category.*;
 import com.mechamic38.barattus.gui.login.*;
 import com.mechamic38.barattus.gui.main.IMainViewModel;
@@ -82,7 +83,7 @@ public class ViewFactory {
     private static View createOfferDetailsView() {
         IOfferDetailsViewModel viewModel = new OfferDetailsViewModel(
                 ServiceProvider.getInstance().getOfferService(),
-                ServiceProvider.getInstance().getOfferRepository()
+                UseCaseProvider.getOfferDataUseCase()
         );
         return new OfferDetailsView(viewModel);
     }
@@ -106,7 +107,7 @@ public class ViewFactory {
         ISelectTradeOfferViewModel viewModel = new SelectTradeOfferViewModel(
                 ServiceProvider.getInstance().getTradeService(),
                 ServiceProvider.getInstance().getOfferService(),
-                ServiceProvider.getInstance().getOfferRepository()
+                UseCaseProvider.getOfferDataUseCase()
         );
         return new SelectTradeOfferView(viewModel);
     }
@@ -114,16 +115,16 @@ public class ViewFactory {
     private static View createTradeEditorView() {
         ITradeEditorViewModel viewModel = new TradeEditorViewModel(
                 ServiceProvider.getInstance().getTradeService(),
-                ServiceProvider.getInstance().getOfferService(),
-                ServiceProvider.getInstance().getOfferRepository(),
-                ServiceProvider.getInstance().getTradeParamRepository()
+                ServiceProvider.getInstance().getTradeParamRepository(),
+                UseCaseProvider.getTradeDataUseCase()
         );
         return new TradeEditorView(viewModel);
     }
 
     private static View createTradeListView() {
         ITradeListViewModel viewModel = new TradeListViewModel(
-                ServiceProvider.getInstance().getTradeService()
+                UseCaseProvider.getTradesByStatusUseCase(),
+                UseCaseProvider.getTradeDataUseCase()
         );
         return new TradeListView(viewModel);
     }
