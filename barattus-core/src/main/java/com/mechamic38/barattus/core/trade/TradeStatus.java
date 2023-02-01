@@ -10,7 +10,7 @@ public enum TradeStatus {
     REJECTED("trade.status.rejected"),
     UNCONFIRMED("trade.status.unconfirmed");
 
-    private final String i18n;
+    public final String i18n;
 
 
     TradeStatus(String i18n) {

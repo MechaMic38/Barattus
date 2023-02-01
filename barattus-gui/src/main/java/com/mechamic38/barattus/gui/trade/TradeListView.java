@@ -1,14 +1,18 @@
 package com.mechamic38.barattus.gui.trade;
 
 import com.mechamic38.barattus.core.trade.Trade;
+import com.mechamic38.barattus.core.trade.TradeStatus;
 import com.mechamic38.barattus.gui.common.BaseView;
+import com.mechamic38.barattus.gui.common.CellFactoryProvider;
 import com.mechamic38.barattus.gui.common.Views;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
@@ -24,7 +28,7 @@ public class TradeListView extends BaseView implements Initializable {
     private Button viewTradeButton;
 
     @FXML
-    private ComboBox<String> tradeStatusBox;
+    private ComboBox<TradeStatus> tradeStatusBox;
 
     @FXML
     private TableView<Trade> tradeTable;
@@ -33,7 +37,7 @@ public class TradeListView extends BaseView implements Initializable {
     @FXML
     private TableColumn<Trade, String> proposedOfferCol;
     @FXML
-    private TableColumn<Trade, String> statusCol;
+    private TableColumn<Trade, String> lastEditCol;
 
     public TradeListView(ITradeListViewModel viewModel) {
         this.viewModel = viewModel;
@@ -41,17 +45,17 @@ public class TradeListView extends BaseView implements Initializable {
 
     @FXML
     private void viewTradeClicked() {
-        /*controller.setActiveTrade(
+        viewModel.setActiveTrade(
                 tradeTable.getSelectionModel().getSelectedItem()
         );
-        this.changeContent(Views.TRADE_EDITOR);*/
+        this.changeContent(Views.TRADE_EDITOR);
     }
 
     @FXML
     private void tradeStatusSwitch() {
-        /*controller.loadTrades(
+        viewModel.loadTrades(
                 tradeStatusBox.getSelectionModel().getSelectedItem()
-        );*/
+        );
     }
 
     @Override
@@ -76,6 +80,24 @@ public class TradeListView extends BaseView implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setViewProperties();
+        setCustomFactories();
 
+        tradeStatusBox.itemsProperty().set(FXCollections.observableList(
+                Arrays.stream(TradeStatus.values()).toList()
+        ));
+    }
+
+    private void setViewProperties() {
+        viewTradeButton.disableProperty().bind(
+                tradeTable.getSelectionModel().selectedItemProperty().isNull()
+        );
+    }
+
+    private void setCustomFactories() {
+        //TODO
+
+        tradeStatusBox.setCellFactory(listView -> CellFactoryProvider.getTradeStatusBoxCell());
+        tradeStatusBox.setButtonCell(CellFactoryProvider.getTradeStatusBoxCell());
     }
 }

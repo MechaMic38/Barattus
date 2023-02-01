@@ -5,6 +5,7 @@ import com.mechamic38.barattus.core.offer.Offer;
 import com.mechamic38.barattus.gui.common.BaseView;
 import com.mechamic38.barattus.gui.common.CellFactoryProvider;
 import com.mechamic38.barattus.gui.common.Views;
+import com.mechamic38.barattus.i18n.api.I18N;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -147,7 +148,9 @@ public class OfferListView extends BaseView implements Initializable {
                         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                 )
         ));
-        statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+        statusCol.setCellValueFactory(cell -> new SimpleStringProperty(
+                I18N.getValue(cell.getValue().getStatus().i18n)
+        ));
 
         rootCategoryBox.setCellFactory(listView -> CellFactoryProvider.getCategoryBoxCell());
         rootCategoryBox.setButtonCell(CellFactoryProvider.getCategoryBoxCell());

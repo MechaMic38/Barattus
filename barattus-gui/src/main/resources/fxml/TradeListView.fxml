@@ -57,7 +57,7 @@
                                              text="%trade.trade.offer.initiator"/>
                                 <TableColumn fx:id="proposedOfferCol" prefWidth="75.0"
                                              text="%trade.trade.offer.proposed"/>
-                                <TableColumn fx:id="statusCol" prefWidth="75.0" text="%trade.trade.status"/>
+                                <TableColumn fx:id="lastEditCol" prefWidth="75.0" text="%trade.trade.lastedit"/>
                             </columns>
                         </TableView>
                     </children>

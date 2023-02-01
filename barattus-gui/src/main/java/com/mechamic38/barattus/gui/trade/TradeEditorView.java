@@ -1,7 +1,11 @@
 package com.mechamic38.barattus.gui.trade;
 
 import com.mechamic38.barattus.gui.common.BaseView;
+import com.mechamic38.barattus.gui.common.CellFactoryProvider;
 import com.mechamic38.barattus.gui.common.Views;
+import com.mechamic38.barattus.i18n.api.I18N;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -188,7 +192,57 @@ public class TradeEditorView extends BaseView implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //TODO
+        setTradeProperties();
+        setViewProperties();
+        setCustomFactories();
+
+        viewModel.errorProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isBlank()) return;
+            getActivity().showErrorDialog(
+                    I18N.getValue("trade.editor.title"),
+                    I18N.getValue(newValue),
+                    buttonType -> {
+                        viewModel.errorProperty().set("");
+                    }
+            );
+        });
+    }
+
+    private void setTradeProperties() {
+        BooleanProperty editTurn = viewModel.editTurnProperty();
+        BooleanProperty unconfirmed = viewModel.unconfirmedProperty();
+        BooleanProperty ongoing = viewModel.ongoingProperty();
+
+        confirmTradeButton.disableProperty().bind(Bindings.or(
+                Bindings.or(
+                        editTurn.not(),
+                        placeBox.getSelectionModel().selectedItemProperty().isNull()
+                ),
+                Bindings.or(
+                        dayBox.getSelectionModel().selectedItemProperty().isNull(),
+                        timeBox.getSelectionModel().selectedItemProperty().isNull()
+                )
+        ));
+        rejectTradeButton.disableProperty().bind(editTurn.not());
+        editButton.disableProperty().bind(editTurn.not());
+        acceptButton.disableProperty().bind(editTurn.not());
+
+        setNodeVisibility(rejectTradeButton, unconfirmed);
+        setNodeVisibility(confirmTradeButton, unconfirmed);
+
+        setNodeVisibility(editButton, ongoing);
+        setNodeVisibility(acceptButton, ongoing);
+    }
+
+    private void setViewProperties() {
+
+    }
+
+    private void setCustomFactories() {
+        dayBox.setCellFactory(listView -> CellFactoryProvider.getDayBoxCell());
+        dayBox.setButtonCell(CellFactoryProvider.getDayBoxCell());
+        timeBox.setCellFactory(listView -> CellFactoryProvider.getHourBoxCell());
+        timeBox.setButtonCell(CellFactoryProvider.getHourBoxCell());
     }
 
     private void setNodeVisibility(Node node, ObservableValue<? extends Boolean> visible) {

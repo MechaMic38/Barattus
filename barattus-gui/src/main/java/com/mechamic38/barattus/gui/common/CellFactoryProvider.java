@@ -2,11 +2,14 @@ package com.mechamic38.barattus.gui.common;
 
 import com.mechamic38.barattus.core.category.Category;
 import com.mechamic38.barattus.core.category.CategoryField;
+import com.mechamic38.barattus.core.trade.TradeStatus;
 import com.mechamic38.barattus.core.tradeparams.HourInterval;
 import com.mechamic38.barattus.i18n.api.I18N;
 import javafx.scene.control.ListCell;
 
 import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 
 public class CellFactoryProvider {
@@ -85,6 +88,36 @@ public class CellFactoryProvider {
                     setText(null);
                 } else {
                     setText(interval.startTime().toString() + " - " + interval.endTime().toString());
+                }
+            }
+        };
+    }
+
+    public static ListCell<TradeStatus> getTradeStatusBoxCell() {
+        return new ListCell<>() {
+            @Override
+            protected void updateItem(TradeStatus type, boolean empty) {
+                super.updateItem(type, empty);
+                if (empty || type == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(I18N.getValue(type.i18n));
+                }
+            }
+        };
+    }
+
+    public static ListCell<LocalTime> getHourBoxCell() {
+        return new ListCell<>() {
+            @Override
+            protected void updateItem(LocalTime time, boolean empty) {
+                super.updateItem(time, empty);
+                if (empty || time == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(time.format(DateTimeFormatter.ISO_LOCAL_TIME));
                 }
             }
         };
