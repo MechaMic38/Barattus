@@ -100,6 +100,14 @@ public class Trade extends Entity<UUID> {
         this.editedCount = editedCount;
     }
 
+    public void incrementEditedCount() {
+        this.editedCount++;
+    }
+
+    public void decrementEditedCount() {
+        this.editedCount--;
+    }
+
     public String getInitiatorUserID() {
         return initiatorUserID;
     }
@@ -124,8 +132,11 @@ public class Trade extends Entity<UUID> {
         this.tradeDetails = tradeDetails;
     }
 
-    public void updateTradeDetails(String place, DayOfWeek day, LocalTime time) {
-        tradeDetails.update(place, day, time);
-        lastUpdate = LocalDateTime.now();
+    public void updateTradeDetails(TradeDetails details) {
+        tradeDetails.update(
+                details.place,
+                details.day,
+                details.time
+        );
     }
 }

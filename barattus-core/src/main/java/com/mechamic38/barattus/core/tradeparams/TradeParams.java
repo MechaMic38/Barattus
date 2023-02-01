@@ -1,6 +1,8 @@
 package com.mechamic38.barattus.core.tradeparams;
 
 import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -178,6 +180,58 @@ public class TradeParams {
             if (interval.overlapsInterval(hourInterval)) return true;
         }
         return false;
+    }
+
+    /**
+     * Gets a list of all the allowed times between all time intervals.
+     * Only the half and full hour times are available.
+     *
+     * @return List of allowed times
+     */
+    public List<LocalTime> getAllowedTimes() {
+        List<LocalTime> allowedTimes = new LinkedList<>();
+
+        for (HourInterval interval : hourIntervals) {
+            allowedTimes.addAll(getAllowedTimes(interval.startTime(), interval.endTime()));
+        }
+
+        return allowedTimes;
+    }
+
+    /**
+     * Returns a list of all the allowed times between the selected time interval.
+     * Only the half and full hour times are available.
+     *
+     * @param startTime Start time
+     * @param endTime   End time
+     * @return List of allowed times
+     */
+    private List<LocalTime> getAllowedTimes(LocalTime startTime, LocalTime endTime) {
+        List<LocalTime> allowedTimes = new LinkedList<>();
+        LocalTime firstAvailableTime = getFirstAvailableTime(startTime);
+
+        while (firstAvailableTime.isBefore(endTime)) {
+            allowedTimes.add(firstAvailableTime);
+            firstAvailableTime = firstAvailableTime.plus(30, ChronoUnit.MINUTES);
+        }
+
+        return allowedTimes;
+    }
+
+    /**
+     * Gets the first available half or full hour.
+     *
+     * @param startTime Start time
+     * @return First available time
+     */
+    private LocalTime getFirstAvailableTime(LocalTime startTime) {
+        if (startTime.getMinute() > 30) {
+            return LocalTime.of(startTime.getHour() + 1, 0);
+        } else if (startTime.getMinute() > 0) {
+            return LocalTime.of(startTime.getHour(), 30);
+        } else {
+            return startTime;
+        }
     }
 
     @Override

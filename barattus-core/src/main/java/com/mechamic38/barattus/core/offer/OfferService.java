@@ -1,6 +1,7 @@
 package com.mechamic38.barattus.core.offer;
 
 import com.mechamic38.barattus.core.category.Category;
+import com.mechamic38.barattus.core.trade.Trade;
 import com.mechamic38.barattus.core.user.User;
 import com.mechamic38.barattus.util.Result;
 
@@ -53,6 +54,14 @@ public class OfferService implements IOfferService {
         return Result.success(offer);
     }
 
+    /**
+     * Updates an offer status.
+     *
+     * @param offer  Offer to update
+     * @param status New offer status
+     * @param time   Time of the update
+     * @return Result of the operation
+     */
     @Override
     public Result<Offer> updateOfferStatus(Offer offer, OfferStatus status, LocalDateTime time) {
         offer.setStatus(status);
