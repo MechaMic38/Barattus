@@ -19,7 +19,7 @@ import java.util.List;
 public class LocalCategoryDataSource extends LocalDataSource implements ICategoryDataSource {
 
     private static final File DATA = new File(
-            System.getProperty("user.home") + File.separator + "Documents" + File.separator + "Barattus",
+            System.getProperty("barattus.dir.default.path"),
             "category-data.json"
     );
     private static final String KEY = "categories";

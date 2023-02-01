@@ -17,7 +17,6 @@ public enum UserRole {
 
     @Override
     public String toString() {
-        //TODO: I18N Reference
         return super.toString();
     }
 }

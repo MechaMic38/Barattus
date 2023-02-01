@@ -13,7 +13,7 @@ import java.util.List;
 public class LocalTradeDataSource extends LocalDataSource implements ITradeDataSource {
 
     private static final File DATA = new File(
-            System.getProperty("user.home") + File.separator + "Documents" + File.separator + "Barattus",
+            System.getProperty("barattus.dir.default.path"),
             "trade-data.json"
     );
     private static final String KEY = "trades";

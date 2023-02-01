@@ -70,7 +70,6 @@ public class OfferField {
 
         @Override
         public String toString() {
-            //TODO: I18N Reference
             return super.toString();
         }
     }

@@ -14,7 +14,7 @@ import java.util.List;
 public class LocalTradeParamDataSource extends LocalDataSource implements ITradeParamDataSource {
 
     private static final File DATA = new File(
-            System.getProperty("user.home") + File.separator + "Documents" + File.separator + "Barattus",
+            System.getProperty("barattus.dir.default.path"),
             "trade-params-data.json"
     );
     private static final String KEY = "tradeParams";

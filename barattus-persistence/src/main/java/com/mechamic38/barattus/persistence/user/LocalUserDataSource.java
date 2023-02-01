@@ -16,7 +16,7 @@ import java.util.List;
 public class LocalUserDataSource extends LocalDataSource implements IUserDataSource {
 
     private static final File USER_DATA = new File(
-            System.getProperty("user.home") + File.separator + "Documents" + File.separator + "Barattus",
+            System.getProperty("barattus.dir.default.path"),
             "user-data.json"
     );
     private static final String KEY = "users";

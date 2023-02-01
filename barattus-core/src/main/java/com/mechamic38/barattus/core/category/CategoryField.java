@@ -74,7 +74,6 @@ public class CategoryField {
 
         @Override
         public String toString() {
-            //TODO: I18N Reference
             return super.toString();
         }
     }

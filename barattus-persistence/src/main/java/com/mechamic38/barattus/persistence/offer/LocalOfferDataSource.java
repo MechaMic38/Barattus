@@ -13,7 +13,7 @@ import java.util.List;
 public class LocalOfferDataSource extends LocalDataSource implements IOfferDataSource {
 
     private static final File DATA = new File(
-            System.getProperty("user.home") + File.separator + "Documents" + File.separator + "Barattus",
+            System.getProperty("barattus.dir.default.path"),
             "offers-data.json"
     );
     private static final String KEY = "offers";

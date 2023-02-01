@@ -25,7 +25,7 @@ public class TradeParamsViewModel implements ITradeParamsViewModel {
     private final ListProperty<String> places = new SimpleListProperty<>();
     private final ListProperty<DayOfWeek> days = new SimpleListProperty<>();
     private final ListProperty<HourInterval> intervals = new SimpleListProperty<>();
-    private TradeParams tradeParams;
+    private TradeParams tradeParams; //TODO Change to object property
 
     public TradeParamsViewModel(ITradeParamsService tradeParamsService, ITradeParamRepository tradeParamRepository) {
         this.tradeParamsService = tradeParamsService;
@@ -114,7 +114,7 @@ public class TradeParamsViewModel implements ITradeParamsViewModel {
             return false;
         } else {
             tradeParams = result.getResult();
-            setProperties();
+            setProperties(); //TODO View not updating
             return true;
         }
     }
