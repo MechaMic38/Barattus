@@ -35,8 +35,8 @@ public class LoginView extends BaseView implements Initializable {
 
     @FXML
     private void onLogin() {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
 
         viewModel.loginUser(username, password);
     }
@@ -91,16 +91,6 @@ public class LoginView extends BaseView implements Initializable {
     @Override
     public Parent getGraphic() {
         return graphic;
-    }
-
-    @Override
-    public void changeContent(Views view) {
-        //Not implemented
-    }
-
-    @Override
-    public void setViewChangeAction(Consumer<Views> viewChangeAction) {
-        //Not implemented
     }
 
     @Override

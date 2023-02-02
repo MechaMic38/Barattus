@@ -38,4 +38,9 @@ public class TradeParamRepository implements ITradeParamRepository {
             tradeParams = TradeParams.getDefaultParams();
         }
     }
+
+    @Override
+    public void importData(TradeParams tradeParams) {
+        this.tradeParams = tradeParams;
+    }
 }

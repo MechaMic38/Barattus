@@ -1,16 +1,18 @@
 package com.mechamic38.barattus.gui.tradeparams;
 
 import com.mechamic38.barattus.core.tradeparams.HourInterval;
+import com.mechamic38.barattus.core.tradeparams.TradeParams;
 import com.mechamic38.barattus.gui.common.ViewModel;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 
 import java.time.DayOfWeek;
 
 public interface ITradeParamsViewModel extends ViewModel {
 
-    boolean saveChanges();
+    boolean saveChanges(String square, String expirationDays);
 
     void addPlace(String place);
 
@@ -30,9 +32,7 @@ public interface ITradeParamsViewModel extends ViewModel {
 
     StringProperty errorProperty();
 
-    StringProperty squareProperty();
-
-    StringProperty expirationProperty();
+    ObjectProperty<TradeParams> tradeParamsProperty();
 
     ListProperty<String> placesProperty();
 

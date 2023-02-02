@@ -64,7 +64,7 @@ public class ServiceProvider {
     public void buildServices() {
         categoryDataSource = new LocalCategoryDataSource();
         categoryRepository = new CategoryRepository(categoryDataSource, new CategoryMapper());
-        categoryService = new CategoryService(categoryRepository);
+        categoryService = new CategoryService(categoryRepository, categoryDataSource, new CategoryMapper());
 
         offerLogDataSource = new LocalOfferLogDataSource();
         offerLogRepository = new OfferLogRepository(offerLogDataSource, new OfferLogMapper());

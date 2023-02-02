@@ -82,7 +82,10 @@ public class TradeParamsView extends BaseView implements Initializable {
 
     @FXML
     private void onApply() {
-        if (viewModel.saveChanges()) {
+        if (viewModel.saveChanges(
+                squareField.getText().trim(),
+                expirationDaysField.getText().trim()
+        )) {
             getActivity().showInformationDialog(
                     I18N.getValue("trade.params.title"),
                     I18N.getValue("trade.params.save.success"),
@@ -116,7 +119,6 @@ public class TradeParamsView extends BaseView implements Initializable {
                                     }
                             );
                         }
-                        ;
                     }
                 }
         );
@@ -171,16 +173,6 @@ public class TradeParamsView extends BaseView implements Initializable {
     }
 
     @Override
-    public void changeContent(Views view) {
-
-    }
-
-    @Override
-    public void setViewChangeAction(Consumer<Views> viewChangeAction) {
-
-    }
-
-    @Override
     public void onViewCreated() {
         viewModel.initialize();
     }
@@ -202,8 +194,11 @@ public class TradeParamsView extends BaseView implements Initializable {
             );
         });
 
-        squareField.textProperty().bindBidirectional(viewModel.squareProperty());
-        expirationDaysField.textProperty().bindBidirectional(viewModel.expirationProperty());
+        viewModel.tradeParamsProperty().addListener((observable, oldValue, params) -> {
+            squareField.setText(params.getSquare());
+            expirationDaysField.setText(Integer.toString(params.getExpirationDays()));
+        });
+
         placeListView.itemsProperty().bind(viewModel.placesProperty());
         dayListView.itemsProperty().bind(viewModel.daysProperty());
         intervalListView.itemsProperty().bind(viewModel.intervalsProperty());

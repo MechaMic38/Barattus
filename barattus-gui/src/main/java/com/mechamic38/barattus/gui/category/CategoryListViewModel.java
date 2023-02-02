@@ -9,6 +9,8 @@ import com.mechamic38.barattus.util.Result;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 
+import java.util.List;
+
 public class CategoryListViewModel implements ICategoryListViewModel {
 
     private final ICategoryService categoryService;
@@ -22,18 +24,6 @@ public class CategoryListViewModel implements ICategoryListViewModel {
     public CategoryListViewModel(ICategoryService categoryService, ICategoryRepository categoryRepository) {
         this.categoryService = categoryService;
         this.categoryRepository = categoryRepository;
-
-        setProperties();
-    }
-
-    private void setProperties() {
-        admin.set(
-                SessionState.getInstance().getUser().getRole().equals(UserRole.CONFIGURATOR)
-        );
-
-        rootCategories.set(FXCollections.observableList(
-                categoryService.getHierarchies()
-        ));
     }
 
     @Override
@@ -60,6 +50,36 @@ public class CategoryListViewModel implements ICategoryListViewModel {
     }
 
     @Override
+    public boolean loadFromFile(String path) {
+        Result<List<Category>> result = categoryService.loadParamsFromFile(path);
+
+        if (result.isError()) {
+            errorProperty().set(result.getError());
+            return false;
+        } else {
+            setCategoryProperties(categoryService.getHierarchies());
+            return true;
+        }
+    }
+
+    @Override
+    public void initialize() {
+        setProperties();
+        setCategoryProperties(categoryService.getHierarchies());
+    }
+
+    private void setProperties() {
+        admin.set(
+                SessionState.getInstance().getUser().getRole().equals(UserRole.CONFIGURATOR)
+        );
+    }
+
+    private void setCategoryProperties(List<Category> hierarchies) {
+        rootCategories.set(FXCollections.observableList(hierarchies));
+        leafCategories.set(FXCollections.emptyObservableList());
+    }
+
+    @Override
     public BooleanProperty adminProperty() {
         return admin;
     }
@@ -77,10 +97,5 @@ public class CategoryListViewModel implements ICategoryListViewModel {
     @Override
     public ListProperty<Category> leafCategoriesProperty() {
         return leafCategories;
-    }
-
-    @Override
-    public void initialize() {
-
     }
 }

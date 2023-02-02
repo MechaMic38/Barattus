@@ -4,6 +4,7 @@ import com.mechamic38.barattus.core.category.Category;
 import com.mechamic38.barattus.gui.common.BaseView;
 import com.mechamic38.barattus.gui.common.Views;
 import com.mechamic38.barattus.gui.util.CellFactoryProvider;
+import com.mechamic38.barattus.gui.util.I18NButtonTypes;
 import com.mechamic38.barattus.i18n.api.I18N;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -15,7 +16,9 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -25,7 +28,6 @@ public class CategoryListView extends BaseView implements Initializable {
     private final ICategoryListViewModel viewModel;
     @FXML
     protected GridPane graphic;
-    private Consumer<Views> viewChangeAction;
     @FXML
     private TextField hierarchyNameField;
     @FXML
@@ -66,9 +68,12 @@ public class CategoryListView extends BaseView implements Initializable {
 
     @FXML
     public void onHierarchyChange() {
-        viewModel.updateCategoryList(
-                hierarchyBox.getSelectionModel().getSelectedItem()
-        );
+        Category hierarchy = hierarchyBox.getSelectionModel().getSelectedItem();
+        if (hierarchy != null) {
+            viewModel.updateCategoryList(
+                    hierarchyBox.getSelectionModel().getSelectedItem()
+            );
+        }
     }
 
     @FXML
@@ -89,7 +94,30 @@ public class CategoryListView extends BaseView implements Initializable {
 
     @FXML
     public void onLoad() {
-        //TODO
+        getActivity().showWarningDialog(
+                I18N.getValue("category.manager.title"),
+                I18N.getValue("category.load.warning"),
+                buttonType -> {
+                    if (buttonType.equals(I18NButtonTypes.YES)) {
+                        FileChooser fc = new FileChooser();
+                        fc.getExtensionFilters().add(
+                                new FileChooser.ExtensionFilter("Json Files", "*.json")
+                        );
+
+                        File selectedFile = fc.showOpenDialog(getActivity().getContextWindow());
+                        if (selectedFile == null) return;
+
+                        if (viewModel.loadFromFile(selectedFile.getPath())) {
+                            getActivity().showInformationDialog(
+                                    I18N.getValue("category.manager.title"),
+                                    I18N.getValue("category.load.success"),
+                                    ignored -> {
+                                    }
+                            );
+                        }
+                    }
+                }
+        );
     }
 
     @Override
@@ -151,16 +179,6 @@ public class CategoryListView extends BaseView implements Initializable {
     @Override
     public Parent getGraphic() {
         return graphic;
-    }
-
-    @Override
-    public void changeContent(Views view) {
-        if (viewChangeAction != null) viewChangeAction.accept(view);
-    }
-
-    @Override
-    public void setViewChangeAction(Consumer<Views> viewChangeAction) {
-        this.viewChangeAction = viewChangeAction;
     }
 
     @Override

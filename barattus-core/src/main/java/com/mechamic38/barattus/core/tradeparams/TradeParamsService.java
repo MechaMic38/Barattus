@@ -23,7 +23,9 @@ public class TradeParamsService implements ITradeParamsService {
         try {
             TradeParamDTO dto = dataSource.getAll(path).stream().findFirst().orElse(null);
             if (dto != null) {
-                return Result.success(mapper.fromDto(dto));
+                TradeParams tradeParams = mapper.fromDto(dto);
+                repository.importData(tradeParams);
+                return Result.success(tradeParams);
             } else {
                 return Result.error("trade.params.error.load");
             }

@@ -2,6 +2,7 @@ package com.mechamic38.barattus.core.category;
 
 import com.mechamic38.barattus.persistence.category.CategoryDTO;
 import com.mechamic38.barattus.persistence.category.ICategoryDataSource;
+import com.mechamic38.barattus.util.ListUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -50,5 +51,11 @@ public class CategoryRepository implements ICategoryRepository {
         for (CategoryDTO category : dataSource.getAll()) {
             categories.add(mapper.fromDto(category));
         }
+    }
+
+    @Override
+    public void importData(List<Category> categories) {
+        this.categories.clear();
+        this.categories.addAll(categories);
     }
 }

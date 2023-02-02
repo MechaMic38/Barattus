@@ -76,6 +76,7 @@ abstract public class BaseActivity extends Stage implements Activity {
     public void setView(View view) {
         this.view = view;
         view.setActivity(this);
+        view.onViewCreated();
         this.setScene(new Scene(view.getGraphic()));
     }
 

@@ -88,16 +88,6 @@ public class RegistrationView extends BaseView implements Initializable {
     }
 
     @Override
-    public void changeContent(Views view) {
-        //Not implemented
-    }
-
-    @Override
-    public void setViewChangeAction(Consumer<Views> viewChangeAction) {
-        //Not implemented
-    }
-
-    @Override
     public void onViewCreated() {
         viewModel.initialize();
     }

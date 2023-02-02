@@ -1,5 +1,8 @@
 package com.mechamic38.barattus.core.category;
 
+import com.mechamic38.barattus.persistence.category.CategoryDTO;
+import com.mechamic38.barattus.persistence.category.ICategoryDataSource;
+import com.mechamic38.barattus.persistence.common.InvalidFileException;
 import com.mechamic38.barattus.util.Result;
 
 import java.util.*;
@@ -9,9 +12,13 @@ import java.util.stream.Stream;
 public class CategoryService implements ICategoryService {
 
     private final ICategoryRepository repository;
+    private final ICategoryDataSource dataSource;
+    private final CategoryMapper mapper;
 
-    public CategoryService(ICategoryRepository repository) {
+    public CategoryService(ICategoryRepository repository, ICategoryDataSource dataSource, CategoryMapper mapper) {
         this.repository = repository;
+        this.dataSource = dataSource;
+        this.mapper = mapper;
     }
 
     @Override
@@ -98,6 +105,18 @@ public class CategoryService implements ICategoryService {
 
         repository.save(category);
         return Result.success(field);
+    }
+
+    @Override
+    public Result<List<Category>> loadParamsFromFile(String path) {
+        try {
+            List<CategoryDTO> dtoList = dataSource.getAll(path);
+            List<Category> categories = dtoList.stream().map(mapper::fromDto).toList();
+            repository.importData(categories);
+            return Result.success(categories);
+        } catch (InvalidFileException e) {
+            return Result.error("category.load.error");
+        }
     }
 
     @Override

@@ -111,14 +111,14 @@ public class MainView extends BaseView implements Initializable {
 
     @Override
     public void onViewCreated() {
-
+        viewModel.initialize();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        usernameLabel.textProperty().bind(Bindings.createStringBinding(() -> {
-            return viewModel.loggedUserProperty().get().getUsername();
-        }, viewModel.loggedUserProperty()));
+        viewModel.loggedUserProperty().addListener((observable, oldValue, user) -> {
+            usernameLabel.setText(user.getUsername());
+        });
 
         BooleanBinding visibility = Bindings.createBooleanBinding(() -> {
             return viewModel.loggedUserRoleProperty().get().equals(UserRole.END_USER);

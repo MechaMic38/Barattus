@@ -26,4 +26,6 @@ public interface ICategoryService {
     List<Category> getLeafCategories(Category category);
 
     List<CategoryField> getCategoryFields(Category category);
+
+    Result<List<Category>> loadParamsFromFile(String path);
 }

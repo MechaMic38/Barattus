@@ -7,4 +7,6 @@ public interface ITradeParamRepository {
     void save(TradeParams tradeParams);
 
     void loadFromDataSource();
+
+    void importData(TradeParams tradeParams);
 }

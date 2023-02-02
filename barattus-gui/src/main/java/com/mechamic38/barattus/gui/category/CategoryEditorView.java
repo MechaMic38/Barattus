@@ -26,7 +26,6 @@ public class CategoryEditorView extends BaseView implements Initializable {
     private final ICategoryEditorViewModel viewModel;
     @FXML
     protected ScrollPane graphic;
-    private Consumer<Views> viewChangeAction;
     @FXML
     private TextField hierarchyNameField;
     @FXML
@@ -224,16 +223,6 @@ public class CategoryEditorView extends BaseView implements Initializable {
     @Override
     public Parent getGraphic() {
         return graphic;
-    }
-
-    @Override
-    public void changeContent(Views view) {
-        if (viewChangeAction != null) viewChangeAction.accept(view);
-    }
-
-    @Override
-    public void setViewChangeAction(Consumer<Views> viewChangeAction) {
-        this.viewChangeAction = viewChangeAction;
     }
 
     @Override

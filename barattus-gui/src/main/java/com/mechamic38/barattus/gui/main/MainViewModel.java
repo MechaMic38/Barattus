@@ -10,12 +10,16 @@ import javafx.beans.property.SimpleObjectProperty;
 public class MainViewModel implements IMainViewModel {
 
     private final ObjectProperty<User> loggedUser = new SimpleObjectProperty<>(null);
-    private final ObjectProperty<UserRole> loggedUserRole = new SimpleObjectProperty<>(null);
+    private final ObjectProperty<UserRole> loggedUserRole = new SimpleObjectProperty<>(UserRole.END_USER);
 
     private final IUserService userService;
 
     public MainViewModel(IUserService userService) {
         this.userService = userService;
+    }
+
+    @Override
+    public void initialize() {
         loadProperties();
     }
 
@@ -40,10 +44,5 @@ public class MainViewModel implements IMainViewModel {
     @Override
     public ObjectProperty<UserRole> loggedUserRoleProperty() {
         return loggedUserRole;
-    }
-
-    @Override
-    public void initialize() {
-
     }
 }

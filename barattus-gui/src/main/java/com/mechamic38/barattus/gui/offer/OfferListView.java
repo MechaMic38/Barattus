@@ -24,7 +24,6 @@ import java.util.function.Consumer;
 public class OfferListView extends BaseView implements Initializable {
 
     private final IOfferListViewModel viewModel;
-    private Consumer<Views> viewChangeAction;
 
     @FXML
     private ScrollPane graphic;
@@ -86,16 +85,6 @@ public class OfferListView extends BaseView implements Initializable {
     @Override
     public Parent getGraphic() {
         return graphic;
-    }
-
-    @Override
-    public void changeContent(Views view) {
-        if (viewChangeAction != null) viewChangeAction.accept(view);
-    }
-
-    @Override
-    public void setViewChangeAction(Consumer<Views> viewChangeAction) {
-        this.viewChangeAction = viewChangeAction;
     }
 
     @Override

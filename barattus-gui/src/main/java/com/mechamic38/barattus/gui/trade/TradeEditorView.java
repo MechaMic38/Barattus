@@ -26,7 +26,6 @@ import java.util.function.Consumer;
 public class TradeEditorView extends BaseView implements Initializable {
 
     private final ITradeEditorViewModel viewModel;
-    private Consumer<Views> viewChangeAction;
 
     @FXML
     private ScrollPane graphic;
@@ -148,16 +147,6 @@ public class TradeEditorView extends BaseView implements Initializable {
     @Override
     public Parent getGraphic() {
         return graphic;
-    }
-
-    @Override
-    public void changeContent(Views view) {
-        if (viewChangeAction != null) viewChangeAction.accept(view);
-    }
-
-    @Override
-    public void setViewChangeAction(Consumer<Views> viewChangeAction) {
-        this.viewChangeAction = viewChangeAction;
     }
 
     @Override

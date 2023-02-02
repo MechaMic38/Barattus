@@ -14,6 +14,8 @@ public interface ICategoryListViewModel extends ViewModel {
 
     void setCategoryToEdit(Category category);
 
+    boolean loadFromFile(String path);
+
     BooleanProperty adminProperty();
 
     StringProperty errorProperty();

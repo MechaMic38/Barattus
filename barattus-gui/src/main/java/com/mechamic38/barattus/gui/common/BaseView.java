@@ -13,6 +13,7 @@ import java.util.function.Consumer;
 abstract public class BaseView implements View {
 
     protected Activity activity;
+    protected Consumer<Views> viewChangeAction;
 
     public BaseView() {
 
@@ -32,8 +33,12 @@ abstract public class BaseView implements View {
     abstract public Parent getGraphic();
 
     @Override
-    abstract public void changeContent(Views view);
+    public void changeContent(Views view) {
+        if (viewChangeAction != null) viewChangeAction.accept(view);
+    }
 
     @Override
-    abstract public void setViewChangeAction(Consumer<Views> viewChangeAction);
+    public void setViewChangeAction(Consumer<Views> viewChangeAction) {
+        this.viewChangeAction = viewChangeAction;
+    }
 }

@@ -18,34 +18,25 @@ public class TradeParamsViewModel implements ITradeParamsViewModel {
 
     private final ITradeParamsService tradeParamsService;
     private final ITradeParamRepository tradeParamRepository;
+
     private final BooleanProperty admin = new SimpleBooleanProperty(false);
     private final StringProperty error = new SimpleStringProperty("");
-    private final StringProperty square = new SimpleStringProperty();
-    private final StringProperty expiration = new SimpleStringProperty();
+    private final ObjectProperty<TradeParams> tradeParams = new SimpleObjectProperty<>();
     private final ListProperty<String> places = new SimpleListProperty<>();
     private final ListProperty<DayOfWeek> days = new SimpleListProperty<>();
     private final ListProperty<HourInterval> intervals = new SimpleListProperty<>();
-    private TradeParams tradeParams; //TODO Change to object property
 
     public TradeParamsViewModel(ITradeParamsService tradeParamsService, ITradeParamRepository tradeParamRepository) {
         this.tradeParamsService = tradeParamsService;
         this.tradeParamRepository = tradeParamRepository;
-
-        setProperties();
-    }
-
-    private void setProperties() {
-        admin.set(
-                SessionState.getInstance().getUser().getRole().equals(UserRole.CONFIGURATOR)
-        );
     }
 
     @Override
-    public boolean saveChanges() {
+    public boolean saveChanges(String square, String expirationDays) {
         try {
-            tradeParams.setSquare(square.get());
-            tradeParams.setExpirationDays(Integer.parseInt(expiration.get()));
-            tradeParamRepository.save(tradeParams);
+            tradeParams.get().setSquare(square);
+            tradeParams.get().setExpirationDays(Integer.parseInt(expirationDays));
+            tradeParamRepository.save(tradeParams.get());
             return true;
         } catch (IllegalArgumentException e) {
             error.set(e.getMessage());
@@ -56,7 +47,7 @@ public class TradeParamsViewModel implements ITradeParamsViewModel {
     @Override
     public void addPlace(String place) {
         try {
-            tradeParams.addPlace(place);
+            tradeParams.get().addPlace(place);
             places.add(place);
         } catch (IllegalArgumentException e) {
             error.set(e.getMessage());
@@ -65,14 +56,14 @@ public class TradeParamsViewModel implements ITradeParamsViewModel {
 
     @Override
     public void removePlace(String place) {
-        tradeParams.removePlace(place);
+        tradeParams.get().removePlace(place);
         places.remove(place);
     }
 
     @Override
     public void addDay(DayOfWeek day) {
         try {
-            tradeParams.addDay(day);
+            tradeParams.get().addDay(day);
             days.add(day);
         } catch (IllegalArgumentException e) {
             error.set(e.getMessage());
@@ -81,7 +72,7 @@ public class TradeParamsViewModel implements ITradeParamsViewModel {
 
     @Override
     public void removeDay(DayOfWeek day) {
-        tradeParams.removeDay(day);
+        tradeParams.get().removeDay(day);
         days.remove(day);
     }
 
@@ -92,7 +83,7 @@ public class TradeParamsViewModel implements ITradeParamsViewModel {
                     LocalTime.of(startHour, startMinute),
                     LocalTime.of(endHour, endMinute)
             );
-            tradeParams.addHourInterval(interval);
+            tradeParams.get().addHourInterval(interval);
             intervals.add(interval);
         } catch (IllegalArgumentException e) {
             error.set(e.getMessage());
@@ -101,7 +92,7 @@ public class TradeParamsViewModel implements ITradeParamsViewModel {
 
     @Override
     public void removeInterval(HourInterval interval) {
-        tradeParams.removeHourInterval(interval);
+        tradeParams.get().removeHourInterval(interval);
         intervals.remove(interval);
     }
 
@@ -113,10 +104,35 @@ public class TradeParamsViewModel implements ITradeParamsViewModel {
             error.set(result.getError());
             return false;
         } else {
-            tradeParams = result.getResult();
-            setProperties(); //TODO View not updating
+            setParamsProperties(result.getResult());
             return true;
         }
+    }
+
+    @Override
+    public void initialize() {
+        setAdminProperties();
+        setParamsProperties(tradeParamRepository.get());
+    }
+
+    private void setAdminProperties() {
+        admin.set(
+                SessionState.getInstance().getUser().getRole().equals(UserRole.CONFIGURATOR)
+        );
+    }
+
+    private void setParamsProperties(TradeParams params) {
+        tradeParams.set(params);
+
+        places.set(FXCollections.observableList(
+                ListUtils.copy(params.getPlaces())
+        ));
+        days.set(FXCollections.observableList(
+                ListUtils.copy(params.getDays())
+        ));
+        intervals.set(FXCollections.observableList(
+                ListUtils.copy(params.getHourIntervals())
+        ));
     }
 
     @Override
@@ -130,13 +146,8 @@ public class TradeParamsViewModel implements ITradeParamsViewModel {
     }
 
     @Override
-    public StringProperty squareProperty() {
-        return square;
-    }
-
-    @Override
-    public StringProperty expirationProperty() {
-        return expiration;
+    public ObjectProperty<TradeParams> tradeParamsProperty() {
+        return tradeParams;
     }
 
     @Override
@@ -152,22 +163,5 @@ public class TradeParamsViewModel implements ITradeParamsViewModel {
     @Override
     public ListProperty<HourInterval> intervalsProperty() {
         return intervals;
-    }
-
-    @Override
-    public void initialize() {
-        tradeParams = tradeParamRepository.get();
-
-        square.set(tradeParams.getSquare());
-        expiration.set(Integer.toString(tradeParams.getExpirationDays()));
-        places.set(FXCollections.observableList(
-                ListUtils.copy(tradeParams.getPlaces())
-        ));
-        days.set(FXCollections.observableList(
-                ListUtils.copy(tradeParams.getDays())
-        ));
-        intervals.set(FXCollections.observableList(
-                ListUtils.copy(tradeParams.getHourIntervals())
-        ));
     }
 }

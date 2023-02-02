@@ -24,7 +24,7 @@ public class CreateOfferView extends BaseView implements Initializable {
 
     private final ICreateOfferViewModel viewModel;
     private final HashMap<CategoryField, TextField> categoryFields;
-    private Consumer<Views> viewChangeAction;
+
     @FXML
     private ScrollPane graphic;
     @FXML
@@ -80,16 +80,6 @@ public class CreateOfferView extends BaseView implements Initializable {
     @Override
     public Parent getGraphic() {
         return graphic;
-    }
-
-    @Override
-    public void changeContent(Views view) {
-        if (viewChangeAction != null) viewChangeAction.accept(view);
-    }
-
-    @Override
-    public void setViewChangeAction(Consumer<Views> viewChangeAction) {
-        this.viewChangeAction = viewChangeAction;
     }
 
     @Override

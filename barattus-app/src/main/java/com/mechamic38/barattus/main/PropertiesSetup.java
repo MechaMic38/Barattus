@@ -13,7 +13,7 @@ public class PropertiesSetup {
     private static final String BARATTUS_FOLDER = "barattus.dir.default.path";
 
     private static final String APP_NAME_VALUE = "Barattus";
-    private static final String BARATTUS_VERSION_VALUE = "1.0-SNAPSHOT";
+    private static final String BARATTUS_VERSION_VALUE = "1.0.0";
     private static final String BARATTUS_DOCUMENTS_FOLDER = "BarattusDocuments";
 
     private PropertiesSetup() {
