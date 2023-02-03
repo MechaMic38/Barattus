@@ -37,6 +37,16 @@ public class Category extends Entity<String> {
         this.nativeFields = new LinkedList<>();
     }
 
+    private Category(String id, String hierarchyName, String name,
+                     String parentName, String description, List<CategoryField> nativeFields) {
+        this.id = id;
+        this.hierarchyName = hierarchyName;
+        this.name = name;
+        this.parentName = parentName;
+        this.description = description;
+        this.nativeFields = nativeFields;
+    }
+
     /**
      * Combines both keys to create a usable category ID.
      *
@@ -112,6 +122,17 @@ public class Category extends Entity<String> {
 
     public boolean removeNativeField(CategoryField field) {
         return nativeFields.remove(field);
+    }
+
+    public Category clone() {
+        return new Category(
+                id,
+                hierarchyName,
+                name,
+                parentName,
+                description,
+                nativeFields.stream().map(CategoryField::clone).toList()
+        );
     }
 
     @Override

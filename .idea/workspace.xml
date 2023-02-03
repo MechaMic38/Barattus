@@ -4,10 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6b7dfbd-a098-48fe-bd08-07b073231a1d" name="Changes" comment="Added tests.">
+    <list default="true" id="b6b7dfbd-a098-48fe-bd08-07b073231a1d" name="Changes" comment="Added shadowJar plugin.">
+      <change afterPath="$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/category/CategoryDataSourceMock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/category/CategoryRepositoryMock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/category/CategoryServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/usecase/CheckTradesExpiryUseCaseTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/category/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/category/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/category/CategoryField.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/category/CategoryField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/offer/Offer.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/offer/Offer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/offer/OfferField.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/offer/OfferField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/trade/Trade.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/trade/Trade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/trade/TradeDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/trade/TradeDetails.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +82,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/barattus-app/src/main/java/com/mechamic38/barattus/main/PropertiesSetup.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/validation/ConfigCredentialsLink.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/category/CategoryServiceTest.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/barattus-i18n/src/main/java/com/mechamic38/barattus/i18n/api/I18N.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -101,6 +110,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.mechamic38.barattus.core.category" />
       <recent name="com.mechamic38.barattus.core.tradeparams" />
       <recent name="com.mechamic38.barattus.core.trade" />
       <recent name="com.mechamic38.barattus.core" />
@@ -121,7 +131,7 @@
       <recent name="com.mechamic38.barattus.core.offer" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Barattus [clean]">
+  <component name="RunManager" selected="Gradle.CheckTradesExpiryUseCaseTest">
     <configuration name="Barattus [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -164,28 +174,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="Barattus [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="LoginServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="CategoryServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -198,7 +187,7 @@
           <list>
             <option value=":barattus-core:test" />
             <option value="--tests" />
-            <option value="&quot;com.mechamic38.barattus.core.user.LoginServiceTest&quot;" />
+            <option value="&quot;com.mechamic38.barattus.core.category.CategoryServiceTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -208,7 +197,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="TradeServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="CheckTradesExpiryUseCaseTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -221,7 +210,30 @@
           <list>
             <option value=":barattus-core:test" />
             <option value="--tests" />
-            <option value="&quot;com.mechamic38.barattus.core.trade.TradeServiceTest&quot;" />
+            <option value="&quot;com.mechamic38.barattus.core.usecase.CheckTradesExpiryUseCaseTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="CheckTradesExpiryUseCaseTest.should_check_ongoing_unconfirmed_trade_expiry" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":barattus-core:test" />
+            <option value="--tests" />
+            <option value="&quot;com.mechamic38.barattus.core.usecase.CheckTradesExpiryUseCaseTest.should_check_ongoing_unconfirmed_trade_expiry&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -233,11 +245,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.CheckTradesExpiryUseCaseTest" />
+        <item itemvalue="Gradle.CheckTradesExpiryUseCaseTest.should_check_ongoing_unconfirmed_trade_expiry" />
+        <item itemvalue="Gradle.CategoryServiceTest" />
         <item itemvalue="Gradle.Barattus [clean]" />
         <item itemvalue="Gradle.Barattus [shadowJar]" />
-        <item itemvalue="Gradle.LoginServiceTest" />
-        <item itemvalue="Gradle.Barattus [test]" />
-        <item itemvalue="Gradle.TradeServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -369,7 +381,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675427185061</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Added shadowJar plugin.">
+      <created>1675432341827</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1675432341827</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -401,6 +420,7 @@
     <MESSAGE value="Improved the offer service implementation." />
     <MESSAGE value="Implemented trade query systems and trade expiry check at startup." />
     <MESSAGE value="Added tests." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added tests." />
+    <MESSAGE value="Added shadowJar plugin." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added shadowJar plugin." />
   </component>
 </project>

@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Trade offer posted by a user.
@@ -50,6 +51,18 @@ public class Offer extends Entity<UUID> {
         this.title = title;
         this.creationDate = creationDate;
         this.offerFields = new LinkedHashSet<>();
+    }
+
+    private Offer(UUID id, String userID, String categoryID,
+                  String title, LocalDateTime creationDate,
+                  OfferStatus status, Set<OfferField> offerFields) {
+        this.id = id;
+        this.userID = userID;
+        this.categoryID = categoryID;
+        this.title = title;
+        this.creationDate = creationDate;
+        this.status = status;
+        this.offerFields = offerFields;
     }
 
     public String getTitle() {
@@ -110,5 +123,17 @@ public class Offer extends Entity<UUID> {
 
     public boolean canPropose(User user) {
         return !userID.equals(user.getID()) && status == OfferStatus.OPEN;
+    }
+
+    public Offer clone() {
+        return new Offer(
+                id,
+                userID,
+                categoryID,
+                title,
+                creationDate,
+                status,
+                offerFields.stream().map(OfferField::clone).collect(Collectors.toSet())
+        );
     }
 }
