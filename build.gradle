@@ -5,12 +5,15 @@ buildscript {
 
     dependencies {
         classpath "org.openjfx:javafx-plugin:$JAVAFX_PLUGIN_VERSION"
+        classpath "gradle.plugin.com.github.johnrengelman:shadow:7.1.2"
     }
 }
 
 allprojects {
     group 'com.mechamic38.barattus'
     version BARATTUS_VERSION
+
+    apply plugin: "com.github.johnrengelman.shadow"
 }
 
 subprojects {
