@@ -1,7 +1,5 @@
 package com.mechamic38.barattus.core.user;
 
-import com.mechamic38.barattus.core.user.User;
-import com.mechamic38.barattus.core.user.UserRole;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;

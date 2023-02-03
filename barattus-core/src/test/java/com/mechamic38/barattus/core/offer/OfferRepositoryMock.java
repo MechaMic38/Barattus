@@ -1,8 +1,5 @@
 package com.mechamic38.barattus.core.offer;
 
-import com.mechamic38.barattus.core.offer.IOfferRepository;
-import com.mechamic38.barattus.core.offer.Offer;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;

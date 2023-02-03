@@ -1,7 +1,5 @@
 package com.mechamic38.barattus.core.tradeparams;
 
-import com.mechamic38.barattus.core.tradeparams.HourInterval;
-import com.mechamic38.barattus.core.tradeparams.TradeParams;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
