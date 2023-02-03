@@ -1,9 +1,9 @@
 package com.mechamic38.barattus.gui.trade;
 
-import com.mechamic38.barattus.core.offer.IOfferService;
 import com.mechamic38.barattus.core.offer.Offer;
 import com.mechamic38.barattus.core.trade.ITradeService;
 import com.mechamic38.barattus.core.trade.Trade;
+import com.mechamic38.barattus.core.usecase.IGetCompatibleOffersUseCase;
 import com.mechamic38.barattus.core.usecase.IGetOfferDataUseCase;
 import com.mechamic38.barattus.core.usecase.OfferData;
 import com.mechamic38.barattus.gui.common.SessionState;
@@ -14,16 +14,18 @@ import javafx.collections.FXCollections;
 public class SelectTradeOfferViewModel implements ISelectTradeOfferViewModel {
 
     private final ITradeService tradeService;
-    private final IOfferService offerService;
+    private final IGetCompatibleOffersUseCase getCompatibleOffersUseCase;
     private final IGetOfferDataUseCase getOfferDataUseCase;
 
     private final StringProperty error = new SimpleStringProperty("");
     private final ObjectProperty<OfferData> otherOffer = new SimpleObjectProperty<>();
     private final ListProperty<Offer> offers = new SimpleListProperty<>();
 
-    public SelectTradeOfferViewModel(ITradeService tradeService, IOfferService offerService, IGetOfferDataUseCase getOfferDataUseCase) {
+    public SelectTradeOfferViewModel(ITradeService tradeService,
+                                     IGetCompatibleOffersUseCase getCompatibleOffersUseCase,
+                                     IGetOfferDataUseCase getOfferDataUseCase) {
         this.tradeService = tradeService;
-        this.offerService = offerService;
+        this.getCompatibleOffersUseCase = getCompatibleOffersUseCase;
         this.getOfferDataUseCase = getOfferDataUseCase;
     }
 
@@ -32,11 +34,11 @@ public class SelectTradeOfferViewModel implements ISelectTradeOfferViewModel {
         otherOffer.set(getOfferDataUseCase.apply(
                 SessionState.getInstance().getOffer()
         ));
+
         offers.set(FXCollections.observableList(
-                offerService.getCompatibleOffers(
-                        otherOffer.get().getOffer(),
-                        SessionState.getInstance().getUser()
-                )
+                getCompatibleOffersUseCase.apply(otherOffer.get().getOffer()).stream()
+                        .filter(offer -> SessionState.getInstance().getUser().checkID(offer.getUserID()))
+                        .toList()
         ));
     }
 

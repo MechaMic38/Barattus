@@ -91,8 +91,7 @@ public class ViewFactory {
     private static View createOfferListView() {
         IOfferListViewModel viewModel = new OfferListViewModel(
                 ServiceProvider.getInstance().getCategoryService(),
-                ServiceProvider.getInstance().getOfferService()
-        );
+                UseCaseProvider.queryOffersUseCase());
         return new OfferListView(viewModel);
     }
 
@@ -106,7 +105,7 @@ public class ViewFactory {
     private static View createSelectTradeOfferView() {
         ISelectTradeOfferViewModel viewModel = new SelectTradeOfferViewModel(
                 ServiceProvider.getInstance().getTradeService(),
-                ServiceProvider.getInstance().getOfferService(),
+                UseCaseProvider.getCompatibleOffersUseCase(),
                 UseCaseProvider.getOfferDataUseCase()
         );
         return new SelectTradeOfferView(viewModel);

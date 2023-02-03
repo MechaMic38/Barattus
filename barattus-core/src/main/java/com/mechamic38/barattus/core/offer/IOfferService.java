@@ -13,14 +13,4 @@ public interface IOfferService {
     Result<Offer> withdrawOffer(Offer offer, User user);
 
     Result<Offer> updateOfferStatus(Offer offer, OfferStatus status, LocalDateTime time);
-
-    List<Offer> getCompatibleOffers(Offer offer, User user);
-
-    List<Offer> getOpenOffersByCategory(Category category);
-
-    List<Offer> getOpenClosedInExchangeOffersByCategory(Category category);
-
-    List<Offer> getOffersByCategoryAndUser(Category category, User user);
-
-    List<Offer> getOffersByUser(User user);
 }

@@ -22,4 +22,17 @@ public class UseCaseProvider {
                 ServiceProvider.getInstance().getTradeRepository()
         );
     }
+
+    public static IQueryOffersUseCase queryOffersUseCase() {
+        return new QueryOffersUseCase(
+                ServiceProvider.getInstance().getOfferRepository()
+        );
+    }
+
+    public static IGetCompatibleOffersUseCase getCompatibleOffersUseCase() {
+        return new GetCompatibleOffersUseCase(
+                queryOffersUseCase(),
+                getOfferDataUseCase()
+        );
+    }
 }

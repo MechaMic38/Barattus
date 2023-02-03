@@ -9,7 +9,7 @@ buildscript {
 }
 
 allprojects {
-    group 'com.mechamic38'
+    group 'com.mechamic38.barattus'
     version BARATTUS_VERSION
 }
 
@@ -28,6 +28,14 @@ subprojects {
         it.options.encoding = 'UTF-8'
     }
 
+    test {
+        useJUnitPlatform()
+    }
+
+    javafx {
+        version = JAVAFX_VERSION
+    }
+
     dependencies {
         implementation libs.annotations
         implementation libs.logger
@@ -35,9 +43,5 @@ subprojects {
         testImplementation libsTest.jupiterApi
         testImplementation libsTest.jupiterParams
         testRuntimeOnly libsTest.jupiterEngine
-    }
-
-    test {
-        useJUnitPlatform()
     }
 }

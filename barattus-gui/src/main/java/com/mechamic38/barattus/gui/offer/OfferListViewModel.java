@@ -2,8 +2,10 @@ package com.mechamic38.barattus.gui.offer;
 
 import com.mechamic38.barattus.core.category.Category;
 import com.mechamic38.barattus.core.category.ICategoryService;
-import com.mechamic38.barattus.core.offer.IOfferService;
 import com.mechamic38.barattus.core.offer.Offer;
+import com.mechamic38.barattus.core.offer.OfferStatus;
+import com.mechamic38.barattus.core.usecase.IQueryOffersUseCase;
+import com.mechamic38.barattus.core.usecase.OfferQuery;
 import com.mechamic38.barattus.core.user.UserRole;
 import com.mechamic38.barattus.gui.common.SessionState;
 import javafx.beans.property.BooleanProperty;
@@ -15,16 +17,16 @@ import javafx.collections.FXCollections;
 public class OfferListViewModel implements IOfferListViewModel {
 
     private final ICategoryService categoryService;
-    private final IOfferService offerService;
+    private final IQueryOffersUseCase queryOffersUseCase;
 
     private final BooleanProperty admin = new SimpleBooleanProperty(false);
     private final ListProperty<Category> rootCategories = new SimpleListProperty<>();
     private final ListProperty<Category> leafCategories = new SimpleListProperty<>();
     private final ListProperty<Offer> offers = new SimpleListProperty<>();
 
-    public OfferListViewModel(ICategoryService categoryService, IOfferService offerService) {
+    public OfferListViewModel(ICategoryService categoryService, IQueryOffersUseCase queryOffersUseCase) {
         this.categoryService = categoryService;
-        this.offerService = offerService;
+        this.queryOffersUseCase = queryOffersUseCase;
     }
 
     @Override
@@ -36,33 +38,43 @@ public class OfferListViewModel implements IOfferListViewModel {
 
     @Override
     public void loadOffers(Category category) {
+        OfferQuery query;
         if (admin.get()) {
-            offers.set(FXCollections.observableList(
-                    offerService.getOpenOffersByCategory(category)
-            ));
+            query = OfferQuery.builder()
+                    .setCategory(category)
+                    .addStatus(OfferStatus.OPEN)
+                    .addStatus(OfferStatus.CLOSED)
+                    .addStatus(OfferStatus.IN_EXCHANGE)
+                    .build();
         } else {
-            offers.set(FXCollections.observableList(
-                    offerService.getOpenClosedInExchangeOffersByCategory(category)
-            ));
+            query = OfferQuery.builder()
+                    .setCategory(category)
+                    .addStatus(OfferStatus.OPEN)
+                    .build();
         }
+
+        offers.set(FXCollections.observableList(
+                queryOffersUseCase.apply(query)
+        ));
     }
 
     @Override
     public void loadOwnOffers(Category category) {
+        OfferQuery query;
         if (category == null) {
-            offers.set(FXCollections.observableList(
-                    offerService.getOffersByUser(
-                            SessionState.getInstance().getUser()
-                    )
-            ));
+            query = OfferQuery.builder()
+                    .setUser(SessionState.getInstance().getUser())
+                    .build();
         } else {
-            offers.set(FXCollections.observableList(
-                    offerService.getOffersByCategoryAndUser(
-                            category,
-                            SessionState.getInstance().getUser()
-                    )
-            ));
+            query = OfferQuery.builder()
+                    .setCategory(category)
+                    .setUser(SessionState.getInstance().getUser())
+                    .build();
         }
+
+        offers.set(FXCollections.observableList(
+                queryOffersUseCase.apply(query)
+        ));
     }
 
     @Override
