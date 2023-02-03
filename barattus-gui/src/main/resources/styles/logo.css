@@ -1,0 +1,6 @@
+.logo_container {
+    -fx-background-image: url("../images/logo/barattus_logo.png");
+    -fx-background-size: contain;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}

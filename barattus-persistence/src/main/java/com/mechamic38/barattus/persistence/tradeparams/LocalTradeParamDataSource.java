@@ -36,7 +36,6 @@ public class LocalTradeParamDataSource extends LocalDataSource implements ITrade
 
         try {
             json = load(DATA, KEY);
-            System.out.println(json);
             params = extractFromJson(json);
         } catch (InvalidFileException e) {
             params = getDefaultTradeParams();

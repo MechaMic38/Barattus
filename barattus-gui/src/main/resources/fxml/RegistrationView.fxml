@@ -2,10 +2,10 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="graphic" alignment="CENTER" hgap="5.0" maxHeight="-Infinity"
-          maxWidth="-Infinity"
-          minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" vgap="10.0"
-          xmlns="http://javafx.com/javafx/17" fx:controller="com.mechamic38.barattus.gui.login.RegistrationView">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="graphic" alignment="CENTER" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity"
+          minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../styles/logo.css"
+          vgap="10.0" xmlns="http://javafx.com/javafx/19"
+          fx:controller="com.mechamic38.barattus.gui.login.RegistrationView">
     <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
@@ -21,6 +21,7 @@
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
     </columnConstraints>
     <rowConstraints>
+        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES"/>
         <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
         <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
         <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
@@ -28,20 +29,21 @@
         <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES"/>
     </rowConstraints>
     <children>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="logo_container" GridPane.columnIndex="3"
+                    GridPane.columnSpan="6"/>
         <Label maxWidth="1.7976931348623157E308" text="%signup.form.username" GridPane.columnIndex="3"
-               GridPane.columnSpan="3"/>
-        <TextField fx:id="usernameField" GridPane.columnIndex="5" GridPane.columnSpan="4"/>
-        <Label maxWidth="1.7976931348623157E308" text="%signup.form.password" GridPane.columnIndex="3"
                GridPane.columnSpan="3" GridPane.rowIndex="1"/>
-        <PasswordField fx:id="passwordField" GridPane.columnIndex="5" GridPane.columnSpan="4" GridPane.rowIndex="1"/>
+        <TextField fx:id="usernameField" GridPane.columnIndex="5" GridPane.columnSpan="4" GridPane.rowIndex="1"/>
+        <Label maxWidth="1.7976931348623157E308" text="%signup.form.password" GridPane.columnIndex="3"
+               GridPane.columnSpan="3" GridPane.rowIndex="2"/>
+        <PasswordField fx:id="passwordField" GridPane.columnIndex="5" GridPane.columnSpan="4" GridPane.rowIndex="2"/>
         <Label maxWidth="1.7976931348623157E308" text="%signup.form.usertype" GridPane.columnIndex="3"
-               GridPane.columnSpan="2"
-               GridPane.rowIndex="2"/>
+               GridPane.columnSpan="2" GridPane.rowIndex="3"/>
         <Label fx:id="userTypeLabel" maxWidth="1.7976931348623157E308" GridPane.columnIndex="5" GridPane.columnSpan="4"
-               GridPane.rowIndex="2"/>
+               GridPane.rowIndex="3"/>
         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSignup"
-                text="%signup.form.register" GridPane.columnIndex="3" GridPane.columnSpan="6" GridPane.rowIndex="3"/>
+                text="%signup.form.register" GridPane.columnIndex="3" GridPane.columnSpan="6" GridPane.rowIndex="4"/>
         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBack" text="%signup.form.back"
-                GridPane.columnIndex="3" GridPane.columnSpan="6" GridPane.rowIndex="4"/>
+                GridPane.columnIndex="3" GridPane.columnSpan="6" GridPane.rowIndex="5"/>
     </children>
 </GridPane>
