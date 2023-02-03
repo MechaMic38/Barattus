@@ -99,12 +99,44 @@ public class CategoryServiceTest {
                 category,
                 field.getName(),
                 field.getFieldType(),
-                field.getMandatory());
+                field.getMandatory()
+        );
 
         Assertions.assertTrue(result.isError());
 
         category = categoryRepository.getById(
                 categories.get("Abbigliamento maschile").getID()
+        );
+        Assertions.assertFalse(category.getNativeFields().contains(field));
+    }
+
+    @Test
+    void should_not_add_field_if_exists_within_descendants() {
+        Category category = categoryRepository.getById(
+                categories.get("Abbigliamento maschile").getID()
+        );
+        CategoryField field = new CategoryField("Taglia", CategoryField.Type.STRING, true);
+        Result<CategoryField> result = categoryService.addField(
+                category,
+                field.getName(),
+                field.getFieldType(),
+                field.getMandatory()
+        );
+
+        category = categoryRepository.getById(
+                categories.get("Abbigliamento").getID()
+        );
+        result = categoryService.addField(
+                category,
+                field.getName(),
+                field.getFieldType(),
+                field.getMandatory()
+        );
+
+        Assertions.assertTrue(result.isError());
+
+        category = categoryRepository.getById(
+                categories.get("Abbigliamento").getID()
         );
         Assertions.assertFalse(category.getNativeFields().contains(field));
     }

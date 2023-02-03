@@ -173,9 +173,15 @@ public class CategoryService implements ICategoryService {
      */
     public CategoryField findFieldByCategoryAndName(Category category, String fieldName) {
         final List<Category> ancestors = this.getAncestors(category);
+        final List<Category> descendants = this.getDescendants(category);
         return Stream.concat(
-                        category.getNativeFields().stream(),
-                        ancestors.stream()
+                        Stream.concat(
+                                category.getNativeFields().stream(),
+                                ancestors.stream()
+                                        .map(Category::getNativeFields)
+                                        .flatMap(List::stream)
+                        ),
+                        descendants.stream()
                                 .map(Category::getNativeFields)
                                 .flatMap(List::stream)
                 ).filter(f -> f.getName().equals(fieldName))
