@@ -40,9 +40,9 @@ public class OfferQuery {
      * {@link OfferQuery} builder.
      */
     public static class OfferQueryBuilder {
+        private final List<OfferStatus> statuses;
         private User user;
         private Category category;
-        private final List<OfferStatus> statuses;
 
         public OfferQueryBuilder() {
             this.statuses = new LinkedList<>();

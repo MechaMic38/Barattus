@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.function.Consumer;
 
 public class OfferDetailsView extends BaseView implements Initializable {
 

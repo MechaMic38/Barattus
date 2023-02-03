@@ -21,7 +21,6 @@ import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 public class TradeEditorView extends BaseView implements Initializable {
 

@@ -21,7 +21,6 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 public class CategoryListView extends BaseView implements Initializable {
 

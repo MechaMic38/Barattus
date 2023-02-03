@@ -2,7 +2,6 @@ package com.mechamic38.barattus.gui.tradeparams;
 
 import com.mechamic38.barattus.core.tradeparams.HourInterval;
 import com.mechamic38.barattus.gui.common.BaseView;
-import com.mechamic38.barattus.gui.common.Views;
 import com.mechamic38.barattus.gui.util.CellFactoryProvider;
 import com.mechamic38.barattus.gui.util.I18NButtonTypes;
 import com.mechamic38.barattus.i18n.api.I18N;
@@ -21,7 +20,6 @@ import java.net.URL;
 import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 public class TradeParamsView extends BaseView implements Initializable {
 

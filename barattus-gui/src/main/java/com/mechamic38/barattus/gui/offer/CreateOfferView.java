@@ -18,7 +18,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 public class CreateOfferView extends BaseView implements Initializable {
 

@@ -182,8 +182,6 @@ public class TradeService implements ITradeService {
         return Result.success(trade);
     }
 
-    //TODO Check trade validity at startup
-
     private Result<User> checkUserEditTurn(Trade trade, User user) {
         if (!trade.hasParticipant(user.getID())) {
             return Result.error("trade.user.error");

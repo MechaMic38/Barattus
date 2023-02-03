@@ -74,11 +74,22 @@ public class Trade extends Entity<UUID> {
                 || this.proposedUserID.equals(userID);
     }
 
+    /**
+     * Checks if the given offer belongs to the trade.
+     *
+     * @param offerID offer ID
+     * @return true/false
+     */
+    public boolean hasOffer(UUID offerID) {
+        return this.initiatorOfferID.equals(offerID)
+                || this.proposedOfferID.equals(offerID);
+    }
+
     public LocalDateTime getLastUpdate() {
         return lastUpdate;
     }
 
-    protected void setLastUpdate(LocalDateTime lastUpdate) {
+    public void setLastUpdate(LocalDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 

@@ -17,8 +17,18 @@ public class UseCaseProvider {
         );
     }
 
-    public static IGetTradesByStatusUseCase getTradesByStatusUseCase() {
-        return new GetTradeByStatusUseCase(
+    public static ICheckTradesExpiryUseCase checkTradesExpiryUseCase() {
+        return new CheckTradesExpiryUseCase(
+                queryTradesUseCase(),
+                ServiceProvider.getInstance().getOfferService(),
+                ServiceProvider.getInstance().getTradeRepository(),
+                ServiceProvider.getInstance().getOfferRepository(),
+                ServiceProvider.getInstance().getTradeParamRepository()
+        );
+    }
+
+    public static IQueryTradesUseCase queryTradesUseCase() {
+        return new QueryTradesUseCase(
                 ServiceProvider.getInstance().getTradeRepository()
         );
     }

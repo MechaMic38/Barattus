@@ -16,7 +16,6 @@ import javafx.scene.control.*;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 public class TradeListView extends BaseView implements Initializable {
 

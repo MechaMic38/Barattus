@@ -15,7 +15,6 @@ import javafx.scene.layout.GridPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 public class RegistrationView extends BaseView implements Initializable {
 

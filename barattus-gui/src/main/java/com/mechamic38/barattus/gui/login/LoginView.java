@@ -14,7 +14,6 @@ import javafx.scene.layout.GridPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 public class LoginView extends BaseView implements Initializable {
 

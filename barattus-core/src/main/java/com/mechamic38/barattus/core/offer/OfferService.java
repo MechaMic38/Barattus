@@ -7,7 +7,6 @@ import com.mechamic38.barattus.util.Result;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class OfferService implements IOfferService {
 

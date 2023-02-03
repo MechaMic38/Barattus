@@ -122,7 +122,7 @@ public class ViewFactory {
 
     private static View createTradeListView() {
         ITradeListViewModel viewModel = new TradeListViewModel(
-                UseCaseProvider.getTradesByStatusUseCase(),
+                UseCaseProvider.queryTradesUseCase(),
                 UseCaseProvider.getTradeDataUseCase()
         );
         return new TradeListView(viewModel);

@@ -19,7 +19,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 public class CategoryEditorView extends BaseView implements Initializable {
 

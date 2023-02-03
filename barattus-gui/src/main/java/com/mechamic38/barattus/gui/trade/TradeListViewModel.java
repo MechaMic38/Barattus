@@ -3,8 +3,9 @@ package com.mechamic38.barattus.gui.trade;
 import com.mechamic38.barattus.core.trade.Trade;
 import com.mechamic38.barattus.core.trade.TradeStatus;
 import com.mechamic38.barattus.core.usecase.IGetTradeDataUseCase;
-import com.mechamic38.barattus.core.usecase.IGetTradesByStatusUseCase;
+import com.mechamic38.barattus.core.usecase.IQueryTradesUseCase;
 import com.mechamic38.barattus.core.usecase.TradeData;
+import com.mechamic38.barattus.core.usecase.TradeQuery;
 import com.mechamic38.barattus.gui.common.SessionState;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -14,14 +15,14 @@ import java.util.List;
 
 public class TradeListViewModel implements ITradeListViewModel {
 
-    private final IGetTradesByStatusUseCase getTradesByStatusUseCase;
+    private final IQueryTradesUseCase queryTradesUseCase;
     private final IGetTradeDataUseCase getTradeDataUseCase;
 
     private final ListProperty<TradeData> trades = new SimpleListProperty<>();
 
-    public TradeListViewModel(IGetTradesByStatusUseCase getTradesByStatusUseCase,
+    public TradeListViewModel(IQueryTradesUseCase queryTradesUseCase,
                               IGetTradeDataUseCase getTradeDataUseCase) {
-        this.getTradesByStatusUseCase = getTradesByStatusUseCase;
+        this.queryTradesUseCase = queryTradesUseCase;
         this.getTradeDataUseCase = getTradeDataUseCase;
     }
 
@@ -32,11 +33,11 @@ public class TradeListViewModel implements ITradeListViewModel {
 
     @Override
     public void loadTrades(TradeStatus status) {
-        List<Trade> userTrades = getTradesByStatusUseCase.apply(status).stream()
-                .filter(trade -> trade.hasParticipant(
-                        SessionState.getInstance().getUser().getID()
-                ))
-                .toList();
+        TradeQuery query = TradeQuery.builder()
+                .setUser(SessionState.getInstance().getUser())
+                .addStatus(status)
+                .build();
+        List<Trade> userTrades = queryTradesUseCase.apply(query);
 
         List<TradeData> tradesData = userTrades.stream()
                 .map(getTradeDataUseCase)
