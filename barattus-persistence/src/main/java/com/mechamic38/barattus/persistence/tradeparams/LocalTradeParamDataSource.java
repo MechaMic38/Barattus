@@ -1,15 +1,16 @@
 package com.mechamic38.barattus.persistence.tradeparams;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
+import com.google.gson.*;
 import com.mechamic38.barattus.persistence.common.InvalidFileException;
 import com.mechamic38.barattus.persistence.common.LocalDataSource;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.LinkedList;
-import java.util.List;
 
 public class LocalTradeParamDataSource extends LocalDataSource implements ITradeParamDataSource {
 
@@ -29,30 +30,31 @@ public class LocalTradeParamDataSource extends LocalDataSource implements ITrade
      * {@inheritDoc}
      */
     @Override
-    public List<TradeParamDTO> getAll() {
+    public TradeParamDTO get() {
         JsonObject json;
         TradeParamDTO params;
 
         try {
             json = load(DATA, KEY);
+            System.out.println(json);
             params = extractFromJson(json);
         } catch (InvalidFileException e) {
             params = getDefaultTradeParams();
         }
 
-        return List.of(params);
+        return params;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<TradeParamDTO> getAll(String filePath) throws InvalidFileException {
+    public TradeParamDTO get(String filePath) throws InvalidFileException {
         JsonObject json = loadFromExternalFile(filePath);
         TradeParamDTO params = extractFromJson(json);
 
         uploadToFile(json, DATA);
-        return List.of(params);
+        return params;
     }
 
     /**
@@ -61,16 +63,12 @@ public class LocalTradeParamDataSource extends LocalDataSource implements ITrade
     @Override
     public boolean insert(TradeParamDTO tradeParamsDTO) {
         JsonObject json = load(DATA, KEY);
-        JsonArray params = json.getAsJsonArray(KEY);
         //System.out.println("Trade params during save:");
         //System.out.println(params);
 
-        if (params.size() > 0) {
-            JsonElement oldJsonParams = params.get(0);
-            params.remove(oldJsonParams);
-        }
         JsonElement jsonParams = gson.toJsonTree(tradeParamsDTO);
-        params.add(jsonParams);
+        json.remove(KEY);
+        json.add(KEY, jsonParams);
 
         return uploadToFile(json, DATA);
     }
@@ -81,23 +79,46 @@ public class LocalTradeParamDataSource extends LocalDataSource implements ITrade
 
     }
 
+    @Override
+    public JsonObject load(File file, String property) {
+        try (
+                BufferedReader reader = Files.newBufferedReader(Paths.get(file.toURI()), StandardCharsets.UTF_8)
+        ) {
+
+            JsonObject object;
+
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            object = gson.fromJson(
+                    reader,
+                    JsonObject.class
+            );
+
+            if (object != null) {
+                return object;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //System.out.printf("Somehow got past here (%s)...\n", property);
+        return new JsonObject();
+    }
+
     /**
      * Extracts the trade params from the JsonObject into a TradeParamsDTO.
      *
      * @param json JsonObject containing the trade params
      * @return TradeParamsDTO
-     * @throws InvalidFileException
+     * @throws InvalidFileException if the selected file does not have valid format
      */
     private TradeParamDTO extractFromJson(JsonObject json) throws InvalidFileException {
-        JsonArray paramsJson = json.getAsJsonArray(KEY);
+        JsonObject paramsJson = json.getAsJsonObject(KEY);
         if (paramsJson == null) throw new InvalidFileException();
-        if (paramsJson.size() == 0) throw new InvalidFileException();
-
-        JsonElement params = paramsJson.get(0);
 
         try {
             return gson.fromJson(
-                    params,
+                    paramsJson,
                     TradeParamDTO.class
             );
         } catch (JsonSyntaxException e) {

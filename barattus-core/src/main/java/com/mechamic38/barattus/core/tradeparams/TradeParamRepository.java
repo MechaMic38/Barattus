@@ -31,7 +31,7 @@ public class TradeParamRepository implements ITradeParamRepository {
 
     @Override
     public void loadFromDataSource() {
-        TradeParamDTO dto = dataSource.getAll().stream().findFirst().orElse(null);
+        TradeParamDTO dto = dataSource.get();
         if (dto != null) {
             tradeParams = mapper.fromDto(dto);
         } else {

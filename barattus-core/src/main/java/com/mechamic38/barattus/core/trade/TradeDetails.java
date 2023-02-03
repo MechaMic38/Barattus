@@ -73,10 +73,6 @@ public class TradeDetails {
         this.time = time;
     }
 
-    public TradeDetails clone() {
-        return new TradeDetails(place, day, time);
-    }
-
     protected boolean equalsCore(TradeDetails other) {
         return place.equals(other.place)
                 && day.equals(other.day)

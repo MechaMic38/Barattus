@@ -34,12 +34,11 @@ public class LocalTradeDataSource extends LocalDataSource implements ITradeDataS
 
         Type tradeType = new TypeToken<List<TradeDTO>>() {
         }.getType();
-        List<TradeDTO> trades = gson.fromJson(
+
+        return gson.fromJson(
                 tradeJson,
                 tradeType
         );
-
-        return trades;
     }
 
     @Override

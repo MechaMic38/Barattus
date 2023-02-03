@@ -34,12 +34,11 @@ public class LocalOfferLogDataSource extends LocalDataSource implements IOfferLo
 
         Type offerLogsType = new TypeToken<List<OfferLogDTO>>() {
         }.getType();
-        List<OfferLogDTO> offerLogs = gson.fromJson(
+
+        return gson.fromJson(
                 offerLogsJson,
                 offerLogsType
         );
-
-        return offerLogs;
     }
 
     @Override

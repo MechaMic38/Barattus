@@ -66,11 +66,10 @@ public class LocalUserDataSource extends LocalDataSource implements IUserDataSou
 
         Type usersListType = new TypeToken<List<UserDTO>>() {
         }.getType();
-        List<UserDTO> users = gson.fromJson(
+
+        return gson.fromJson(
                 usersJson,
                 usersListType
         );
-
-        return users;
     }
 }

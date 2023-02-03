@@ -21,7 +21,7 @@ public class TradeParamsService implements ITradeParamsService {
     @Override
     public Result<TradeParams> loadParamsFromFile(String path) {
         try {
-            TradeParamDTO dto = dataSource.getAll(path).stream().findFirst().orElse(null);
+            TradeParamDTO dto = dataSource.get(path);
             if (dto != null) {
                 TradeParams tradeParams = mapper.fromDto(dto);
                 repository.importData(tradeParams);

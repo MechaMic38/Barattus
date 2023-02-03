@@ -41,10 +41,6 @@ public class OfferField {
         this.content = content;
     }
 
-    public OfferField clone() {
-        return new OfferField(name, type, content);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

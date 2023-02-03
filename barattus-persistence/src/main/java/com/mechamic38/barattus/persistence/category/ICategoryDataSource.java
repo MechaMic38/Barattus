@@ -10,5 +10,7 @@ import java.util.List;
  */
 public interface ICategoryDataSource extends IDataSource<CategoryDTO> {
 
+    List<CategoryDTO> getAll();
+
     List<CategoryDTO> getAll(String filePath) throws InvalidFileException;
 }

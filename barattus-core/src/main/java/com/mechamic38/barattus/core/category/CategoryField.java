@@ -45,10 +45,6 @@ public class CategoryField {
         this.mandatory = mandatory;
     }
 
-    public CategoryField clone() {
-        return new CategoryField(name, type, mandatory);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

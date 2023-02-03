@@ -54,20 +54,6 @@ public class Trade extends Entity<UUID> {
         this.tradeDetails = TradeDetails.getDefault();
     }
 
-    private Trade(UUID id, String initiatorUserID, String proposedUserID,
-                  UUID initiatorOfferID, UUID proposedOfferID, TradeDetails tradeDetails,
-                  TradeStatus status, LocalDateTime lastUpdate, int editedCount) {
-        this.id = id;
-        this.initiatorUserID = initiatorUserID;
-        this.proposedUserID = proposedUserID;
-        this.initiatorOfferID = initiatorOfferID;
-        this.proposedOfferID = proposedOfferID;
-        this.tradeDetails = tradeDetails;
-        this.status = status;
-        this.lastUpdate = lastUpdate;
-        this.editedCount = editedCount;
-    }
-
     /**
      * Determines which user's turn is.
      *
@@ -160,20 +146,6 @@ public class Trade extends Entity<UUID> {
                 details.place,
                 details.day,
                 details.time
-        );
-    }
-
-    public Trade clone() {
-        return new Trade(
-                id,
-                initiatorUserID,
-                proposedUserID,
-                initiatorOfferID,
-                proposedOfferID,
-                tradeDetails.clone(),
-                status,
-                lastUpdate,
-                editedCount
         );
     }
 }
