@@ -20,7 +20,7 @@ public class TradeParamRepository implements ITradeParamRepository {
 
     @Override
     public TradeParams get() {
-        return tradeParams;
+        return tradeParams.clone();
     }
 
     @Override

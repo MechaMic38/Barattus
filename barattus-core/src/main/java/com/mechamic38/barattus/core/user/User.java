@@ -1,6 +1,7 @@
 package com.mechamic38.barattus.core.user;
 
 import com.mechamic38.barattus.core.common.Entity;
+import com.mechamic38.barattus.util.ListUtils;
 
 import java.util.*;
 
@@ -57,6 +58,14 @@ public class User extends Entity<String> {
         this.username = username;
         this.password = password;
         this.permissions = new LinkedHashSet<>();
+    }
+
+    private User(String id, String username, String password, UserRole role, Set<UserPermission> permissions) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.permissions = ListUtils.copy(permissions);
     }
 
     public String getUsername() {
@@ -139,5 +148,15 @@ public class User extends Entity<String> {
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public User clone() {
+        return new User(
+                id,
+                username,
+                password,
+                role,
+                permissions
+        );
     }
 }

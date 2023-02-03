@@ -1,4 +1,4 @@
-package com.mechamic38.barattus.core;
+package com.mechamic38.barattus.core.user;
 
 import com.mechamic38.barattus.core.user.User;
 import com.mechamic38.barattus.core.user.UserRole;

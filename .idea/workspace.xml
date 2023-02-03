@@ -4,21 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6b7dfbd-a098-48fe-bd08-07b073231a1d" name="Changes" comment="Improved the offer service implementation.">
-      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/usecase/CheckTradesExpiryUseCase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/usecase/ICheckTradesExpiryUseCase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/usecase/IQueryTradesUseCase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/usecase/QueryTradesUseCase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/usecase/TradeQuery.java" afterDir="false" />
+    <list default="true" id="b6b7dfbd-a098-48fe-bd08-07b073231a1d" name="Changes" comment="Implemented trade query systems and trade expiry check at startup.">
+      <change afterPath="$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/offer/OfferLogRepositoryMock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/offer/OfferRepositoryMock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/offer/OfferServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/trade/TradeRepositoryMock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/trade/TradeServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/tradeparams/TradeParamRepositoryMock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-app/src/main/java/com/mechamic38/barattus/main/Launch.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-app/src/main/java/com/mechamic38/barattus/main/Launch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/common/UseCaseProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/common/UseCaseProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/trade/Trade.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/trade/Trade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/trade/TradeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/trade/TradeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/usecase/GetTradeByStatusUseCase.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/usecase/IGetTradesByStatusUseCase.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/ViewFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/common/ViewFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/trade/TradeListViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/trade/TradeListViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/tradeparams/TradeParamRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/tradeparams/TradeParamRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/tradeparams/TradeParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/tradeparams/TradeParams.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/main/java/com/mechamic38/barattus/core/user/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/HourIntervalTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/tradeparams/HourIntervalTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/TradeParamsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/tradeparams/TradeParamsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-core/src/test/java/com/mechamic38/barattus/core/user/UserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-util/src/main/java/com/mechamic38/barattus/util/ListUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-util/src/main/java/com/mechamic38/barattus/util/ListUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +56,7 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="Barattus" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
+                <item name="verification" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -106,6 +107,9 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.mechamic38.barattus.core.tradeparams" />
+      <recent name="com.mechamic38.barattus.core.trade" />
+      <recent name="com.mechamic38.barattus.core" />
       <recent name="com.mechamic38.barattus.gui.login" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -137,27 +141,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Barattus [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="build" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
     <configuration name="Barattus [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -179,7 +162,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="Barattus [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="Barattus [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -190,7 +173,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="jar" />
+            <option value="test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -200,7 +183,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="Tests in 'Barattus.barattus-core.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="OfferServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -212,6 +195,31 @@
         <option name="taskNames">
           <list>
             <option value=":barattus-core:test" />
+            <option value="--tests" />
+            <option value="&quot;com.mechamic38.barattus.core.offer.OfferServiceTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="TradeServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":barattus-core:test" />
+            <option value="--tests" />
+            <option value="&quot;com.mechamic38.barattus.core.trade.TradeServiceTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -223,11 +231,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.Barattus [clean]" />
-        <item itemvalue="Gradle.Barattus [jar]" />
-        <item itemvalue="Gradle.Barattus [build]" />
-        <item itemvalue="Gradle.Tests in 'Barattus.barattus-core.test'" />
+        <item itemvalue="Gradle.Barattus [test]" />
+        <item itemvalue="Gradle.TradeServiceTest" />
+        <item itemvalue="Gradle.OfferServiceTest" />
         <item itemvalue="Application.Launch" />
+        <item itemvalue="Gradle.Barattus [clean]" />
       </list>
     </recent_temporary>
   </component>
@@ -338,7 +346,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675414075357</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Implemented trade query systems and trade expiry check at startup.">
+      <created>1675419148421</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1675419148421</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -368,6 +383,7 @@
     <MESSAGE value="Added local folder system property." />
     <MESSAGE value="Added functionality to load parameters and categories from local files." />
     <MESSAGE value="Improved the offer service implementation." />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved the offer service implementation." />
+    <MESSAGE value="Implemented trade query systems and trade expiry check at startup." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented trade query systems and trade expiry check at startup." />
   </component>
 </project>

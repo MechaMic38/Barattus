@@ -1,5 +1,7 @@
 package com.mechamic38.barattus.core.tradeparams;
 
+import com.mechamic38.barattus.util.ListUtils;
+
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -196,6 +198,16 @@ public class TradeParams {
         }
 
         return allowedTimes;
+    }
+
+    public TradeParams clone() {
+        return new TradeParams(
+                square,
+                expirationDays,
+                ListUtils.copy(places),
+                ListUtils.copy(days),
+                ListUtils.copy(hourIntervals)
+        );
     }
 
     /**

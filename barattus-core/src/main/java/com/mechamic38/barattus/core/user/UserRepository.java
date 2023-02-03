@@ -25,15 +25,17 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public User getById(String id) {
-        return users.stream()
+        User savedUser = users.stream()
                 .filter(user -> user.checkID(id))
                 .findFirst()
                 .orElse(null);
+
+        return (savedUser != null) ? savedUser.clone() : null;
     }
 
     @Override
     public List<User> getAll() {
-        return users;
+        return users.stream().map(User::clone).toList();
     }
 
     @Override
@@ -42,6 +44,8 @@ public class UserRepository implements IUserRepository {
             this.users.add(user);
             dataSource.insert(mapper.toDto(user));
         } else {
+            this.users.remove(user);
+            this.users.add(user);
             dataSource.update(mapper.toDto(user));
         }
     }

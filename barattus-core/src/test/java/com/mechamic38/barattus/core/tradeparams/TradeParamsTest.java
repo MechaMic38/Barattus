@@ -1,4 +1,4 @@
-package com.mechamic38.barattus.core;
+package com.mechamic38.barattus.core.tradeparams;
 
 import com.mechamic38.barattus.core.tradeparams.HourInterval;
 import com.mechamic38.barattus.core.tradeparams.TradeParams;
