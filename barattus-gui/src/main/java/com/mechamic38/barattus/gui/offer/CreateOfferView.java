@@ -55,7 +55,7 @@ public class CreateOfferView extends BaseView implements Initializable {
     @FXML
     private void onLeafChange() {
         viewModel.loadCategoryFields(
-                rootCategoryBox.getSelectionModel().getSelectedItem()
+                leafCategoryBox.getSelectionModel().getSelectedItem()
         );
     }
 

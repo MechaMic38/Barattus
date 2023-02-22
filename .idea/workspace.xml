@@ -4,23 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6b7dfbd-a098-48fe-bd08-07b073231a1d" name="Changes" comment="Fixed adding field even if subcategories already have it.">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-app/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-core/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-gui/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/images/logo/barattus_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/styles/logo.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-i18n/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-persistence/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/barattus-util/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/image/logo.png" afterDir="false" />
+    <list default="true" id="b6b7dfbd-a098-48fe-bd08-07b073231a1d" name="Changes" comment="Added logo inside GUI and added README files.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/login/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/login/LoginView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/LoginView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/LoginView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/MainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/MainView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/RegistrationView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/resources/fxml/RegistrationView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-persistence/src/main/java/com/mechamic38/barattus/persistence/tradeparams/LocalTradeParamDataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-persistence/src/main/java/com/mechamic38/barattus/persistence/tradeparams/LocalTradeParamDataSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/offer/CreateOfferView.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/offer/CreateOfferView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,20 +92,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "jdk.selected.JAVA_MODULE": "openjdk-17",
-    "last_opened_file_path": "D:/IntelliJ Workspaces/Barattus/docs/image",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propVCSSupport.Confirmation"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-17&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/IntelliJ Workspaces/Barattus/docs/image&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.mechamic38.barattus.core.category" />
@@ -142,7 +129,7 @@
       <recent name="com.mechamic38.barattus.core.offer" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Launch">
+  <component name="RunManager" selected="Gradle.Barattus [clean]">
     <configuration name="Launch" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mechamic38.barattus.main.Launch" />
       <module name="Barattus.barattus-app.main" />
@@ -245,9 +232,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.Barattus [clean]" />
+        <item itemvalue="Gradle.Barattus [shadowJar]" />
         <item itemvalue="Gradle.Barattus [test]" />
         <item itemvalue="Application.Launch" />
-        <item itemvalue="Gradle.Barattus [shadowJar]" />
         <item itemvalue="Gradle.CheckTradesExpiryUseCaseTest" />
       </list>
     </recent_temporary>
@@ -408,7 +395,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675453037390</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Added logo inside GUI and added README files.">
+      <created>1675463239446</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1675463239446</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -443,6 +437,7 @@
     <MESSAGE value="Added tests." />
     <MESSAGE value="Modified local trade parameters data source, and other small changes." />
     <MESSAGE value="Fixed adding field even if subcategories already have it." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed adding field even if subcategories already have it." />
+    <MESSAGE value="Added logo inside GUI and added README files." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added logo inside GUI and added README files." />
   </component>
 </project>
