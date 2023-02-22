@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6b7dfbd-a098-48fe-bd08-07b073231a1d" name="Changes" comment="Added logo inside GUI and added README files.">
+    <list default="true" id="b6b7dfbd-a098-48fe-bd08-07b073231a1d" name="Changes" comment="Fixed category field loading of the offer creation view, and updated readme.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/offer/CreateOfferView.java" beforeDir="false" afterPath="$PROJECT_DIR$/barattus-gui/src/main/java/com/mechamic38/barattus/gui/offer/CreateOfferView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -402,7 +401,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675463239446</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Fixed category field loading of the offer creation view, and updated readme.">
+      <created>1677090940011</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1677090940011</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -438,6 +444,7 @@
     <MESSAGE value="Modified local trade parameters data source, and other small changes." />
     <MESSAGE value="Fixed adding field even if subcategories already have it." />
     <MESSAGE value="Added logo inside GUI and added README files." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added logo inside GUI and added README files." />
+    <MESSAGE value="Fixed category field loading of the offer creation view, and updated readme." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed category field loading of the offer creation view, and updated readme." />
   </component>
 </project>
